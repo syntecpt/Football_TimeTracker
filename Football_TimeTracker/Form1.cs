@@ -320,9 +320,9 @@ namespace Football_TimeTracker
 
     static class Constants
     {
-        public const int startingX = 306;
-        public const int firsthalfY = 145;
-        public const int secondhalfY = 370;
+        public const int startingX = 104;
+        public const int firsthalfY = 130;
+        public const int secondhalfY = 355;
         public const int SegmentHeigth = 20;
         public const int minuteWidth = 15;
         public const double secondWidth = 0.25;
