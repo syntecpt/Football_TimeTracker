@@ -3,6 +3,7 @@ Football TimeTracker
 -- Objectivo --
 Simples Software de contagem de tempo de jogo em jogos de futebol.
 O Objectivo é proporcionar dados que motivem a discussão do tempo útil de jogo em jogos de futebol.
+Ferramenta criada para uma pessoa conseguir facilmente cronometrar o tempo "perdido" num jogo através de mudanças rápidas do estados de jogo via teclas "W A S D" enquanto vê o jogo.
 
 -- Utilização --
 Correr o programa e Utilizar teclas (ou rato) para alterar a diferente cronometrização. O software detecta as teclas pressionada mesmo não sendo a aplicação em foco.
