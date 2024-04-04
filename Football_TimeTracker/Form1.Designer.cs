@@ -55,6 +55,8 @@
             this.KeybindGoal = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.KeybindStartStop = new System.Windows.Forms.Label();
+            this.placeholder_label = new System.Windows.Forms.Label();
+            this.placeholder_label_bottom = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -344,12 +346,35 @@
             this.KeybindStartStop.TabIndex = 26;
             this.KeybindStartStop.Text = "P";
             // 
+            // placeholder_label
+            // 
+            this.placeholder_label.AutoSize = true;
+            this.placeholder_label.Location = new System.Drawing.Point(104, 128);
+            this.placeholder_label.Name = "placeholder_label";
+            this.placeholder_label.Size = new System.Drawing.Size(51, 13);
+            this.placeholder_label.TabIndex = 27;
+            this.placeholder_label.Text = "NOTEXT";
+            this.placeholder_label.Visible = false;
+            // 
+            // placeholder_label_bottom
+            // 
+            this.placeholder_label_bottom.AutoSize = true;
+            this.placeholder_label_bottom.Location = new System.Drawing.Point(104, 355);
+            this.placeholder_label_bottom.Name = "placeholder_label_bottom";
+            this.placeholder_label_bottom.Size = new System.Drawing.Size(51, 13);
+            this.placeholder_label_bottom.TabIndex = 28;
+            this.placeholder_label_bottom.Text = "NOTEXT";
+            this.placeholder_label_bottom.Visible = false;
+            // 
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1555, 827);
+            this.Controls.Add(this.placeholder_label_bottom);
+            this.Controls.Add(this.placeholder_label);
             this.Controls.Add(this.KeybindStartStop);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.endButton);
@@ -416,6 +441,8 @@
         private System.Windows.Forms.Label KeybindGoal;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label KeybindStartStop;
+        private System.Windows.Forms.Label placeholder_label;
+        private System.Windows.Forms.Label placeholder_label_bottom;
     }
 }
 

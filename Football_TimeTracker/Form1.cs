@@ -98,6 +98,7 @@ namespace Football_TimeTracker
                 ticking = true;
                 tempoTotalLabel.BackColor = Constants.colorSegmentActive;
                 tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
+                currentSegmentType = Constants.segmentTypeActive;
                 AddSegment();
             }
         }
@@ -214,7 +215,7 @@ namespace Football_TimeTracker
         {
             int result = 0;
             result = ( minutes * Constants.minuteWidth ) + ( aditionalMinutes * Constants.minuteWidth ) + GetMinX();
-            return Constants.startingX + result;
+            return placeholder_label.Location.X + result;
         }
 
         private int GetMinX()
@@ -228,9 +229,9 @@ namespace Football_TimeTracker
         private int GetYPosition()
         {
             if ( half == 0 )
-                return Constants.firsthalfY;
+                return placeholder_label.Location.Y;
             else
-                return Constants.secondhalfY;
+                return placeholder_label_bottom.Location.Y;
         }
 
         private void TimerSecondPassed( Object myObject,
@@ -320,9 +321,6 @@ namespace Football_TimeTracker
 
     static class Constants
     {
-        public const int startingX = 104;
-        public const int firsthalfY = 130;
-        public const int secondhalfY = 355;
         public const int SegmentHeigth = 20;
         public const int minuteWidth = 15;
         public const double secondWidth = 0.25;
