@@ -104,9 +104,9 @@ namespace Football_TimeTracker
 
         public void ClickRightStartStopMethod()
         {
-            if(!ticking)
+            if ( !ticking )
             {
-                startButton_Click(null,null);
+                startButton_Click( null, null );
             }
             else
             {
@@ -116,7 +116,7 @@ namespace Football_TimeTracker
 
         public void SegmentActiveButton_Click( object sender, EventArgs e )
         {
-            if(currentSegmentType == Constants.segmentTypeActive )
+            if ( currentSegmentType == Constants.segmentTypeActive )
             {
                 //do nothing
             }
@@ -191,7 +191,7 @@ namespace Football_TimeTracker
             segment.image = picture;
             segment.segmentType = currentSegmentType;
 
-            switch (segment.segmentType)
+            switch ( segment.segmentType )
             {
                 case 0:
                     segment.image.BackColor = Constants.colorSegmentActive;
@@ -213,7 +213,7 @@ namespace Football_TimeTracker
         private int GetXPosition()
         {
             int result = 0;
-            result = (minutes * Constants.minuteWidth) + (aditionalMinutes * Constants.minuteWidth) + GetMinX();
+            result = ( minutes * Constants.minuteWidth ) + ( aditionalMinutes * Constants.minuteWidth ) + GetMinX();
             return Constants.startingX + result;
         }
 
@@ -237,12 +237,12 @@ namespace Football_TimeTracker
                                             EventArgs myEventArgs )
         {
             seconds++;
-            if(seconds == 60)
+            if ( seconds == 60 )
             {
                 seconds = 0;
                 minutes++;
             }
-            if(minutes == 45 && (half==0 || half==1))
+            if ( minutes == 45 && ( half == 0 || half == 1 ) )
             {
                 timerPrincipal.Stop();
                 timerAdicional.Start();
@@ -254,7 +254,7 @@ namespace Football_TimeTracker
                 timerAdicional.Start();
                 tempoAdicionalLabel.Visible = true;
             }
-            tempoTotalLabel.Text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
+            tempoTotalLabel.Text = minutes.ToString( "D2" ) + ":" + seconds.ToString( "D2" );
 
             segments.LastOrDefault().addSeconds();
 
@@ -311,7 +311,7 @@ namespace Football_TimeTracker
             }
 
 
-            StateActiveTimer.Text = elapsedMinutesActive.ToString("D2") + ":" + elapsedSecondsActive.ToString("D2");
+            StateActiveTimer.Text = elapsedMinutesActive.ToString( "D2" ) + ":" + elapsedSecondsActive.ToString( "D2" );
             StateOutofBoundsTimer.Text = elapsedMinutesOutofBounds.ToString( "D2" ) + ":" + elapsedSecondsOutofBounds.ToString( "D2" );
             StateRefBlowTimer.Text = elapsedMinutesRefBlow.ToString( "D2" ) + ":" + elapsedSecondsRefBlow.ToString( "D2" );
             StateGoalTimer.Text = elapsedMinutesGoal.ToString( "D2" ) + ":" + elapsedSecondsGoal.ToString( "D2" );

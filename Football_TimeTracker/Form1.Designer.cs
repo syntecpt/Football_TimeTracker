@@ -78,7 +78,7 @@
             // 
             this.tempoTotalLabel.AutoSize = true;
             this.tempoTotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tempoTotalLabel.Location = new System.Drawing.Point(504, 25);
+            this.tempoTotalLabel.Location = new System.Drawing.Point(635, 25);
             this.tempoTotalLabel.Name = "tempoTotalLabel";
             this.tempoTotalLabel.Size = new System.Drawing.Size(145, 55);
             this.tempoTotalLabel.TabIndex = 4;
@@ -88,7 +88,7 @@
             // 
             this.tempoAdicionalLabel.AutoSize = true;
             this.tempoAdicionalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tempoAdicionalLabel.Location = new System.Drawing.Point(678, 25);
+            this.tempoAdicionalLabel.Location = new System.Drawing.Point(766, 25);
             this.tempoAdicionalLabel.Name = "tempoAdicionalLabel";
             this.tempoAdicionalLabel.Size = new System.Drawing.Size(186, 55);
             this.tempoAdicionalLabel.TabIndex = 6;
@@ -99,7 +99,7 @@
             // 
             this.endButton.Enabled = false;
             this.endButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.endButton.Location = new System.Drawing.Point(930, 520);
+            this.endButton.Location = new System.Drawing.Point(1395, 664);
             this.endButton.Name = "endButton";
             this.endButton.Size = new System.Drawing.Size(313, 120);
             this.endButton.TabIndex = 7;
@@ -110,7 +110,7 @@
             // startButton
             // 
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startButton.Location = new System.Drawing.Point(265, 520);
+            this.startButton.Location = new System.Drawing.Point(1395, 520);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(313, 120);
             this.startButton.TabIndex = 8;
@@ -140,7 +140,7 @@
             // 
             this.SegmentActiveButton.BackColor = System.Drawing.Color.SpringGreen;
             this.SegmentActiveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentActiveButton.Location = new System.Drawing.Point(677, 673);
+            this.SegmentActiveButton.Location = new System.Drawing.Point(677, 564);
             this.SegmentActiveButton.Name = "SegmentActiveButton";
             this.SegmentActiveButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentActiveButton.TabIndex = 9;
@@ -152,7 +152,7 @@
             // 
             this.SegmentOutofBoundsButton.BackColor = System.Drawing.Color.Yellow;
             this.SegmentOutofBoundsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentOutofBoundsButton.Location = new System.Drawing.Point(558, 812);
+            this.SegmentOutofBoundsButton.Location = new System.Drawing.Point(558, 703);
             this.SegmentOutofBoundsButton.Name = "SegmentOutofBoundsButton";
             this.SegmentOutofBoundsButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentOutofBoundsButton.TabIndex = 10;
@@ -164,7 +164,7 @@
             // 
             this.SegmentRefBlowButton.BackColor = System.Drawing.Color.Salmon;
             this.SegmentRefBlowButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentRefBlowButton.Location = new System.Drawing.Point(799, 812);
+            this.SegmentRefBlowButton.Location = new System.Drawing.Point(799, 703);
             this.SegmentRefBlowButton.Name = "SegmentRefBlowButton";
             this.SegmentRefBlowButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentRefBlowButton.TabIndex = 11;
@@ -176,7 +176,7 @@
             // 
             this.SegmentGoalButton.BackColor = System.Drawing.Color.LightSkyBlue;
             this.SegmentGoalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentGoalButton.Location = new System.Drawing.Point(677, 950);
+            this.SegmentGoalButton.Location = new System.Drawing.Point(677, 841);
             this.SegmentGoalButton.Name = "SegmentGoalButton";
             this.SegmentGoalButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentGoalButton.TabIndex = 12;
@@ -280,8 +280,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(1904, 1161);
+            this.ClientSize = new System.Drawing.Size(1844, 981);
             this.Controls.Add(this.StateGoalTimer);
             this.Controls.Add(this.StateRefBlowTimer);
             this.Controls.Add(this.StateOutofBoundsTimer);
@@ -303,7 +304,9 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "GameForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -58,21 +58,25 @@ namespace Football_TimeTracker
                 {
                     _gameForm.SegmentActiveButton_Click(null,null);
                 }
-                if ( vkCode == 65 ) // A
+                else if ( vkCode == 65 ) // A
                 {
                     _gameForm.SegmentOutofBoundsButton_Click( null, null );
                 }
-                if ( vkCode == 68 ) // D
+                else if ( vkCode == 68 ) // D
                 {
                     _gameForm.SegmentRefBlowButton_Click( null, null );
                 }
-                if ( vkCode == 83 ) // S
+                else if ( vkCode == 83 ) // S
                 {
                     _gameForm.SegmentGoalButton_Click( null, null );
                 }
-                if( vkCode == 13) // ENTER
+                else if( vkCode == 13) // ENTER
                 {
                     //_gameForm.ClickRightStartStopMethod();
+                }
+                else if (vkCode == 80) // P
+                {
+                    _gameForm.ClickRightStartStopMethod();
                 }
             }
             return CallNextHookEx( _hookID, nCode, wParam, lParam );
