@@ -71,6 +71,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.PieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.TotalGameTimeLabel = new System.Windows.Forms.Label();
             this.StateGoalTimer = new System.Windows.Forms.Label();
             this.StateRefBlowTimer = new System.Windows.Forms.Label();
             this.StateOutofBoundsTimer = new System.Windows.Forms.Label();
@@ -79,6 +80,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.averageGoalSegmentResult = new System.Windows.Forms.Label();
@@ -97,8 +99,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.currentStatusLabel = new System.Windows.Forms.Label();
             this.segmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label8 = new System.Windows.Forms.Label();
-            this.TotalGameTimeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -126,7 +126,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(25, 280);
+            this.label2.Location = new System.Drawing.Point(25, 255);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(173, 29);
             this.label2.TabIndex = 3;
@@ -157,7 +157,7 @@
             // 
             this.resetButton.Enabled = false;
             this.resetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetButton.Location = new System.Drawing.Point(1424, 757);
+            this.resetButton.Location = new System.Drawing.Point(1430, 706);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(112, 56);
             this.resetButton.TabIndex = 7;
@@ -168,7 +168,7 @@
             // startstopButton
             // 
             this.startstopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startstopButton.Location = new System.Drawing.Point(1163, 585);
+            this.startstopButton.Location = new System.Drawing.Point(1164, 542);
             this.startstopButton.Name = "startstopButton";
             this.startstopButton.Size = new System.Drawing.Size(313, 120);
             this.startstopButton.TabIndex = 8;
@@ -179,7 +179,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Football_TimeTracker.Properties.Resources.TimeRuler;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 245);
+            this.pictureBox2.Location = new System.Drawing.Point(12, 220);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(1058, 262);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -200,7 +200,7 @@
             // 
             this.SegmentActiveButton.BackColor = System.Drawing.Color.SpringGreen;
             this.SegmentActiveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentActiveButton.Location = new System.Drawing.Point(387, 527);
+            this.SegmentActiveButton.Location = new System.Drawing.Point(439, 488);
             this.SegmentActiveButton.Name = "SegmentActiveButton";
             this.SegmentActiveButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentActiveButton.TabIndex = 9;
@@ -212,7 +212,7 @@
             // 
             this.SegmentOutofBoundsButton.BackColor = System.Drawing.Color.Yellow;
             this.SegmentOutofBoundsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentOutofBoundsButton.Location = new System.Drawing.Point(202, 590);
+            this.SegmentOutofBoundsButton.Location = new System.Drawing.Point(254, 551);
             this.SegmentOutofBoundsButton.Name = "SegmentOutofBoundsButton";
             this.SegmentOutofBoundsButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentOutofBoundsButton.TabIndex = 10;
@@ -224,7 +224,7 @@
             // 
             this.SegmentRefBlowButton.BackColor = System.Drawing.Color.Salmon;
             this.SegmentRefBlowButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentRefBlowButton.Location = new System.Drawing.Point(572, 590);
+            this.SegmentRefBlowButton.Location = new System.Drawing.Point(624, 551);
             this.SegmentRefBlowButton.Name = "SegmentRefBlowButton";
             this.SegmentRefBlowButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentRefBlowButton.TabIndex = 11;
@@ -236,7 +236,7 @@
             // 
             this.SegmentGoalButton.BackColor = System.Drawing.Color.LightSkyBlue;
             this.SegmentGoalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SegmentGoalButton.Location = new System.Drawing.Point(387, 644);
+            this.SegmentGoalButton.Location = new System.Drawing.Point(439, 605);
             this.SegmentGoalButton.Name = "SegmentGoalButton";
             this.SegmentGoalButton.Size = new System.Drawing.Size(187, 111);
             this.SegmentGoalButton.TabIndex = 12;
@@ -248,7 +248,7 @@
             // 
             this.KeybindActive.AutoSize = true;
             this.KeybindActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindActive.Location = new System.Drawing.Point(460, 493);
+            this.KeybindActive.Location = new System.Drawing.Point(512, 454);
             this.KeybindActive.Name = "KeybindActive";
             this.KeybindActive.Size = new System.Drawing.Size(39, 31);
             this.KeybindActive.TabIndex = 21;
@@ -258,7 +258,7 @@
             // 
             this.KeybindOutofBounds.AutoSize = true;
             this.KeybindOutofBounds.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindOutofBounds.Location = new System.Drawing.Point(159, 630);
+            this.KeybindOutofBounds.Location = new System.Drawing.Point(211, 591);
             this.KeybindOutofBounds.Name = "KeybindOutofBounds";
             this.KeybindOutofBounds.Size = new System.Drawing.Size(32, 31);
             this.KeybindOutofBounds.TabIndex = 22;
@@ -268,7 +268,7 @@
             // 
             this.KeybindRefBlow.AutoSize = true;
             this.KeybindRefBlow.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindRefBlow.Location = new System.Drawing.Point(765, 630);
+            this.KeybindRefBlow.Location = new System.Drawing.Point(817, 591);
             this.KeybindRefBlow.Name = "KeybindRefBlow";
             this.KeybindRefBlow.Size = new System.Drawing.Size(34, 31);
             this.KeybindRefBlow.TabIndex = 23;
@@ -278,7 +278,7 @@
             // 
             this.KeybindGoal.AutoSize = true;
             this.KeybindGoal.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindGoal.Location = new System.Drawing.Point(460, 758);
+            this.KeybindGoal.Location = new System.Drawing.Point(512, 719);
             this.KeybindGoal.Name = "KeybindGoal";
             this.KeybindGoal.Size = new System.Drawing.Size(32, 31);
             this.KeybindGoal.TabIndex = 24;
@@ -288,7 +288,7 @@
             // 
             this.KeybindStartStop.AutoSize = true;
             this.KeybindStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindStartStop.Location = new System.Drawing.Point(1125, 630);
+            this.KeybindStartStop.Location = new System.Drawing.Point(1126, 587);
             this.KeybindStartStop.Name = "KeybindStartStop";
             this.KeybindStartStop.Size = new System.Drawing.Size(32, 31);
             this.KeybindStartStop.TabIndex = 26;
@@ -307,7 +307,7 @@
             // placeholder_label_bottom
             // 
             this.placeholder_label_bottom.AutoSize = true;
-            this.placeholder_label_bottom.Location = new System.Drawing.Point(104, 355);
+            this.placeholder_label_bottom.Location = new System.Drawing.Point(104, 330);
             this.placeholder_label_bottom.Name = "placeholder_label_bottom";
             this.placeholder_label_bottom.Size = new System.Drawing.Size(51, 13);
             this.placeholder_label_bottom.TabIndex = 28;
@@ -446,6 +446,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Texto";
             // 
+            // TotalGameTimeLabel
+            // 
+            this.TotalGameTimeLabel.AutoSize = true;
+            this.TotalGameTimeLabel.BackColor = System.Drawing.Color.DimGray;
+            this.TotalGameTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalGameTimeLabel.Location = new System.Drawing.Point(354, 390);
+            this.TotalGameTimeLabel.Name = "TotalGameTimeLabel";
+            this.TotalGameTimeLabel.Size = new System.Drawing.Size(82, 31);
+            this.TotalGameTimeLabel.TabIndex = 30;
+            this.TotalGameTimeLabel.Text = "00:00";
+            this.TotalGameTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // StateGoalTimer
             // 
             this.StateGoalTimer.AutoSize = true;
@@ -537,6 +549,17 @@
             this.label3.TabIndex = 21;
             this.label3.Text = "Jogo a seguir:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.BackColor = System.Drawing.Color.DimGray;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(0, 360);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(446, 90);
+            this.label8.TabIndex = 29;
+            this.label8.Text = "Tempo Total de jogo:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabControl1
             // 
@@ -700,7 +723,7 @@
             // BlockKeybindingsSwitch
             // 
             this.BlockKeybindingsSwitch.AutoSize = true;
-            this.BlockKeybindingsSwitch.Location = new System.Drawing.Point(12, 784);
+            this.BlockKeybindingsSwitch.Location = new System.Drawing.Point(12, 733);
             this.BlockKeybindingsSwitch.Name = "BlockKeybindingsSwitch";
             this.BlockKeybindingsSwitch.Size = new System.Drawing.Size(99, 17);
             this.BlockKeybindingsSwitch.TabIndex = 30;
@@ -710,7 +733,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 804);
+            this.label7.Location = new System.Drawing.Point(9, 753);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(259, 13);
             this.label7.TabIndex = 31;
@@ -731,36 +754,12 @@
             // 
             this.segmentBindingSource.DataSource = typeof(Football_TimeTracker.Segment);
             // 
-            // label8
-            // 
-            this.label8.BackColor = System.Drawing.Color.DimGray;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(0, 360);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(446, 90);
-            this.label8.TabIndex = 29;
-            this.label8.Text = "Tempo Total de jogo:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // TotalGameTimeLabel
-            // 
-            this.TotalGameTimeLabel.AutoSize = true;
-            this.TotalGameTimeLabel.BackColor = System.Drawing.Color.DimGray;
-            this.TotalGameTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalGameTimeLabel.Location = new System.Drawing.Point(354, 390);
-            this.TotalGameTimeLabel.Name = "TotalGameTimeLabel";
-            this.TotalGameTimeLabel.Size = new System.Drawing.Size(82, 31);
-            this.TotalGameTimeLabel.TabIndex = 30;
-            this.TotalGameTimeLabel.Text = "00:00";
-            this.TotalGameTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(1554, 826);
+            this.ClientSize = new System.Drawing.Size(1554, 771);
             this.Controls.Add(this.currentStatusLabel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.BlockKeybindingsSwitch);
