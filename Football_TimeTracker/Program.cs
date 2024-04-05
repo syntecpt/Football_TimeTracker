@@ -21,6 +21,7 @@ namespace Football_TimeTracker
         private static IntPtr _hookID = IntPtr.Zero;
 
         private static GameForm _gameForm;
+        private static GameForm _newform;
 
         [STAThread]
         public static void Main()
@@ -31,6 +32,11 @@ namespace Football_TimeTracker
             _gameForm = new GameForm();
             Application.Run( _gameForm );
             UnhookWindowsHookEx( _hookID );
+        }
+
+        public static void ResetApp()
+        {
+            Application.Restart();
         }
 
         private static IntPtr SetHook( LowLevelKeyboardProc proc )
@@ -76,7 +82,7 @@ namespace Football_TimeTracker
                 }
                 else if (vkCode == 80) // P
                 {
-                    _gameForm.ClickRightStartStopMethod();
+                    _gameForm.startButton_Click(null, null);
                 }
             }
             return CallNextHookEx( _hookID, nCode, wParam, lParam );

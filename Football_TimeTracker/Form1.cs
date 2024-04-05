@@ -34,64 +34,32 @@ namespace Football_TimeTracker
             segments = new List<Segment>();
             currentSegmentType = 0;
             ticking = false;
+            PieChart.Series[ 0 ].Points[ 0 ].LegendText = "A seguir";
+            PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";
+            PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
+            PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
         }
 
         private void endButton_Click( object sender, EventArgs e )
         {
-            if ( endButton.Enabled )
-            {
-                if ( half == 0 )
-                {
-                    timerPrincipal.Stop();
-                    timerAdicional.Stop();
-                    endButton.Enabled = false;
-                    startButton.Enabled = true;
-                    startButton.Text = "Iniciar 2ª parte";
-                    endButton.Text = "Terminar 2ª parte";
-                    half++;
-                }
-                else
-                {
-                    timerPrincipal.Stop();
-                    timerAdicional.Stop();
-                    endButton.Enabled = false;
-                    startButton.Enabled = false;
-                }
-                ticking = false;
-                /*else if (half==1)
-                {
-                    timerPrincipal.Stop();
-                    timerAdicional.Stop();
-                    endButton.Enabled = false;
-                    startButton.Enabled = true;
-                    startButton.Text = "Iniciar 1ª parte do prolongamento";
-                    endButton.Text = "Terminar 1ª parte do prolongamento";
-                    half++;
-                }
-                else if ( half == 2 )
-                {
-                    timerPrincipal.Stop();
-                    timerAdicional.Stop();
-                    endButton.Enabled = false;
-                    startButton.Enabled = true;
-                    startButton.Text = "Iniciar 2ª parte do prolongamento";
-                    endButton.Text = "Terminar 2ª parte do prolongamento";
-                    half++;
-                }*/
-            }
+            if(sender == null && e == null && BlockKeybindingsSwitch.Checked)
+                { return; }
+
+            InterceptKeys.ResetApp();
         }
 
-        private void startButton_Click( object sender, EventArgs e )
+        public void startButton_Click( object sender, EventArgs e )
         {
-            if ( startButton.Enabled )
+            if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
+            { return; }
+
+            if ( !ticking && half == 0 )
             {
                 minutes = 0;
                 seconds = 0;
                 aditionalMinutes = 0;
                 aditionalSeconds = 0;
                 timerPrincipal.Start();
-                startButton.Enabled = false;
-                endButton.Enabled = true;
                 tempoTotalLabel.Text = "00:00";
                 tempoAdicionalLabel.Visible = false;
                 tempoAdicionalLabel.Text = "+ 00:00";
@@ -99,24 +67,58 @@ namespace Football_TimeTracker
                 tempoTotalLabel.BackColor = Constants.colorSegmentActive;
                 tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
                 currentSegmentType = Constants.segmentTypeActive;
+                currentStatusLabel.ForeColor = Color.Lime;
+                currentStatusLabel.Text = "1ª parte a decorrer";
+                startstopButton.Text = "Terminar 1ª parte";
                 AddSegment();
             }
-        }
-
-        public void ClickRightStartStopMethod()
-        {
-            if ( !ticking )
+            else if(ticking && half == 0)
             {
-                startButton_Click( null, null );
+                timerPrincipal.Stop();
+                timerAdicional.Stop();
+                half++;
+                currentStatusLabel.ForeColor = Color.Khaki;
+                currentStatusLabel.Text = "intervalo";
+                ticking = false;
+                startstopButton.Text = "Iniciar 2ª parte";
             }
-            else
+            else if ( !ticking && half == 1 )
             {
-                endButton_Click( null, null );
+                minutes = 0;
+                seconds = 0;
+                aditionalMinutes = 0;
+                aditionalSeconds = 0;
+                timerPrincipal.Start();
+                tempoTotalLabel.Text = "00:00";
+                tempoAdicionalLabel.Visible = false;
+                tempoAdicionalLabel.Text = "+ 00:00";
+                ticking = true;
+                tempoTotalLabel.BackColor = Constants.colorSegmentActive;
+                tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
+                currentSegmentType = Constants.segmentTypeActive;
+                currentStatusLabel.ForeColor = Color.Lime;
+                currentStatusLabel.Text = "2ª parte a decorrer";
+                startstopButton.Text = "Terminar 2ª parte";
+                AddSegment();
+            }
+            else if ( ticking && half == 1 )
+            {
+                timerPrincipal.Stop();
+                timerAdicional.Stop();
+                half++;
+                currentStatusLabel.ForeColor = Color.Red;
+                currentStatusLabel.Text = "jogo terminado";
+                ticking = false;
+                startstopButton.Enabled = false;
+                resetButton.Enabled = true;
             }
         }
 
         public void SegmentActiveButton_Click( object sender, EventArgs e )
         {
+            if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
+            { return; }
+
             if ( currentSegmentType == Constants.segmentTypeActive )
             {
                 //do nothing
@@ -132,6 +134,9 @@ namespace Football_TimeTracker
 
         public void SegmentOutofBoundsButton_Click( object sender, EventArgs e )
         {
+            if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
+            { return; }
+
             if ( currentSegmentType == Constants.segmentTypeOutofBounds )
             {
                 //do nothing
@@ -147,6 +152,9 @@ namespace Football_TimeTracker
 
         public void SegmentRefBlowButton_Click( object sender, EventArgs e )
         {
+            if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
+            { return; }
+
             if ( currentSegmentType == Constants.segmentTypeRefBlow )
             {
                 //do nothing
@@ -162,6 +170,9 @@ namespace Football_TimeTracker
 
         public void SegmentGoalButton_Click( object sender, EventArgs e )
         {
+            if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
+            { return; }
+
             if ( currentSegmentType == Constants.segmentTypeGoal )
             {
                 //do nothing
@@ -194,16 +205,16 @@ namespace Football_TimeTracker
 
             switch ( segment.segmentType )
             {
-                case 0:
+                case Constants.segmentTypeActive:
                     segment.image.BackColor = Constants.colorSegmentActive;
                     break;
-                case 1:
+                case Constants.segmentTypeOutofBounds:
                     segment.image.BackColor = Constants.colorSegmentOutofBounds;
                     break;
-                case 2:
+                case Constants.segmentTypeRefBlow:
                     segment.image.BackColor = Constants.colorSegmentRefBlow;
                     break;
-                case 3:
+                case Constants.segmentTypeGoal:
                     segment.image.BackColor = Constants.colorSegmentGoal;
                     break;
             }
@@ -280,6 +291,7 @@ namespace Football_TimeTracker
 
         private void UpdateTotals()
         {
+            #region Text Stats
             int elapsedMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
             int elapsedMinutesOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
             int elapsedMinutesRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
@@ -316,6 +328,268 @@ namespace Football_TimeTracker
             StateOutofBoundsTimer.Text = elapsedMinutesOutofBounds.ToString( "D2" ) + ":" + elapsedSecondsOutofBounds.ToString( "D2" );
             StateRefBlowTimer.Text = elapsedMinutesRefBlow.ToString( "D2" ) + ":" + elapsedSecondsRefBlow.ToString( "D2" );
             StateGoalTimer.Text = elapsedMinutesGoal.ToString( "D2" ) + ":" + elapsedSecondsGoal.ToString( "D2" );
+
+            int TotalMinutes = segments.Sum( x => x.elapsedMinutes );
+            int TotalSeconds = segments.Sum( x => x.elapsedSeconds );
+            TotalGameTimeLabel.Text = TotalMinutes.ToString( "D2" ) + ":" + TotalSeconds.ToString( "D2" );
+            #endregion
+
+            #region Pie Chart
+            elapsedMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
+            elapsedMinutesOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
+            elapsedMinutesRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
+            elapsedMinutesGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
+
+            elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+
+            while ( elapsedMinutesActive > 0 )
+            {
+                elapsedSecondsActive += 60;
+                elapsedMinutesActive--;
+            }
+            while ( elapsedMinutesOutofBounds > 0 )
+            {
+                elapsedSecondsOutofBounds += 60;
+                elapsedMinutesOutofBounds--;
+            }
+            while ( elapsedMinutesRefBlow > 0 )
+            {
+                elapsedSecondsRefBlow += 60;
+                elapsedMinutesRefBlow--;
+            }
+            while ( elapsedMinutesGoal > 0 )
+            {
+                elapsedSecondsGoal += 60;
+                elapsedMinutesGoal--;
+            }
+
+            int totalSecondsElapsed = elapsedSecondsActive + elapsedSecondsOutofBounds + elapsedSecondsRefBlow + elapsedSecondsGoal;
+
+            if ( elapsedSecondsActive > 0 )
+            {
+                PieChart.Series[ 0 ].Points[ 0 ].IsEmpty = false;
+                PieChart.Series[ 0 ].Points[ 0 ].Label = ( ( (decimal)elapsedSecondsActive / (decimal)totalSecondsElapsed ) * 100).ToString( "0.##" ) + "%";
+            }
+            else
+            {
+                PieChart.Series[ 0 ].Points[ 0 ].Label = "";
+            }
+            if ( elapsedSecondsOutofBounds > 0 )
+            {
+                PieChart.Series[ 0 ].Points[ 1 ].IsEmpty = false;
+                PieChart.Series[ 0 ].Points[ 1 ].Label = ( ( (decimal)elapsedSecondsOutofBounds / (decimal)totalSecondsElapsed ) * 100 ).ToString( "0.##" ) + "%";
+            }
+            else
+            {
+                PieChart.Series[ 0 ].Points[ 1 ].Label = "";
+            }
+            if ( elapsedSecondsRefBlow > 0 )
+            {
+                PieChart.Series[ 0 ].Points[ 2 ].IsEmpty = false;
+                PieChart.Series[ 0 ].Points[ 2 ].Label = ( ( (decimal)elapsedSecondsRefBlow / (decimal)totalSecondsElapsed ) * 100 ).ToString( "0.##" ) + "%";
+            }
+            else
+            {
+                PieChart.Series[ 0 ].Points[ 2 ].Label = "";
+            }
+            if ( elapsedSecondsGoal > 0 )
+            {
+                PieChart.Series[ 0 ].Points[ 3 ].IsEmpty = false;
+                PieChart.Series[ 0 ].Points[ 3 ].Label = ( ( (decimal)elapsedSecondsGoal / (decimal)totalSecondsElapsed ) * 100 ).ToString( "0.##" ) + "%";
+            }
+            else
+            {
+                PieChart.Series[ 0 ].Points[ 3 ].Label = "";
+            }
+
+            PieChart.Series[ 0 ].Points[ 0 ].SetValueY( elapsedSecondsActive );
+            PieChart.Series[ 0 ].Points[ 1 ].SetValueY( elapsedSecondsOutofBounds );
+            PieChart.Series[ 0 ].Points[ 2 ].SetValueY( elapsedSecondsRefBlow );
+            PieChart.Series[ 0 ].Points[ 3 ].SetValueY( elapsedSecondsGoal );
+            #endregion
+
+            #region Bar Chart
+            elapsedMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
+            elapsedMinutesOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
+            elapsedMinutesRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
+            elapsedMinutesGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
+
+            elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+
+            while ( elapsedMinutesActive > 0 )
+            {
+                elapsedSecondsActive += 60;
+                elapsedMinutesActive--;
+            }
+            while ( elapsedMinutesOutofBounds > 0 )
+            {
+                elapsedSecondsOutofBounds += 60;
+                elapsedMinutesOutofBounds--;
+            }
+            while ( elapsedMinutesRefBlow > 0 )
+            {
+                elapsedSecondsRefBlow += 60;
+                elapsedMinutesRefBlow--;
+            }
+            while ( elapsedMinutesGoal > 0 )
+            {
+                elapsedSecondsGoal += 60;
+                elapsedMinutesGoal--;
+            }
+
+            if ( elapsedSecondsActive > 0 )
+            {
+                BarChart.Series[ 0 ].Points[ 0 ].IsEmpty = false;
+                BarChart.Series[ 0 ].Points[ 0 ].SetValueY( elapsedSecondsActive );
+            }
+            else
+            {
+                BarChart.Series[ 0 ].Points[ 0 ].Label = "";
+            }
+            if ( elapsedSecondsOutofBounds > 0 )
+            {
+                BarChart.Series[ 0 ].Points[ 1 ].IsEmpty = false;
+                BarChart.Series[ 0 ].Points[ 1 ].SetValueY( elapsedSecondsOutofBounds );
+            }
+            else
+            {
+                BarChart.Series[ 0 ].Points[ 1 ].Label = "";
+            }
+            if ( elapsedSecondsRefBlow > 0 )
+            {
+                BarChart.Series[ 0 ].Points[ 2 ].IsEmpty = false;
+                BarChart.Series[ 0 ].Points[ 2 ].SetValueY( elapsedSecondsRefBlow );
+            }
+            else
+            {
+                BarChart.Series[ 0 ].Points[ 2 ].Label = "";
+            }
+            if ( elapsedSecondsGoal > 0 )
+            {
+                BarChart.Series[ 0 ].Points[ 3 ].IsEmpty = false;
+                BarChart.Series[ 0 ].Points[ 3 ].SetValueY( elapsedSecondsGoal );
+            }
+            else
+            {
+                BarChart.Series[ 0 ].Points[ 3 ].Label = "";
+            }
+
+            int MaxYValue;
+            MaxYValue = elapsedSecondsActive;
+            if ( elapsedSecondsOutofBounds > MaxYValue )
+                MaxYValue = elapsedSecondsOutofBounds;
+            if ( elapsedSecondsRefBlow > MaxYValue )
+                MaxYValue = elapsedSecondsRefBlow;
+            if ( elapsedSecondsGoal > MaxYValue )
+                MaxYValue = elapsedSecondsGoal;
+
+            BarChart.ChartAreas[0].AxisY.Maximum = MaxYValue;
+            #endregion
+
+            #region Other Text Stats
+            totalSegmentsResult.Text = segments.Count.ToString();
+
+            Segment biggestActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedMinutes ).ThenByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            if ( biggestActive != null )
+            {
+                biggestActiveSegmentResult.Text = biggestActive.elapsedMinutes.ToString( "D2" ) + ":" + biggestActive.elapsedSeconds.ToString( "D2" );
+            }
+            Segment biggestStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedMinutes ).ThenByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            if ( biggestStopped != null )
+            {
+                switch ( biggestStopped.segmentType )
+                {
+                    case Constants.segmentTypeOutofBounds:
+                        biggestStoppedSegmentLabel.BackColor = Constants.colorSegmentOutofBounds;
+                        biggestStoppedSegmentResult.BackColor = Constants.colorSegmentOutofBounds;
+                        averageStoppedSegmentLabel.BackColor = Constants.colorSegmentOutofBounds;
+                        averageStoppedSegmentResult.BackColor = Constants.colorSegmentOutofBounds;
+                        break;
+                    case Constants.segmentTypeRefBlow:
+                        biggestStoppedSegmentLabel.BackColor = Constants.colorSegmentRefBlow;
+                        biggestStoppedSegmentResult.BackColor = Constants.colorSegmentRefBlow;
+                        averageStoppedSegmentLabel.BackColor = Constants.colorSegmentRefBlow;
+                        averageStoppedSegmentResult.BackColor = Constants.colorSegmentRefBlow;
+                        break;
+                    case Constants.segmentTypeGoal:
+                        biggestStoppedSegmentLabel.BackColor = Constants.colorSegmentGoal;
+                        biggestStoppedSegmentResult.BackColor = Constants.colorSegmentGoal;
+                        averageStoppedSegmentLabel.BackColor = Constants.colorSegmentGoal;
+                        averageStoppedSegmentResult.BackColor = Constants.colorSegmentGoal;
+                        break;
+                }
+                biggestStoppedSegmentResult.Text = biggestStopped.elapsedMinutes.ToString( "D2" ) + ":" + biggestStopped.elapsedSeconds.ToString( "D2" );
+            }
+            
+            int CountSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Count();
+            if ( CountSecondsActive > 0 )
+            {
+                int TotalMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
+                int TotalSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+                while ( TotalMinutesActive > 0 )
+                {
+                    TotalSecondsActive += 60;
+                    TotalMinutesActive--;
+                }
+                int AverageActiveSeconds = TotalSecondsActive / CountSecondsActive;
+                int AverageActiveMinutes = 0;
+                while ( AverageActiveSeconds >= 60 )
+                {
+                    AverageActiveSeconds -= 60;
+                    AverageActiveMinutes++;
+                }
+
+                averageActiveSegmentResult.Text = AverageActiveMinutes.ToString( "D2" ) + ":" + AverageActiveSeconds.ToString( "D2" );
+            }
+
+            int CountSecondsStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Count();
+            if ( CountSecondsStopped > 0 )
+            {
+                int TotalMinutesStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
+                int TotalSecondsStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+                while ( TotalMinutesStopped > 0 )
+                {
+                    TotalSecondsStopped += 60;
+                    TotalMinutesStopped--;
+                }
+                int AverageStoppedSeconds = TotalSecondsStopped / CountSecondsStopped;
+                int AverageStoppedMinutes = 0;
+                while ( AverageStoppedSeconds >= 60 )
+                {
+                    AverageStoppedSeconds -= 60;
+                    AverageStoppedMinutes++;
+                }
+
+                averageStoppedSegmentResult.Text = AverageStoppedMinutes.ToString( "D2" ) + ":" + AverageStoppedSeconds.ToString( "D2" );
+            }
+
+            int CountSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Count();
+            if ( CountSecondsGoal > 0 )
+            {
+                int TotalMinutesGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
+                int TotalSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+                while ( TotalMinutesGoal > 0 )
+                {
+                    TotalSecondsGoal += 60;
+                    TotalMinutesGoal--;
+                }
+                int AverageGoalSeconds = TotalSecondsGoal / CountSecondsGoal;
+                int AverageGoalMinutes = 0;
+                while ( AverageGoalSeconds >= 60 )
+                {
+                    AverageGoalSeconds -= 60;
+                    AverageGoalMinutes++;
+                }
+
+                averageGoalSegmentResult.Text = AverageGoalMinutes.ToString( "D2" ) + ":" + AverageGoalSeconds.ToString( "D2" );
+            }
+            #endregion
         }
     }
 
