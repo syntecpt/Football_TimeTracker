@@ -331,6 +331,11 @@ namespace Football_TimeTracker
 
             int TotalMinutes = segments.Sum( x => x.elapsedMinutes );
             int TotalSeconds = segments.Sum( x => x.elapsedSeconds );
+            while ( TotalSeconds >= 60 ) 
+            {
+                TotalSeconds -= 60;
+                TotalMinutes++;
+            }
             TotalGameTimeLabel.Text = TotalMinutes.ToString( "D2" ) + ":" + TotalSeconds.ToString( "D2" );
             #endregion
 
