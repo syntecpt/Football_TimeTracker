@@ -297,7 +297,7 @@
             // placeholder_label
             // 
             this.placeholder_label.AutoSize = true;
-            this.placeholder_label.Location = new System.Drawing.Point(99, 128);
+            this.placeholder_label.Location = new System.Drawing.Point(100, 128);
             this.placeholder_label.Name = "placeholder_label";
             this.placeholder_label.Size = new System.Drawing.Size(51, 13);
             this.placeholder_label.TabIndex = 27;
@@ -307,7 +307,7 @@
             // placeholder_label_bottom
             // 
             this.placeholder_label_bottom.AutoSize = true;
-            this.placeholder_label_bottom.Location = new System.Drawing.Point(99, 330);
+            this.placeholder_label_bottom.Location = new System.Drawing.Point(100, 330);
             this.placeholder_label_bottom.Name = "placeholder_label_bottom";
             this.placeholder_label_bottom.Size = new System.Drawing.Size(51, 13);
             this.placeholder_label_bottom.TabIndex = 28;
