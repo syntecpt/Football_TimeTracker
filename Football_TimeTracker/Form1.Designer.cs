@@ -181,7 +181,7 @@
             this.pictureBox2.Image = global::Football_TimeTracker.Properties.Resources.TimeRuler;
             this.pictureBox2.Location = new System.Drawing.Point(12, 220);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1058, 262);
+            this.pictureBox2.Size = new System.Drawing.Size(1030, 262);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
@@ -191,7 +191,7 @@
             this.pictureBox1.Image = global::Football_TimeTracker.Properties.Resources.TimeRuler;
             this.pictureBox1.Location = new System.Drawing.Point(12, 18);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1058, 262);
+            this.pictureBox1.Size = new System.Drawing.Size(1030, 262);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -297,7 +297,7 @@
             // placeholder_label
             // 
             this.placeholder_label.AutoSize = true;
-            this.placeholder_label.Location = new System.Drawing.Point(104, 128);
+            this.placeholder_label.Location = new System.Drawing.Point(99, 128);
             this.placeholder_label.Name = "placeholder_label";
             this.placeholder_label.Size = new System.Drawing.Size(51, 13);
             this.placeholder_label.TabIndex = 27;
@@ -307,7 +307,7 @@
             // placeholder_label_bottom
             // 
             this.placeholder_label_bottom.AutoSize = true;
-            this.placeholder_label_bottom.Location = new System.Drawing.Point(104, 330);
+            this.placeholder_label_bottom.Location = new System.Drawing.Point(99, 330);
             this.placeholder_label_bottom.Name = "placeholder_label_bottom";
             this.placeholder_label_bottom.Size = new System.Drawing.Size(51, 13);
             this.placeholder_label_bottom.TabIndex = 28;
