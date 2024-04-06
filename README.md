@@ -35,4 +35,5 @@ será sempre incluído no estado atual, qualquer um dos 3 estados "nao ativos" p
 -- Problemas / Limitações --
   - precisão mínima ao segundo, sendo que nunca um segmento ter menos que 1 segundo de duração para uma leitura mais precisa.
   - dimensões do programa nao variáveis (pode nao parecer OK em diferentes tamanhos de ecrã)
+  - barra de tempo nao está pixel perfect com a régua do tempo. está o melhor que consegui a olho.
   - (a adicionar...)
