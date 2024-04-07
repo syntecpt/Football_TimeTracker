@@ -330,6 +330,7 @@
             // BarChart
             // 
             this.BarChart.BackColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
             chartArea1.AxisX.IsLabelAutoFit = false;
             chartArea1.AxisX.LabelStyle.Enabled = false;
             chartArea1.AxisY.Title = "Minutos";

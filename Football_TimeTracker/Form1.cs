@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -191,34 +192,49 @@ namespace Football_TimeTracker
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
-            if ( segments.Count > 1 )
+            if(!ticking)
+            { return; }
+
+            if ( segments.Count > 1 && half==0)
             {
-                Segment lastsegment = segments.Last();
-                segments.Remove( lastsegment );
-                this.Controls.Remove( lastsegment.image );
-                Segment prelastsegment = segments.Last();
-                prelastsegment.elapsedMinutes += lastsegment.elapsedMinutes;
-                prelastsegment.elapsedSeconds += lastsegment.elapsedSeconds;
-                currentSegmentType = prelastsegment.segmentType;
-                switch ( currentSegmentType )
+                RemoveSegment();
+            }
+            else
+            {
+                if ( segments.Where( x => x.half == 1 ).Count() > 1)
                 {
-                    case Constants.segmentTypeActive:
-                        tempoTotalLabel.BackColor = Constants.colorSegmentActive;
-                        tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
-                        break;
-                    case Constants.segmentTypeOutofBounds:
-                        tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
-                        tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
-                        break;
-                    case Constants.segmentTypeRefBlow:
-                        tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
-                        tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
-                        break;
-                    case Constants.segmentTypeGoal:
-                        tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
-                        tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
-                        break;
+                    RemoveSegment();
                 }
+            }
+        }
+
+        private void RemoveSegment()
+        {
+            Segment lastsegment = segments.Last();
+            segments.Remove( lastsegment );
+            this.Controls.Remove( lastsegment.image );
+            Segment prelastsegment = segments.Last();
+            prelastsegment.elapsedMinutes += lastsegment.elapsedMinutes;
+            prelastsegment.elapsedSeconds += lastsegment.elapsedSeconds;
+            currentSegmentType = prelastsegment.segmentType;
+            switch ( currentSegmentType )
+            {
+                case Constants.segmentTypeActive:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentActive;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
+                    break;
+                case Constants.segmentTypeOutofBounds:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                    break;
+                case Constants.segmentTypeRefBlow:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
+                    break;
+                case Constants.segmentTypeGoal:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                    break;
             }
         }
 
@@ -229,30 +245,7 @@ namespace Football_TimeTracker
                 if ( currentSegmentType == segments.Last().segmentType )
                 {
                     return;
-                }
-                else
-                {
-                    currentSegmentType = segments.Last().segmentType;
-                    switch ( currentSegmentType )
-                    {
-                        case Constants.segmentTypeActive:
-                            tempoTotalLabel.BackColor = Constants.colorSegmentActive;
-                            tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
-                            break;
-                        case Constants.segmentTypeOutofBounds:
-                            tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
-                            tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
-                            break;
-                        case Constants.segmentTypeRefBlow:
-                            tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
-                            tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
-                            break;
-                        case Constants.segmentTypeGoal:
-                            tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
-                            tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
-                            break;
-                    }
-                }
+                }                
             }
 
             var picture = new PictureBox
@@ -269,6 +262,7 @@ namespace Football_TimeTracker
 
             segment.image = picture;
             segment.segmentType = currentSegmentType;
+            segment.half = half;
 
             switch ( segment.segmentType )
             {
@@ -374,6 +368,26 @@ namespace Football_TimeTracker
 
         private void UpdateTotals()
         {
+            switch ( currentSegmentType )
+            {
+                case Constants.segmentTypeActive:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentActive;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
+                    break;
+                case Constants.segmentTypeOutofBounds:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                    break;
+                case Constants.segmentTypeRefBlow:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
+                    break;
+                case Constants.segmentTypeGoal:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                    break;
+            }
+
             #region Text Stats
             int elapsedMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
             int elapsedMinutesOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
@@ -517,39 +531,51 @@ namespace Football_TimeTracker
 
             if ( BarMinutesActive > 0 )
             {
+                BarChart.Series[ 0 ].Points[ 0 ].Label = BarMinutesActive.ToString("0.##");
                 BarChart.Series[ 0 ].Points[ 0 ].IsEmpty = false;
                 BarChart.Series[ 0 ].Points[ 0 ].SetValueY( BarMinutesActive );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 0 ].Label = "";
+                BarChart.Series[ 0 ].Points[ 0 ].IsEmpty = true;
+                BarChart.Series[ 0 ].Points[ 0 ].SetValueY( BarMinutesActive );
             }
             if ( BarMinutesOutOfBounds > 0 )
             {
+                BarChart.Series[ 0 ].Points[ 1 ].Label = BarMinutesOutOfBounds.ToString( "0.##" );
                 BarChart.Series[ 0 ].Points[ 1 ].IsEmpty = false;
                 BarChart.Series[ 0 ].Points[ 1 ].SetValueY( BarMinutesOutOfBounds );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 1 ].Label = "";
+                BarChart.Series[ 0 ].Points[ 1 ].IsEmpty = true;
+                BarChart.Series[ 0 ].Points[ 1 ].SetValueY( BarMinutesOutOfBounds );
             }
             if ( BarMinutesRefBlow > 0 )
             {
+                BarChart.Series[ 0 ].Points[ 2 ].Label = BarMinutesRefBlow.ToString( "0.##" );
                 BarChart.Series[ 0 ].Points[ 2 ].IsEmpty = false;
                 BarChart.Series[ 0 ].Points[ 2 ].SetValueY( BarMinutesRefBlow );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 2 ].Label = "";
+                BarChart.Series[ 0 ].Points[ 2 ].IsEmpty = true;
+                BarChart.Series[ 0 ].Points[ 2 ].SetValueY( BarMinutesRefBlow );
             }
             if ( BarMinutesGoal > 0 )
             {
+                BarChart.Series[ 0 ].Points[ 3 ].Label = BarMinutesGoal.ToString( "0.##" );
                 BarChart.Series[ 0 ].Points[ 3 ].IsEmpty = false;
                 BarChart.Series[ 0 ].Points[ 3 ].SetValueY( BarMinutesGoal );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 3 ].Label = "";
+                BarChart.Series[ 0 ].Points[ 3 ].IsEmpty = true;
+                BarChart.Series[ 0 ].Points[ 3 ].SetValueY( BarMinutesGoal );
             }
 
             double MaxYValue;
@@ -599,6 +625,14 @@ namespace Football_TimeTracker
                 }
                 biggestStoppedSegmentResult.Text = biggestStopped.elapsedMinutes.ToString( "D2" ) + ":" + biggestStopped.elapsedSeconds.ToString( "D2" );
             }
+            else
+            {
+                biggestStoppedSegmentLabel.BackColor = Constants.colorBackgroundGray;
+                biggestStoppedSegmentResult.BackColor = Constants.colorBackgroundGray;
+                averageStoppedSegmentLabel.BackColor = Constants.colorBackgroundGray;
+                averageStoppedSegmentResult.BackColor = Constants.colorBackgroundGray;
+                biggestStoppedSegmentResult.Text = "00:00";
+            }
             
             int CountSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Count();
             if ( CountSecondsActive > 0 )
@@ -641,6 +675,10 @@ namespace Football_TimeTracker
 
                 averageStoppedSegmentResult.Text = AverageStoppedMinutes.ToString( "D2" ) + ":" + AverageStoppedSeconds.ToString( "D2" );
             }
+            else
+            {
+                averageStoppedSegmentResult.Text = "00:00";
+            }
 
             int CountSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Count();
             if ( CountSecondsGoal > 0 )
@@ -662,6 +700,10 @@ namespace Football_TimeTracker
 
                 averageGoalSegmentResult.Text = AverageGoalMinutes.ToString( "D2" ) + ":" + AverageGoalSeconds.ToString( "D2" );
             }
+            else
+            {
+                averageGoalSegmentResult.Text = "00:00";
+            }
             #endregion
         }
     }
@@ -681,6 +723,8 @@ namespace Football_TimeTracker
         public static Color colorSegmentOutofBounds = Color.Yellow;
         public static Color colorSegmentRefBlow = Color.Salmon;
         public static Color colorSegmentGoal = Color.LightSkyBlue;
+
+        public static Color colorBackgroundGray = Color.DimGray;
     }
 
     public class Segment
@@ -688,6 +732,7 @@ namespace Football_TimeTracker
         public PictureBox image;
         public int elapsedSeconds, elapsedMinutes;
         public int segmentType;
+        public int half;
 
         public Segment()
         {
