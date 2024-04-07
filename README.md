@@ -10,6 +10,7 @@ Sendo uma ferramenta, a sua utilidade será proporcional à forma de como é usa
 Correr o programa e Utilizar teclas (ou rato) para alterar a diferente cronometrização. O software detecta as teclas pressionada mesmo não sendo a aplicação em foco.
 Utilizar tecla "P" (ou clickar no botão Iniciar/Terminar) para começar e terminar cada parte. É sempre assim que se inicia a contagem.
 Utilizar teclas "W A S D" para alternar entre os diferentes tipos de estados de jogo.
+Em caso de engano, utilizar o botão "desfazer" (ou tecla "Backspace") para apagar o segmento corrente e voltar ao anterior.
 
 -- Estados de jogo --
 Existem 4 estados de jogo possíveis:
@@ -30,7 +31,7 @@ O utilizador deverá carregar nas teclas (ou clickar nos botões) de acordo com 
   - Carregar em terminar (ou tecla P) no momento em que o arbitro apita para o final da primeira parte. Carregar em Iniciar (ou tecla "P" novamente) para iniciar a segunda parte, e depois voltar às regras acima. Carregar de novo em Terminar (ou "P") pela última vez quando o àrbitro apita para o final de jogo.
 
 como fazer com substituições/atendimento médico?
-será sempre incluído no estado atual, qualquer um dos 3 estados "nao ativos" pode ser maior ou menor dependendo de outros fatores mas o importante será a cronometragem do estado "A seguir" que é o tempo útil de jogo.
+será sempre incluído no estado atual, qualquer um dos 3 estados "nao ativos" pode ser maior ou menor dependendo de outros fatores.
 
 -- Problemas / Limitações --
   - precisão mínima ao segundo, sendo que nunca um segmento ter menos que 1 segundo de duração para uma leitura mais precisa.
