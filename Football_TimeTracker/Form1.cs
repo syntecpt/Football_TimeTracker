@@ -186,8 +186,75 @@ namespace Football_TimeTracker
             }
         }
 
+        public void RemoveSegmentButton_Click( object sender, EventArgs e )
+        {
+            if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
+            { return; }
+
+            if ( segments.Count > 1 )
+            {
+                Segment lastsegment = segments.Last();
+                segments.Remove( lastsegment );
+                this.Controls.Remove( lastsegment.image );
+                Segment prelastsegment = segments.Last();
+                prelastsegment.elapsedMinutes += lastsegment.elapsedMinutes;
+                prelastsegment.elapsedSeconds += lastsegment.elapsedSeconds;
+                currentSegmentType = prelastsegment.segmentType;
+                switch ( currentSegmentType )
+                {
+                    case Constants.segmentTypeActive:
+                        tempoTotalLabel.BackColor = Constants.colorSegmentActive;
+                        tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
+                        break;
+                    case Constants.segmentTypeOutofBounds:
+                        tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                        tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                        break;
+                    case Constants.segmentTypeRefBlow:
+                        tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
+                        tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
+                        break;
+                    case Constants.segmentTypeGoal:
+                        tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
+                        tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                        break;
+                }
+            }
+        }
+
         private void AddSegment()
         {
+            if (GarbageCollected())
+            {
+                if ( currentSegmentType == segments.Last().segmentType )
+                {
+                    return;
+                }
+                else
+                {
+                    currentSegmentType = segments.Last().segmentType;
+                    switch ( currentSegmentType )
+                    {
+                        case Constants.segmentTypeActive:
+                            tempoTotalLabel.BackColor = Constants.colorSegmentActive;
+                            tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
+                            break;
+                        case Constants.segmentTypeOutofBounds:
+                            tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                            tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                            break;
+                        case Constants.segmentTypeRefBlow:
+                            tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
+                            tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
+                            break;
+                        case Constants.segmentTypeGoal:
+                            tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
+                            tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                            break;
+                    }
+                }
+            }
+
             var picture = new PictureBox
             {
                 Size = new Size( 1, Constants.SegmentHeigth ),
@@ -220,6 +287,22 @@ namespace Football_TimeTracker
             }
 
             segments.Add( segment );
+        }
+
+        private bool GarbageCollected()
+        {
+            if ( segments.Count > 1 )
+            {
+                Segment lastSegment = segments.Last();
+                if (lastSegment.elapsedMinutes == 0 && lastSegment.elapsedSeconds == 0)
+                {
+                    this.Controls.Remove( lastSegment.image );
+                    segments.Remove( lastSegment );
+
+                    return true;
+                }
+            }
+            return false;
         }
 
         private int GetXPosition()
@@ -427,73 +510,58 @@ namespace Football_TimeTracker
             elapsedSecondsRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
             elapsedSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
 
-            while ( elapsedMinutesActive > 0 )
-            {
-                elapsedSecondsActive += 60;
-                elapsedMinutesActive--;
-            }
-            while ( elapsedMinutesOutofBounds > 0 )
-            {
-                elapsedSecondsOutofBounds += 60;
-                elapsedMinutesOutofBounds--;
-            }
-            while ( elapsedMinutesRefBlow > 0 )
-            {
-                elapsedSecondsRefBlow += 60;
-                elapsedMinutesRefBlow--;
-            }
-            while ( elapsedMinutesGoal > 0 )
-            {
-                elapsedSecondsGoal += 60;
-                elapsedMinutesGoal--;
-            }
+            double BarMinutesActive = elapsedMinutesActive + ( (double)elapsedSecondsActive / 60 );
+            double BarMinutesOutOfBounds = elapsedMinutesOutofBounds + ( (double)elapsedSecondsOutofBounds / 60 );
+            double BarMinutesRefBlow = elapsedMinutesRefBlow + ( (double)elapsedSecondsRefBlow / 60 );
+            double BarMinutesGoal = elapsedMinutesGoal + ( (double)elapsedSecondsGoal / 60 );
 
-            if ( elapsedSecondsActive > 0 )
+            if ( BarMinutesActive > 0 )
             {
                 BarChart.Series[ 0 ].Points[ 0 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 0 ].SetValueY( elapsedSecondsActive );
+                BarChart.Series[ 0 ].Points[ 0 ].SetValueY( BarMinutesActive );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 0 ].Label = "";
             }
-            if ( elapsedSecondsOutofBounds > 0 )
+            if ( BarMinutesOutOfBounds > 0 )
             {
                 BarChart.Series[ 0 ].Points[ 1 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 1 ].SetValueY( elapsedSecondsOutofBounds );
+                BarChart.Series[ 0 ].Points[ 1 ].SetValueY( BarMinutesOutOfBounds );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 1 ].Label = "";
             }
-            if ( elapsedSecondsRefBlow > 0 )
+            if ( BarMinutesRefBlow > 0 )
             {
                 BarChart.Series[ 0 ].Points[ 2 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 2 ].SetValueY( elapsedSecondsRefBlow );
+                BarChart.Series[ 0 ].Points[ 2 ].SetValueY( BarMinutesRefBlow );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 2 ].Label = "";
             }
-            if ( elapsedSecondsGoal > 0 )
+            if ( BarMinutesGoal > 0 )
             {
                 BarChart.Series[ 0 ].Points[ 3 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 3 ].SetValueY( elapsedSecondsGoal );
+                BarChart.Series[ 0 ].Points[ 3 ].SetValueY( BarMinutesGoal );
             }
             else
             {
                 BarChart.Series[ 0 ].Points[ 3 ].Label = "";
             }
 
-            int MaxYValue;
-            MaxYValue = elapsedSecondsActive;
-            if ( elapsedSecondsOutofBounds > MaxYValue )
-                MaxYValue = elapsedSecondsOutofBounds;
-            if ( elapsedSecondsRefBlow > MaxYValue )
-                MaxYValue = elapsedSecondsRefBlow;
-            if ( elapsedSecondsGoal > MaxYValue )
-                MaxYValue = elapsedSecondsGoal;
+            double MaxYValue;
+            MaxYValue = BarMinutesActive;
+            if ( BarMinutesOutOfBounds > MaxYValue )
+                MaxYValue = BarMinutesOutOfBounds;
+            if ( BarMinutesRefBlow > MaxYValue )
+                MaxYValue = BarMinutesRefBlow;
+            if ( BarMinutesGoal > MaxYValue )
+                MaxYValue = BarMinutesGoal;
 
+            MaxYValue = Math.Ceiling( MaxYValue );
             BarChart.ChartAreas[0].AxisY.Maximum = MaxYValue;
             #endregion
 

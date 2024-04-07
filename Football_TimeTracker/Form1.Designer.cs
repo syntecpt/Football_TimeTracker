@@ -99,6 +99,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.currentStatusLabel = new System.Windows.Forms.Label();
             this.segmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.RemoveSegmentButton = new System.Windows.Forms.Button();
+            this.KeybindUndo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -330,7 +332,7 @@
             this.BarChart.BackColor = System.Drawing.Color.DimGray;
             chartArea1.AxisX.IsLabelAutoFit = false;
             chartArea1.AxisX.LabelStyle.Enabled = false;
-            chartArea1.AxisY.Title = "Segundos";
+            chartArea1.AxisY.Title = "Minutos";
             chartArea1.BackColor = System.Drawing.Color.DimGray;
             chartArea1.Name = "ChartArea1";
             this.BarChart.ChartAreas.Add(chartArea1);
@@ -754,12 +756,34 @@
             // 
             this.segmentBindingSource.DataSource = typeof(Football_TimeTracker.Segment);
             // 
+            // RemoveSegmentButton
+            // 
+            this.RemoveSegmentButton.Location = new System.Drawing.Point(931, 660);
+            this.RemoveSegmentButton.Name = "RemoveSegmentButton";
+            this.RemoveSegmentButton.Size = new System.Drawing.Size(111, 56);
+            this.RemoveSegmentButton.TabIndex = 33;
+            this.RemoveSegmentButton.Text = "desfazer ultimo segmento";
+            this.RemoveSegmentButton.UseVisualStyleBackColor = true;
+            this.RemoveSegmentButton.Click += new System.EventHandler(this.RemoveSegmentButton_Click);
+            // 
+            // KeybindUndo
+            // 
+            this.KeybindUndo.AutoSize = true;
+            this.KeybindUndo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KeybindUndo.Location = new System.Drawing.Point(911, 626);
+            this.KeybindUndo.Name = "KeybindUndo";
+            this.KeybindUndo.Size = new System.Drawing.Size(148, 31);
+            this.KeybindUndo.TabIndex = 34;
+            this.KeybindUndo.Text = "Backspace";
+            // 
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1554, 771);
+            this.Controls.Add(this.KeybindUndo);
+            this.Controls.Add(this.RemoveSegmentButton);
             this.Controls.Add(this.currentStatusLabel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.BlockKeybindingsSwitch);
@@ -858,6 +882,8 @@
         private System.Windows.Forms.Label averageGoalSegmentLabel;
         private System.Windows.Forms.Label TotalGameTimeLabel;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button RemoveSegmentButton;
+        private System.Windows.Forms.Label KeybindUndo;
     }
 }
 

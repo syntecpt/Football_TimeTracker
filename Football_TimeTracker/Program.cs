@@ -21,7 +21,6 @@ namespace Football_TimeTracker
         private static IntPtr _hookID = IntPtr.Zero;
 
         private static GameForm _gameForm;
-        private static GameForm _newform;
 
         [STAThread]
         public static void Main()
@@ -83,6 +82,10 @@ namespace Football_TimeTracker
                 else if (vkCode == 80) // P
                 {
                     _gameForm.startButton_Click(null, null);
+                }
+                else if ( vkCode == 8 ) // Backspace
+                {
+                    _gameForm.RemoveSegmentButton_Click( null, null );
                 }
             }
             return CallNextHookEx( _hookID, nCode, wParam, lParam );
