@@ -144,10 +144,17 @@ namespace Football_TimeTracker
             }
             else
             {
-                currentSegmentType = Constants.segmentTypeOutofBounds;
-                AddSegment();
-                tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
-                tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                if ( currentSegmentType != Constants.segmentTypeActive )
+                {
+                    ReplaceLastSegment(Constants.segmentTypeOutofBounds);
+                }
+                else
+                {
+                    currentSegmentType = Constants.segmentTypeOutofBounds;
+                    AddSegment();
+                    tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                }
             }
         }
 
@@ -162,10 +169,17 @@ namespace Football_TimeTracker
             }
             else
             {
-                currentSegmentType = Constants.segmentTypeRefBlow;
-                AddSegment();
-                tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
-                tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
+                if ( currentSegmentType != Constants.segmentTypeActive )
+                {
+                    ReplaceLastSegment(Constants.segmentTypeRefBlow );
+                }
+                else
+                {
+                    currentSegmentType = Constants.segmentTypeRefBlow;
+                    AddSegment();
+                    tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
+                }
             }
         }
 
@@ -180,10 +194,17 @@ namespace Football_TimeTracker
             }
             else
             {
-                currentSegmentType = Constants.segmentTypeGoal;
-                AddSegment();
-                tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
-                tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                if ( currentSegmentType != Constants.segmentTypeActive )
+                {
+                    ReplaceLastSegment(Constants.segmentTypeGoal );
+                }
+                else
+                {
+                    currentSegmentType = Constants.segmentTypeGoal;
+                    AddSegment();
+                    tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                }
             }
         }
 
@@ -234,6 +255,35 @@ namespace Football_TimeTracker
                 case Constants.segmentTypeGoal:
                     tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
                     tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                    break;
+            }
+        }
+
+        private void ReplaceLastSegment( int segmentType)
+        {
+            segments.Last().segmentType = segmentType;
+            currentSegmentType = segmentType;
+            switch ( currentSegmentType )
+            {
+                case Constants.segmentTypeActive:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentActive;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentActive;
+                    segments.Last().image.BackColor = Constants.colorSegmentActive;
+                    break;
+                case Constants.segmentTypeOutofBounds:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentOutofBounds;
+                    segments.Last().image.BackColor = Constants.colorSegmentOutofBounds;
+                    break;
+                case Constants.segmentTypeRefBlow:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentRefBlow;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentRefBlow;
+                    segments.Last().image.BackColor = Constants.colorSegmentRefBlow;
+                    break;
+                case Constants.segmentTypeGoal:
+                    tempoTotalLabel.BackColor = Constants.colorSegmentGoal;
+                    tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
+                    segments.Last().image.BackColor = Constants.colorSegmentGoal;
                     break;
             }
         }
