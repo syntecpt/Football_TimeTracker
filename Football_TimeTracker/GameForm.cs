@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,14 +40,33 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";
             PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
+            this.FormClosing += GameForm_FormClosing;
+        }
+
+        public GameForm(string gameName)
+        {
+            InitializeComponent();
+            timerPrincipal = new Timer();
+            timerAdicional = new Timer();
+            half = 0;
+            timerPrincipal.Interval = 1000;
+            timerPrincipal.Tick += new EventHandler( TimerSecondPassed );
+            timerAdicional.Interval = 1000;
+            timerAdicional.Tick += new EventHandler( AditionalTimerSecondPassed );
+            segments = new List<Segment>();
+            currentSegmentType = 0;
+            ticking = false;
+            PieChart.Series[ 0 ].Points[ 0 ].LegendText = "A seguir";
+            PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";
+            PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
+            PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
+            this.Text = gameName;
+            this.FormClosing += GameForm_FormClosing;
         }
 
         private void endButton_Click( object sender, EventArgs e )
         {
-            if(sender == null && e == null && BlockKeybindingsSwitch.Checked)
-                { return; }
-
-            InterceptKeys.ResetApp();
+            InterceptKeys.BackToMainForm();
         }
 
         public void startButton_Click( object sender, EventArgs e )
@@ -71,6 +91,7 @@ namespace Football_TimeTracker
                 currentStatusLabel.ForeColor = Color.Lime;
                 currentStatusLabel.Text = "1ª parte a decorrer";
                 startstopButton.Text = "Terminar 1ª parte";
+                resetButton.Enabled = false;
                 AddSegment();
             }
             else if(ticking && half == 0)
@@ -81,6 +102,7 @@ namespace Football_TimeTracker
                 currentStatusLabel.ForeColor = Color.Khaki;
                 currentStatusLabel.Text = "intervalo";
                 ticking = false;
+                resetButton.Enabled = true;
                 startstopButton.Text = "Iniciar 2ª parte";
             }
             else if ( !ticking && half == 1 )
@@ -100,6 +122,7 @@ namespace Football_TimeTracker
                 currentStatusLabel.ForeColor = Color.Lime;
                 currentStatusLabel.Text = "2ª parte a decorrer";
                 startstopButton.Text = "Terminar 2ª parte";
+                resetButton.Enabled = false;
                 AddSegment();
             }
             else if ( ticking && half == 1 )
@@ -110,8 +133,9 @@ namespace Football_TimeTracker
                 currentStatusLabel.ForeColor = Color.Red;
                 currentStatusLabel.Text = "jogo terminado";
                 ticking = false;
-                startstopButton.Enabled = false;
                 resetButton.Enabled = true;
+                startstopButton.Enabled = false;
+                saveButton.Enabled = true;
             }
         }
 
@@ -354,6 +378,15 @@ namespace Football_TimeTracker
             int result = 0;
             result = ( minutes * Constants.minuteWidth ) + ( aditionalMinutes * Constants.minuteWidth ) + GetMinX();
             return placeholder_label.Location.X + result;
+        }
+
+        private void saveButton_Click( object sender, EventArgs e )
+        {
+            var path = System.IO.Directory.CreateDirectory( "saved_games" );
+            string fullpath = path.Name + "\\" + this.Text + ".txt";
+            JsonSerialization.WriteToJsonFile( fullpath, segments );
+            MessageBox.Show( "Jogo Gravado", "Sucesso" );
+            saveButton.Enabled = false;
         }
 
         private int GetMinX()
@@ -756,6 +789,11 @@ namespace Football_TimeTracker
             }
             #endregion
         }
+
+        private void GameForm_FormClosing( Object sender, FormClosingEventArgs e )
+        {
+            System.Windows.Forms.Application.Exit();
+        }
     }
 
     static class Constants
@@ -779,6 +817,7 @@ namespace Football_TimeTracker
 
     public class Segment
     {
+        [JsonIgnore]
         public PictureBox image;
         public int elapsedSeconds, elapsedMinutes;
         public int segmentType;

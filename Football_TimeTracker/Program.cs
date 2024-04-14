@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -20,7 +21,11 @@ namespace Football_TimeTracker
         private static LowLevelKeyboardProc _proc = HookCallback;
         private static IntPtr _hookID = IntPtr.Zero;
 
+        private static NewGamePopupForm _popupForm;
+        private static StartForm _startForm;
         private static GameForm _gameForm;
+        private static HistoryForm _historyForm;
+        private static HistoryDetailForm _historyDetailForm;
 
         [STAThread]
         public static void Main()
@@ -28,14 +33,83 @@ namespace Football_TimeTracker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
             _hookID = SetHook( _proc );
-            _gameForm = new GameForm();
-            Application.Run( _gameForm );
+            _startForm = new StartForm();
+            Application.Run( _startForm );
             UnhookWindowsHookEx( _hookID );
         }
 
-        public static void ResetApp()
+        public static void BackToMainForm()
         {
-            Application.Restart();
+            _gameForm.Dispose();
+            _gameForm = null;
+            _startForm.Show();
+        }
+
+        public static void NewGameWindow(string gameName, string competition, DateTime date)
+        {
+            _startForm.Hide();
+            _popupForm = null;
+            string result = gameName + "_" + competition + "_" + date.ToString( "dd-MM-yyyy" );
+            _gameForm = new GameForm( result );
+            _gameForm.Show();
+        }
+
+        public static void NewGamePopup()
+        {
+            if ( _popupForm == null )
+            {
+                NewGamePopupForm popup = new NewGamePopupForm();
+                _popupForm = popup;
+                _popupForm.Show();
+            }
+            else
+            {
+                _popupForm.BringToFront();
+            }
+        }
+
+        public static void HistoryShow()
+        {
+            _startForm.Hide();
+            if ( _historyForm == null )
+            {
+                HistoryForm history = new HistoryForm();
+                _historyForm = history;
+                history.Show();
+            }
+            else
+            {
+                _historyForm.BringToFront();
+            }
+        }
+
+        public static void CloseHistory()
+        {
+            _historyForm.Dispose();
+            _historyForm = null;
+            _startForm.Show();
+        }
+
+        public static void ShowHistoryDetail(string path)
+        {
+            _historyForm.Hide();
+            if ( _historyDetailForm == null )
+            {
+                HistoryDetailForm historyDetail = new HistoryDetailForm(path);
+                _historyDetailForm = historyDetail;
+                _historyDetailForm.Show();
+            }
+            else
+            {
+                _historyDetailForm.BringToFront();
+            }
+        }
+
+        public static void CloseHistoryDetail()
+        {
+            _historyDetailForm.Dispose();
+            _historyDetailForm = null;
+            _historyForm.Show();
         }
 
         private static IntPtr SetHook( LowLevelKeyboardProc proc )
@@ -59,7 +133,10 @@ namespace Football_TimeTracker
                 int vkCode = Marshal.ReadInt32( lParam );
                 //Console.WriteLine( (Keys)vkCode );
                 //Console.WriteLine( "int code:" + vkCode );
-                if(vkCode == 87) // W
+                if(_gameForm == null)
+                    return CallNextHookEx( _hookID, nCode, wParam, lParam );
+
+                if (vkCode == 87) // W
                 {
                     _gameForm.SegmentActiveButton_Click(null,null);
                 }
@@ -105,5 +182,57 @@ namespace Football_TimeTracker
 
         [DllImport( "kernel32.dll", CharSet = CharSet.Auto, SetLastError = true )]
         private static extern IntPtr GetModuleHandle( string lpModuleName );
+    }
+
+    public static class JsonSerialization
+    {
+        /// <summary>
+        /// Writes the given object instance to a Json file.
+        /// <para>Object type must have a parameterless constructor.</para>
+        /// <para>Only Public properties and variables will be written to the file. These can be any type though, even other classes.</para>
+        /// <para>If there are public properties/variables that you do not want written to the file, decorate them with the [JsonIgnore] attribute.</para>
+        /// </summary>
+        /// <typeparam name="T">The type of object being written to the file.</typeparam>
+        /// <param name="filePath">The file path to write the object instance to.</param>
+        /// <param name="objectToWrite">The object instance to write to the file.</param>
+        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
+        public static void WriteToJsonFile<T>( string filePath, T objectToWrite, bool append = false ) where T : new()
+        {
+            TextWriter writer = null;
+            try
+            {
+                var contentsToWriteToFile = Newtonsoft.Json.JsonConvert.SerializeObject( objectToWrite );
+                writer = new StreamWriter( filePath, append );
+                writer.Write( contentsToWriteToFile );
+            }
+            finally
+            {
+                if ( writer != null )
+                    writer.Close();
+            }
+        }
+
+        /// <summary>
+        /// Reads an object instance from an Json file.
+        /// <para>Object type must have a parameterless constructor.</para>
+        /// </summary>
+        /// <typeparam name="T">The type of object to read from the file.</typeparam>
+        /// <param name="filePath">The file path to read the object instance from.</param>
+        /// <returns>Returns a new instance of the object read from the Json file.</returns>
+        public static T ReadFromJsonFile<T>( string filePath ) where T : new()
+        {
+            TextReader reader = null;
+            try
+            {
+                reader = new StreamReader( filePath );
+                var fileContents = reader.ReadToEnd();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>( fileContents );
+            }
+            finally
+            {
+                if ( reader != null )
+                    reader.Close();
+            }
+        }
     }
 }

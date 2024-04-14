@@ -53,8 +53,6 @@
             this.tempoAdicionalLabel = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
             this.startstopButton = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.SegmentActiveButton = new System.Windows.Forms.Button();
             this.SegmentOutofBoundsButton = new System.Windows.Forms.Button();
             this.SegmentRefBlowButton = new System.Windows.Forms.Button();
@@ -98,11 +96,12 @@
             this.BlockKeybindingsSwitch = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.currentStatusLabel = new System.Windows.Forms.Label();
-            this.segmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.RemoveSegmentButton = new System.Windows.Forms.Button();
             this.KeybindUndo = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.segmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saveButton = new System.Windows.Forms.Button();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BarChart)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -110,6 +109,8 @@
             this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.segmentBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,46 +158,25 @@
             // 
             // resetButton
             // 
-            this.resetButton.Enabled = false;
             this.resetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resetButton.Location = new System.Drawing.Point(1430, 706);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(112, 56);
             this.resetButton.TabIndex = 7;
-            this.resetButton.Text = "Reset";
+            this.resetButton.Text = "Sair";
             this.resetButton.UseVisualStyleBackColor = true;
             this.resetButton.Click += new System.EventHandler(this.endButton_Click);
             // 
             // startstopButton
             // 
             this.startstopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startstopButton.Location = new System.Drawing.Point(1164, 542);
+            this.startstopButton.Location = new System.Drawing.Point(1229, 546);
             this.startstopButton.Name = "startstopButton";
             this.startstopButton.Size = new System.Drawing.Size(313, 120);
             this.startstopButton.TabIndex = 8;
             this.startstopButton.Text = "Iniciar 1ª parte";
             this.startstopButton.UseVisualStyleBackColor = true;
             this.startstopButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Football_TimeTracker.Properties.Resources.TimeRuler;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 220);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1030, 262);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Football_TimeTracker.Properties.Resources.TimeRuler;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1030, 262);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // SegmentActiveButton
             // 
@@ -290,7 +270,7 @@
             // 
             this.KeybindStartStop.AutoSize = true;
             this.KeybindStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindStartStop.Location = new System.Drawing.Point(1126, 587);
+            this.KeybindStartStop.Location = new System.Drawing.Point(1191, 591);
             this.KeybindStartStop.Name = "KeybindStartStop";
             this.KeybindStartStop.Size = new System.Drawing.Size(32, 31);
             this.KeybindStartStop.TabIndex = 26;
@@ -753,10 +733,6 @@
             this.currentStatusLabel.TabIndex = 32;
             this.currentStatusLabel.Text = "Jogo por iniciar";
             // 
-            // segmentBindingSource
-            // 
-            this.segmentBindingSource.DataSource = typeof(Football_TimeTracker.Segment);
-            // 
             // RemoveSegmentButton
             // 
             this.RemoveSegmentButton.Location = new System.Drawing.Point(931, 660);
@@ -777,12 +753,49 @@
             this.KeybindUndo.TabIndex = 34;
             this.KeybindUndo.Text = "Backspace";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Football_TimeTracker.Properties.Resources.TimeRuler;
+            this.pictureBox2.Location = new System.Drawing.Point(12, 220);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(1030, 262);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Football_TimeTracker.Properties.Resources.TimeRuler;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 18);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1030, 262);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // segmentBindingSource
+            // 
+            this.segmentBindingSource.DataSource = typeof(Football_TimeTracker.Segment);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Enabled = false;
+            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveButton.Location = new System.Drawing.Point(1229, 706);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(187, 56);
+            this.saveButton.TabIndex = 35;
+            this.saveButton.Text = "Gravar Jogo";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1554, 771);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.KeybindUndo);
             this.Controls.Add(this.RemoveSegmentButton);
             this.Controls.Add(this.currentStatusLabel);
@@ -813,8 +826,6 @@
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BarChart)).EndInit();
             this.tabPage2.ResumeLayout(false);
@@ -823,6 +834,8 @@
             this.tabPage1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.segmentBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -885,6 +898,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button RemoveSegmentButton;
         private System.Windows.Forms.Label KeybindUndo;
+        private System.Windows.Forms.Button saveButton;
     }
 }
 
