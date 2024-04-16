@@ -18,8 +18,7 @@ namespace Football_TimeTracker
     public partial class GameForm : Form
     {
         Timer timerPrincipal;
-        Timer timerAdicional;
-        int minutes, seconds, aditionalMinutes, aditionalSeconds, half, currentSegmentType;
+        int seconds, half, currentSegmentType;
         List<Segment> segments;
         bool ticking;
 
@@ -27,12 +26,9 @@ namespace Football_TimeTracker
         {
             InitializeComponent();
             timerPrincipal = new Timer();
-            timerAdicional = new Timer();
             half = 0;
             timerPrincipal.Interval = 1000;
             timerPrincipal.Tick += new EventHandler( TimerSecondPassed );
-            timerAdicional.Interval = 1000;
-            timerAdicional.Tick += new EventHandler( AditionalTimerSecondPassed );
             segments = new List<Segment>();
             currentSegmentType = 0;
             ticking = false;
@@ -47,12 +43,9 @@ namespace Football_TimeTracker
         {
             InitializeComponent();
             timerPrincipal = new Timer();
-            timerAdicional = new Timer();
             half = 0;
             timerPrincipal.Interval = 1000;
             timerPrincipal.Tick += new EventHandler( TimerSecondPassed );
-            timerAdicional.Interval = 1000;
-            timerAdicional.Tick += new EventHandler( AditionalTimerSecondPassed );
             segments = new List<Segment>();
             currentSegmentType = 0;
             ticking = false;
@@ -76,10 +69,7 @@ namespace Football_TimeTracker
 
             if ( !ticking && half == 0 )
             {
-                minutes = 0;
                 seconds = 0;
-                aditionalMinutes = 0;
-                aditionalSeconds = 0;
                 timerPrincipal.Start();
                 tempoTotalLabel.Text = "00:00";
                 tempoAdicionalLabel.Visible = false;
@@ -97,7 +87,6 @@ namespace Football_TimeTracker
             else if(ticking && half == 0)
             {
                 timerPrincipal.Stop();
-                timerAdicional.Stop();
                 half++;
                 currentStatusLabel.ForeColor = Color.Khaki;
                 currentStatusLabel.Text = "intervalo";
@@ -107,10 +96,7 @@ namespace Football_TimeTracker
             }
             else if ( !ticking && half == 1 )
             {
-                minutes = 0;
                 seconds = 0;
-                aditionalMinutes = 0;
-                aditionalSeconds = 0;
                 timerPrincipal.Start();
                 tempoTotalLabel.Text = "00:00";
                 tempoAdicionalLabel.Visible = false;
@@ -128,7 +114,6 @@ namespace Football_TimeTracker
             else if ( ticking && half == 1 )
             {
                 timerPrincipal.Stop();
-                timerAdicional.Stop();
                 half++;
                 currentStatusLabel.ForeColor = Color.Red;
                 currentStatusLabel.Text = "jogo terminado";
@@ -259,7 +244,6 @@ namespace Football_TimeTracker
             segments.Remove( lastsegment );
             this.Controls.Remove( lastsegment.image );
             Segment prelastsegment = segments.Last();
-            prelastsegment.elapsedMinutes += lastsegment.elapsedMinutes;
             prelastsegment.elapsedSeconds += lastsegment.elapsedSeconds;
             currentSegmentType = prelastsegment.segmentType;
             switch ( currentSegmentType )
@@ -337,6 +321,7 @@ namespace Football_TimeTracker
             segment.image = picture;
             segment.segmentType = currentSegmentType;
             segment.half = half;
+            segment.startingSeconds = seconds;
 
             switch ( segment.segmentType )
             {
@@ -362,7 +347,7 @@ namespace Football_TimeTracker
             if ( segments.Count > 1 )
             {
                 Segment lastSegment = segments.Last();
-                if (lastSegment.elapsedMinutes == 0 && lastSegment.elapsedSeconds == 0)
+                if (lastSegment.elapsedSeconds == 0)
                 {
                     this.Controls.Remove( lastSegment.image );
                     segments.Remove( lastSegment );
@@ -376,7 +361,7 @@ namespace Football_TimeTracker
         private int GetXPosition()
         {
             int result = 0;
-            result = ( minutes * Constants.minuteWidth ) + ( aditionalMinutes * Constants.minuteWidth ) + GetMinX();
+            result = GetMinX();
             return placeholder_label.Location.X + result;
         }
 
@@ -391,7 +376,7 @@ namespace Football_TimeTracker
 
         private int GetMinX()
         {
-            int result = (int)( seconds * Constants.secondWidth ) + (int)( aditionalSeconds * Constants.secondWidth );
+            int result = (int)( seconds * Constants.secondWidth );
             if ( result == 0 )
                 return 1;
             else return result;
@@ -409,40 +394,26 @@ namespace Football_TimeTracker
                                             EventArgs myEventArgs )
         {
             seconds++;
-            if ( seconds == 60 )
+            int formattedMinutes, formattedSeconds;
+            formattedSeconds = seconds;
+            formattedMinutes = 0;
+            while ( formattedSeconds >= 60 )
             {
-                seconds = 0;
-                minutes++;
+                formattedSeconds -= 60;
+                formattedMinutes++;
             }
-            if ( minutes == 45 && ( half == 0 || half == 1 ) )
+            if ( seconds >= 2700 ) //45 mins
             {
-                timerPrincipal.Stop();
-                timerAdicional.Start();
+                tempoTotalLabel.Text = "45:00";
+                formattedMinutes -= 45;
                 tempoAdicionalLabel.Visible = true;
+                tempoAdicionalLabel.Text = "+ " + formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
             }
-            if ( minutes == 15 && ( half == 2 || half == 3 ) )
+            else
             {
-                timerPrincipal.Stop();
-                timerAdicional.Start();
-                tempoAdicionalLabel.Visible = true;
+                tempoTotalLabel.Text = formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
+                tempoAdicionalLabel.Visible = false;
             }
-            tempoTotalLabel.Text = minutes.ToString( "D2" ) + ":" + seconds.ToString( "D2" );
-
-            segments.LastOrDefault().addSeconds();
-
-            UpdateTotals();
-        }
-
-        private void AditionalTimerSecondPassed( Object myObject,
-                                            EventArgs myEventArgs )
-        {
-            aditionalSeconds++;
-            if ( aditionalSeconds == 60 )
-            {
-                aditionalSeconds = 0;
-                aditionalMinutes++;
-            }
-            tempoAdicionalLabel.Text = "+ " + aditionalMinutes.ToString( "D2" ) + ":" + aditionalSeconds.ToString( "D2" );
 
             segments.LastOrDefault().addSeconds();
 
@@ -472,10 +443,10 @@ namespace Football_TimeTracker
             }
 
             #region Text Stats
-            int elapsedMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
-            int elapsedMinutesOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
-            int elapsedMinutesRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
-            int elapsedMinutesGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
+            int elapsedMinutesActive = 0;
+            int elapsedMinutesOutofBounds = 0;
+            int elapsedMinutesRefBlow = 0;
+            int elapsedMinutesGoal = 0;
 
             int elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
             int elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
@@ -509,7 +480,7 @@ namespace Football_TimeTracker
             StateRefBlowTimer.Text = elapsedMinutesRefBlow.ToString( "D2" ) + ":" + elapsedSecondsRefBlow.ToString( "D2" );
             StateGoalTimer.Text = elapsedMinutesGoal.ToString( "D2" ) + ":" + elapsedSecondsGoal.ToString( "D2" );
 
-            int TotalMinutes = segments.Sum( x => x.elapsedMinutes );
+            int TotalMinutes = 0;
             int TotalSeconds = segments.Sum( x => x.elapsedSeconds );
             while ( TotalSeconds >= 60 ) 
             {
@@ -520,10 +491,10 @@ namespace Football_TimeTracker
             #endregion
 
             #region Pie Chart
-            elapsedMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
+            elapsedMinutesActive = 0;
+            elapsedMinutesOutofBounds = 0;
+            elapsedMinutesRefBlow = 0;
+            elapsedMinutesGoal = 0;
 
             elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
             elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
@@ -597,20 +568,15 @@ namespace Football_TimeTracker
             #endregion
 
             #region Bar Chart
-            elapsedMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
-
             elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
             elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
             elapsedSecondsRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
             elapsedSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
 
-            double BarMinutesActive = elapsedMinutesActive + ( (double)elapsedSecondsActive / 60 );
-            double BarMinutesOutOfBounds = elapsedMinutesOutofBounds + ( (double)elapsedSecondsOutofBounds / 60 );
-            double BarMinutesRefBlow = elapsedMinutesRefBlow + ( (double)elapsedSecondsRefBlow / 60 );
-            double BarMinutesGoal = elapsedMinutesGoal + ( (double)elapsedSecondsGoal / 60 );
+            double BarMinutesActive = (double)elapsedSecondsActive / 60;
+            double BarMinutesOutOfBounds = (double)elapsedSecondsOutofBounds / 60;
+            double BarMinutesRefBlow = (double)elapsedSecondsRefBlow / 60;
+            double BarMinutesGoal = (double)elapsedSecondsGoal / 60;
 
             if ( BarMinutesActive > 0 )
             {
@@ -676,15 +642,30 @@ namespace Football_TimeTracker
 
             #region Other Text Stats
             totalSegmentsResult.Text = segments.Count.ToString();
+            int formattedMinutes, formattedSeconds;
 
-            Segment biggestActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedMinutes ).ThenByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            Segment biggestActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
             if ( biggestActive != null )
             {
-                biggestActiveSegmentResult.Text = biggestActive.elapsedMinutes.ToString( "D2" ) + ":" + biggestActive.elapsedSeconds.ToString( "D2" );
+                formattedMinutes = 0;
+                formattedSeconds = biggestActive.elapsedSeconds;
+                while (formattedSeconds >= 60)
+                {
+                    formattedSeconds -= 60;
+                    formattedMinutes++;
+                }
+                biggestActiveSegmentResult.Text = formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
             }
-            Segment biggestStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedMinutes ).ThenByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            Segment biggestStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
             if ( biggestStopped != null )
             {
+                formattedMinutes = 0;
+                formattedSeconds = biggestStopped.elapsedSeconds;
+                while ( formattedSeconds >= 60 )
+                {
+                    formattedSeconds -= 60;
+                    formattedMinutes++;
+                }
                 switch ( biggestStopped.segmentType )
                 {
                     case Constants.segmentTypeOutofBounds:
@@ -706,7 +687,7 @@ namespace Football_TimeTracker
                         averageStoppedSegmentResult.BackColor = Constants.colorSegmentGoal;
                         break;
                 }
-                biggestStoppedSegmentResult.Text = biggestStopped.elapsedMinutes.ToString( "D2" ) + ":" + biggestStopped.elapsedSeconds.ToString( "D2" );
+                biggestStoppedSegmentResult.Text = formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
             }
             else
             {
@@ -720,13 +701,7 @@ namespace Football_TimeTracker
             int CountSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Count();
             if ( CountSecondsActive > 0 )
             {
-                int TotalMinutesActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
                 int TotalSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-                while ( TotalMinutesActive > 0 )
-                {
-                    TotalSecondsActive += 60;
-                    TotalMinutesActive--;
-                }
                 int AverageActiveSeconds = TotalSecondsActive / CountSecondsActive;
                 int AverageActiveMinutes = 0;
                 while ( AverageActiveSeconds >= 60 )
@@ -741,13 +716,7 @@ namespace Football_TimeTracker
             int CountSecondsStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Count();
             if ( CountSecondsStopped > 0 )
             {
-                int TotalMinutesStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
                 int TotalSecondsStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-                while ( TotalMinutesStopped > 0 )
-                {
-                    TotalSecondsStopped += 60;
-                    TotalMinutesStopped--;
-                }
                 int AverageStoppedSeconds = TotalSecondsStopped / CountSecondsStopped;
                 int AverageStoppedMinutes = 0;
                 while ( AverageStoppedSeconds >= 60 )
@@ -766,13 +735,7 @@ namespace Football_TimeTracker
             int CountSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Count();
             if ( CountSecondsGoal > 0 )
             {
-                int TotalMinutesGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
                 int TotalSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
-                while ( TotalMinutesGoal > 0 )
-                {
-                    TotalSecondsGoal += 60;
-                    TotalMinutesGoal--;
-                }
                 int AverageGoalSeconds = TotalSecondsGoal / CountSecondsGoal;
                 int AverageGoalMinutes = 0;
                 while ( AverageGoalSeconds >= 60 )
@@ -799,7 +762,6 @@ namespace Football_TimeTracker
     static class Constants
     {
         public const int SegmentHeigth = 20;
-        public const int minuteWidth = 15;
         public const double secondWidth = 0.25;
 
         public const int segmentTypeActive = 0;
@@ -819,30 +781,25 @@ namespace Football_TimeTracker
     {
         [JsonIgnore]
         public PictureBox image;
-        public int elapsedSeconds, elapsedMinutes;
+        public int elapsedSeconds;
+        public int startingSeconds;
         public int segmentType;
         public int half;
 
         public Segment()
         {
             elapsedSeconds = 0;
-            elapsedMinutes = 0;
         }
 
         public void addSeconds()
         {
             elapsedSeconds++;
-            if (elapsedSeconds == 60)
-            {
-                elapsedSeconds = 0;
-                elapsedMinutes++;
-            }
             SetWidth();
         }
 
         public void SetWidth()
         {
-            this.image.Width = (elapsedMinutes * Constants.minuteWidth) + GetMinX();
+            this.image.Width = GetMinX();
         }
 
         private int GetMinX()

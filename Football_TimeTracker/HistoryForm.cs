@@ -104,10 +104,10 @@ namespace Football_TimeTracker
         private void UpdateTotals()
         {
             #region Text Stats
-            int elapsedMinutesActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
-            int elapsedMinutesOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
-            int elapsedMinutesRefBlow = totalSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
-            int elapsedMinutesGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
+            int elapsedMinutesActive = 0;
+            int elapsedMinutesOutofBounds = 0;
+            int elapsedMinutesRefBlow = 0;
+            int elapsedMinutesGoal = 0;
 
             int elapsedSecondsActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
             int elapsedSecondsOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
@@ -141,7 +141,7 @@ namespace Football_TimeTracker
             StateRefBlowTimer.Text = elapsedMinutesRefBlow.ToString( "D2" ) + ":" + elapsedSecondsRefBlow.ToString( "D2" );
             StateGoalTimer.Text = elapsedMinutesGoal.ToString( "D2" ) + ":" + elapsedSecondsGoal.ToString( "D2" );
 
-            int TotalMinutes = totalSegments.Sum( x => x.elapsedMinutes );
+            int TotalMinutes = 0;
             int TotalSeconds = totalSegments.Sum( x => x.elapsedSeconds );
             while ( TotalSeconds >= 60 )
             {
@@ -152,36 +152,11 @@ namespace Football_TimeTracker
             #endregion
 
             #region Pie Chart
-            elapsedMinutesActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesRefBlow = totalSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
 
             elapsedSecondsActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
             elapsedSecondsOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
             elapsedSecondsRefBlow = totalSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
             elapsedSecondsGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
-
-            while ( elapsedMinutesActive > 0 )
-            {
-                elapsedSecondsActive += 60;
-                elapsedMinutesActive--;
-            }
-            while ( elapsedMinutesOutofBounds > 0 )
-            {
-                elapsedSecondsOutofBounds += 60;
-                elapsedMinutesOutofBounds--;
-            }
-            while ( elapsedMinutesRefBlow > 0 )
-            {
-                elapsedSecondsRefBlow += 60;
-                elapsedMinutesRefBlow--;
-            }
-            while ( elapsedMinutesGoal > 0 )
-            {
-                elapsedSecondsGoal += 60;
-                elapsedMinutesGoal--;
-            }
 
             int totalSecondsElapsed = elapsedSecondsActive + elapsedSecondsOutofBounds + elapsedSecondsRefBlow + elapsedSecondsGoal;
 
@@ -229,20 +204,15 @@ namespace Football_TimeTracker
             #endregion
 
             #region Bar Chart
-            elapsedMinutesActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesRefBlow = totalSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedMinutes );
-            elapsedMinutesGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
-
             elapsedSecondsActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
             elapsedSecondsOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
             elapsedSecondsRefBlow = totalSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
             elapsedSecondsGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
 
-            double BarMinutesActive = elapsedMinutesActive + ( (double)elapsedSecondsActive / 60 );
-            double BarMinutesOutOfBounds = elapsedMinutesOutofBounds + ( (double)elapsedSecondsOutofBounds / 60 );
-            double BarMinutesRefBlow = elapsedMinutesRefBlow + ( (double)elapsedSecondsRefBlow / 60 );
-            double BarMinutesGoal = elapsedMinutesGoal + ( (double)elapsedSecondsGoal / 60 );
+            double BarMinutesActive = (double)elapsedSecondsActive / 60;
+            double BarMinutesOutOfBounds = (double)elapsedSecondsOutofBounds / 60;
+            double BarMinutesRefBlow = (double)elapsedSecondsRefBlow / 60;
+            double BarMinutesGoal = (double)elapsedSecondsGoal / 60;
 
             if ( BarMinutesActive > 0 )
             {
@@ -302,24 +272,36 @@ namespace Football_TimeTracker
             if ( BarMinutesGoal > MaxYValue )
                 MaxYValue = BarMinutesGoal;
 
-            if (MaxYValue < 1)
-                MaxYValue = 1;
-
             MaxYValue = Math.Ceiling( MaxYValue );
             BarChart.ChartAreas[ 0 ].AxisY.Maximum = MaxYValue;
             #endregion
 
             #region Other Text Stats
             totalSegmentsResult.Text = totalSegments.Count.ToString();
+            int formattedMinutes, formattedSeconds;
 
-            Segment biggestActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedMinutes ).ThenByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            Segment biggestActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
             if ( biggestActive != null )
             {
-                biggestActiveSegmentResult.Text = biggestActive.elapsedMinutes.ToString( "D2" ) + ":" + biggestActive.elapsedSeconds.ToString( "D2" );
+                formattedMinutes = 0;
+                formattedSeconds = biggestActive.elapsedSeconds;
+                while ( formattedSeconds >= 60 )
+                {
+                    formattedSeconds -= 60;
+                    formattedMinutes++;
+                }
+                biggestActiveSegmentResult.Text = formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
             }
-            Segment biggestStopped = totalSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedMinutes ).ThenByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            Segment biggestStopped = totalSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
             if ( biggestStopped != null )
             {
+                formattedMinutes = 0;
+                formattedSeconds = biggestStopped.elapsedSeconds;
+                while ( formattedSeconds >= 60 )
+                {
+                    formattedSeconds -= 60;
+                    formattedMinutes++;
+                }
                 switch ( biggestStopped.segmentType )
                 {
                     case Constants.segmentTypeOutofBounds:
@@ -341,7 +323,7 @@ namespace Football_TimeTracker
                         averageStoppedSegmentResult.BackColor = Constants.colorSegmentGoal;
                         break;
                 }
-                biggestStoppedSegmentResult.Text = biggestStopped.elapsedMinutes.ToString( "D2" ) + ":" + biggestStopped.elapsedSeconds.ToString( "D2" );
+                biggestStoppedSegmentResult.Text = formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
             }
             else
             {
@@ -355,13 +337,7 @@ namespace Football_TimeTracker
             int CountSecondsActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Count();
             if ( CountSecondsActive > 0 )
             {
-                int TotalMinutesActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
                 int TotalSecondsActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-                while ( TotalMinutesActive > 0 )
-                {
-                    TotalSecondsActive += 60;
-                    TotalMinutesActive--;
-                }
                 int AverageActiveSeconds = TotalSecondsActive / CountSecondsActive;
                 int AverageActiveMinutes = 0;
                 while ( AverageActiveSeconds >= 60 )
@@ -376,13 +352,7 @@ namespace Football_TimeTracker
             int CountSecondsStopped = totalSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).Count();
             if ( CountSecondsStopped > 0 )
             {
-                int TotalMinutesStopped = totalSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedMinutes );
                 int TotalSecondsStopped = totalSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-                while ( TotalMinutesStopped > 0 )
-                {
-                    TotalSecondsStopped += 60;
-                    TotalMinutesStopped--;
-                }
                 int AverageStoppedSeconds = TotalSecondsStopped / CountSecondsStopped;
                 int AverageStoppedMinutes = 0;
                 while ( AverageStoppedSeconds >= 60 )
@@ -401,13 +371,7 @@ namespace Football_TimeTracker
             int CountSecondsGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Count();
             if ( CountSecondsGoal > 0 )
             {
-                int TotalMinutesGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedMinutes );
                 int TotalSecondsGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
-                while ( TotalMinutesGoal > 0 )
-                {
-                    TotalSecondsGoal += 60;
-                    TotalMinutesGoal--;
-                }
                 int AverageGoalSeconds = TotalSecondsGoal / CountSecondsGoal;
                 int AverageGoalMinutes = 0;
                 while ( AverageGoalSeconds >= 60 )

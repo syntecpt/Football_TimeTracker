@@ -77,12 +77,12 @@
             this.biggestActiveSegmentLabel = new System.Windows.Forms.Label();
             this.totalSegmentsLabel = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.BackButton = new System.Windows.Forms.Button();
             this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SelectedCheckbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.GameName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CompetitionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GameDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BackButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -420,7 +420,7 @@
             // 
             this.biggestActiveSegmentResult.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(3, 114);
+            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(1, 114);
             this.biggestActiveSegmentResult.Name = "biggestActiveSegmentResult";
             this.biggestActiveSegmentResult.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentResult.TabIndex = 8;
@@ -483,7 +483,7 @@
             // 
             this.biggestActiveSegmentLabel.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(3, 76);
+            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(1, 76);
             this.biggestActiveSegmentLabel.Name = "biggestActiveSegmentLabel";
             this.biggestActiveSegmentLabel.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentLabel.TabIndex = 1;
@@ -531,17 +531,6 @@
             this.dataGridView1.TabIndex = 31;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // BackButton
-            // 
-            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackButton.Location = new System.Drawing.Point(1157, 550);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(176, 56);
-            this.BackButton.TabIndex = 32;
-            this.BackButton.Text = "Voltar";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-            // 
             // FullPath
             // 
             this.FullPath.HeaderText = "FullPath";
@@ -577,6 +566,17 @@
             this.GameDate.HeaderText = "Data";
             this.GameDate.Name = "GameDate";
             this.GameDate.ReadOnly = true;
+            // 
+            // BackButton
+            // 
+            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackButton.Location = new System.Drawing.Point(1157, 550);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(176, 56);
+            this.BackButton.TabIndex = 32;
+            this.BackButton.Text = "Voltar";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // HistoryForm
             // 
