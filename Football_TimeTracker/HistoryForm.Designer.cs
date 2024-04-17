@@ -409,7 +409,7 @@
             // biggestStoppedSegmentResult
             // 
             this.biggestStoppedSegmentResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestStoppedSegmentResult.Location = new System.Drawing.Point(-4, 190);
+            this.biggestStoppedSegmentResult.Location = new System.Drawing.Point(-1, 190);
             this.biggestStoppedSegmentResult.Name = "biggestStoppedSegmentResult";
             this.biggestStoppedSegmentResult.Size = new System.Drawing.Size(443, 38);
             this.biggestStoppedSegmentResult.TabIndex = 9;
@@ -420,7 +420,7 @@
             // 
             this.biggestActiveSegmentResult.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(1, 114);
+            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(-1, 114);
             this.biggestActiveSegmentResult.Name = "biggestActiveSegmentResult";
             this.biggestActiveSegmentResult.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentResult.TabIndex = 8;
@@ -483,7 +483,7 @@
             // 
             this.biggestActiveSegmentLabel.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(1, 76);
+            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(-1, 76);
             this.biggestActiveSegmentLabel.Name = "biggestActiveSegmentLabel";
             this.biggestActiveSegmentLabel.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentLabel.TabIndex = 1;

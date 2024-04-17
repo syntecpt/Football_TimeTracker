@@ -14,6 +14,9 @@ namespace Football_TimeTracker
     public partial class HistoryDetailForm : Form
     {
         List<Segment> segments;
+        List<Segment> SelectedSegments;
+        Segment segmentToSave;
+        Segment segmentToRestore;
         public HistoryDetailForm()
         {
             InitializeComponent();
@@ -42,7 +45,8 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
 
             CreateSegments();
-            UpdateTotals();
+            SelectedSegments = new List<Segment>();
+            GetSelectedSegments();
         }
 
         private void HistoryForm_FormClosing( Object sender, FormClosingEventArgs e )
@@ -132,10 +136,10 @@ namespace Football_TimeTracker
             int elapsedMinutesRefBlow = 0;
             int elapsedMinutesGoal = 0;
 
-            int elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-            int elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
-            int elapsedSecondsRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
-            int elapsedSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+            int elapsedSecondsActive = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+            int elapsedSecondsOutofBounds = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
+            int elapsedSecondsRefBlow = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
+            int elapsedSecondsGoal = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
 
             while ( elapsedSecondsActive >= 60 )
             {
@@ -165,7 +169,7 @@ namespace Football_TimeTracker
             StateGoalTimer.Text = elapsedMinutesGoal.ToString( "D2" ) + ":" + elapsedSecondsGoal.ToString( "D2" );
 
             int TotalMinutes = 0;
-            int TotalSeconds = segments.Sum( x => x.elapsedSeconds );
+            int TotalSeconds = SelectedSegments.Sum( x => x.elapsedSeconds );
             while ( TotalSeconds >= 60 )
             {
                 TotalSeconds -= 60;
@@ -180,10 +184,10 @@ namespace Football_TimeTracker
             elapsedMinutesRefBlow = 0;
             elapsedMinutesGoal = 0;
 
-            elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsActive = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsOutofBounds = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsRefBlow = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsGoal = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
 
             while ( elapsedMinutesActive > 0 )
             {
@@ -252,10 +256,10 @@ namespace Football_TimeTracker
             #endregion
 
             #region Bar Chart
-            elapsedSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsOutofBounds = segments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsRefBlow = segments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsActive = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsOutofBounds = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsRefBlow = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
+            elapsedSecondsGoal = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
 
             double BarMinutesActive = (double)elapsedSecondsActive / 60;
             double BarMinutesOutOfBounds = (double)elapsedSecondsOutofBounds / 60;
@@ -325,10 +329,10 @@ namespace Football_TimeTracker
             #endregion
 
             #region Other Text Stats
-            totalSegmentsResult.Text = segments.Count.ToString();
+            totalSegmentsResult.Text = SelectedSegments.Count.ToString();
             int formattedMinutes, formattedSeconds;
 
-            Segment biggestActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            Segment biggestActive = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
             if ( biggestActive != null )
             {
                 formattedMinutes = 0;
@@ -340,7 +344,7 @@ namespace Football_TimeTracker
                 }
                 biggestActiveSegmentResult.Text = formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
             }
-            Segment biggestStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
+            Segment biggestStopped = SelectedSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
             if ( biggestStopped != null )
             {
                 formattedMinutes = 0;
@@ -382,10 +386,10 @@ namespace Football_TimeTracker
                 biggestStoppedSegmentResult.Text = "00:00";
             }
 
-            int CountSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Count();
+            int CountSecondsActive = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Count();
             if ( CountSecondsActive > 0 )
             {
-                int TotalSecondsActive = segments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+                int TotalSecondsActive = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
                 int AverageActiveSeconds = TotalSecondsActive / CountSecondsActive;
                 int AverageActiveMinutes = 0;
                 while ( AverageActiveSeconds >= 60 )
@@ -397,10 +401,10 @@ namespace Football_TimeTracker
                 averageActiveSegmentResult.Text = AverageActiveMinutes.ToString( "D2" ) + ":" + AverageActiveSeconds.ToString( "D2" );
             }
 
-            int CountSecondsStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Count();
+            int CountSecondsStopped = SelectedSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).Count();
             if ( CountSecondsStopped > 0 )
             {
-                int TotalSecondsStopped = segments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
+                int TotalSecondsStopped = SelectedSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
                 int AverageStoppedSeconds = TotalSecondsStopped / CountSecondsStopped;
                 int AverageStoppedMinutes = 0;
                 while ( AverageStoppedSeconds >= 60 )
@@ -416,10 +420,10 @@ namespace Football_TimeTracker
                 averageStoppedSegmentResult.Text = "00:00";
             }
 
-            int CountSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Count();
+            int CountSecondsGoal = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Count();
             if ( CountSecondsGoal > 0 )
             {
-                int TotalSecondsGoal = segments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+                int TotalSecondsGoal = SelectedSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
                 int AverageGoalSeconds = TotalSecondsGoal / CountSecondsGoal;
                 int AverageGoalMinutes = 0;
                 while ( AverageGoalSeconds >= 60 )
@@ -440,6 +444,62 @@ namespace Football_TimeTracker
         private void HistoryDetailForm_Load( object sender, EventArgs e )
         {
 
+        }
+
+        private void GetSelectedSegments()
+        {
+            # region half radio buttons
+            if ( bothHalfsRadio.Checked )
+            {
+                SelectedSegments = new List<Segment>();
+                SelectedSegments.AddRange( segments );
+                foreach (Segment segment in segments)
+                {
+                    segment.image.Visible = true;
+                }
+            }
+            else if ( firstHalfRadio.Checked )
+            {
+                SelectedSegments = new List<Segment>();
+                SelectedSegments = segments.Where( x => x.half == 0).ToList();
+                foreach ( Segment segment in segments )
+                {
+                    if( segment.half == 0)
+                        segment.image.Visible = true;
+                    else
+                        segment.image.Visible = false;
+                }
+            }
+            else if ( secondHalfRadio.Checked )
+            {
+                SelectedSegments = new List<Segment>();
+                SelectedSegments = segments.Where( x => x.half == 1 ).ToList();
+                foreach ( Segment segment in segments )
+                {
+                    if ( segment.half == 0 )
+                        segment.image.Visible = false;
+                    else
+                        segment.image.Visible = true;
+                }
+            }
+            #endregion
+
+            UpdateTotals();
+        }
+
+        private void bothHalfsRadio_CheckedChanged( object sender, EventArgs e )
+        {
+            GetSelectedSegments();
+        }
+
+        private void firstHalfRadio_CheckedChanged( object sender, EventArgs e )
+        {
+            GetSelectedSegments();
+        }
+
+        private void secondHalfRadio_CheckedChanged( object sender, EventArgs e )
+        {
+            GetSelectedSegments();
         }
     }
 }

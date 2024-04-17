@@ -85,6 +85,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DateLabel = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
+            this.bothHalfsRadio = new System.Windows.Forms.RadioButton();
+            this.firstHalfRadio = new System.Windows.Forms.RadioButton();
+            this.secondHalfRadio = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -94,6 +98,7 @@
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -412,7 +417,7 @@
             // biggestStoppedSegmentResult
             // 
             this.biggestStoppedSegmentResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestStoppedSegmentResult.Location = new System.Drawing.Point(-4, 190);
+            this.biggestStoppedSegmentResult.Location = new System.Drawing.Point(-1, 190);
             this.biggestStoppedSegmentResult.Name = "biggestStoppedSegmentResult";
             this.biggestStoppedSegmentResult.Size = new System.Drawing.Size(443, 38);
             this.biggestStoppedSegmentResult.TabIndex = 9;
@@ -423,7 +428,7 @@
             // 
             this.biggestActiveSegmentResult.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(1, 114);
+            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(-1, 114);
             this.biggestActiveSegmentResult.Name = "biggestActiveSegmentResult";
             this.biggestActiveSegmentResult.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentResult.TabIndex = 8;
@@ -486,7 +491,7 @@
             // 
             this.biggestActiveSegmentLabel.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(1, 76);
+            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(-1, 76);
             this.biggestActiveSegmentLabel.Name = "biggestActiveSegmentLabel";
             this.biggestActiveSegmentLabel.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentLabel.TabIndex = 1;
@@ -602,6 +607,53 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // bothHalfsRadio
+            // 
+            this.bothHalfsRadio.AutoSize = true;
+            this.bothHalfsRadio.Checked = true;
+            this.bothHalfsRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bothHalfsRadio.Location = new System.Drawing.Point(25, 16);
+            this.bothHalfsRadio.Name = "bothHalfsRadio";
+            this.bothHalfsRadio.Size = new System.Drawing.Size(235, 35);
+            this.bothHalfsRadio.TabIndex = 46;
+            this.bothHalfsRadio.Text = "Ambas as partes";
+            this.bothHalfsRadio.UseVisualStyleBackColor = true;
+            this.bothHalfsRadio.CheckedChanged += new System.EventHandler(this.bothHalfsRadio_CheckedChanged);
+            // 
+            // firstHalfRadio
+            // 
+            this.firstHalfRadio.AutoSize = true;
+            this.firstHalfRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstHalfRadio.Location = new System.Drawing.Point(25, 57);
+            this.firstHalfRadio.Name = "firstHalfRadio";
+            this.firstHalfRadio.Size = new System.Drawing.Size(225, 35);
+            this.firstHalfRadio.TabIndex = 47;
+            this.firstHalfRadio.Text = "Apenas 1ª parte";
+            this.firstHalfRadio.UseVisualStyleBackColor = true;
+            this.firstHalfRadio.CheckedChanged += new System.EventHandler(this.firstHalfRadio_CheckedChanged);
+            // 
+            // secondHalfRadio
+            // 
+            this.secondHalfRadio.AutoSize = true;
+            this.secondHalfRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondHalfRadio.Location = new System.Drawing.Point(25, 98);
+            this.secondHalfRadio.Name = "secondHalfRadio";
+            this.secondHalfRadio.Size = new System.Drawing.Size(225, 35);
+            this.secondHalfRadio.TabIndex = 48;
+            this.secondHalfRadio.Text = "Apenas 2ª parte";
+            this.secondHalfRadio.UseVisualStyleBackColor = true;
+            this.secondHalfRadio.CheckedChanged += new System.EventHandler(this.secondHalfRadio_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.bothHalfsRadio);
+            this.panel1.Controls.Add(this.firstHalfRadio);
+            this.panel1.Controls.Add(this.secondHalfRadio);
+            this.panel1.Location = new System.Drawing.Point(103, 446);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(300, 142);
+            this.panel1.TabIndex = 51;
+            // 
             // HistoryDetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -609,6 +661,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1563, 615);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.DateLabel);
             this.Controls.Add(this.CompetitionLabel);
             this.Controls.Add(this.GameNameLabel);
@@ -636,6 +689,8 @@
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -682,5 +737,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label DateLabel;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.RadioButton bothHalfsRadio;
+        private System.Windows.Forms.RadioButton firstHalfRadio;
+        private System.Windows.Forms.RadioButton secondHalfRadio;
+        private System.Windows.Forms.Panel panel1;
     }
 }

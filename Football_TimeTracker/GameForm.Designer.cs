@@ -100,8 +100,8 @@
             this.KeybindUndo = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.segmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saveButton = new System.Windows.Forms.Button();
+            this.segmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BarChart)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -612,7 +612,7 @@
             // biggestStoppedSegmentResult
             // 
             this.biggestStoppedSegmentResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestStoppedSegmentResult.Location = new System.Drawing.Point(-4, 190);
+            this.biggestStoppedSegmentResult.Location = new System.Drawing.Point(0, 190);
             this.biggestStoppedSegmentResult.Name = "biggestStoppedSegmentResult";
             this.biggestStoppedSegmentResult.Size = new System.Drawing.Size(443, 38);
             this.biggestStoppedSegmentResult.TabIndex = 9;
@@ -623,9 +623,9 @@
             // 
             this.biggestActiveSegmentResult.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(1, 114);
+            this.biggestActiveSegmentResult.Location = new System.Drawing.Point(-1, 114);
             this.biggestActiveSegmentResult.Name = "biggestActiveSegmentResult";
-            this.biggestActiveSegmentResult.Size = new System.Drawing.Size(440, 38);
+            this.biggestActiveSegmentResult.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentResult.TabIndex = 8;
             this.biggestActiveSegmentResult.Text = "00:00";
             this.biggestActiveSegmentResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -686,9 +686,9 @@
             // 
             this.biggestActiveSegmentLabel.BackColor = System.Drawing.Color.SpringGreen;
             this.biggestActiveSegmentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(1, 76);
+            this.biggestActiveSegmentLabel.Location = new System.Drawing.Point(-1, 76);
             this.biggestActiveSegmentLabel.Name = "biggestActiveSegmentLabel";
-            this.biggestActiveSegmentLabel.Size = new System.Drawing.Size(440, 38);
+            this.biggestActiveSegmentLabel.Size = new System.Drawing.Size(443, 38);
             this.biggestActiveSegmentLabel.TabIndex = 1;
             this.biggestActiveSegmentLabel.Text = "Maior segmento \"A seguir\"";
             this.biggestActiveSegmentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -773,10 +773,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // segmentBindingSource
-            // 
-            this.segmentBindingSource.DataSource = typeof(Football_TimeTracker.Segment);
-            // 
             // saveButton
             // 
             this.saveButton.Enabled = false;
@@ -788,6 +784,10 @@
             this.saveButton.Text = "Gravar Jogo";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // segmentBindingSource
+            // 
+            this.segmentBindingSource.DataSource = typeof(Football_TimeTracker.Segment);
             // 
             // GameForm
             // 
