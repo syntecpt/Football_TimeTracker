@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,14 +7,17 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Football_TimeTracker
 {
     public partial class HistoryForm : Form
     {
         List<Segment> totalSegments;
+        List<Game> tempGames, nameGames, competitionGames, dateGames;
 
         public HistoryForm()
         {
@@ -23,6 +27,7 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";
             PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
+            totalSegments = new List<Segment>();
         }
 
         private void HistoryForm_Load( object sender, EventArgs e )
@@ -387,6 +392,528 @@ namespace Football_TimeTracker
                 averageGoalSegmentResult.Text = "00:00";
             }
             #endregion
+        }
+
+        private void addGameFilter2_Click( object sender, EventArgs e )
+        {
+            removeGameFilter1.Visible = false;
+            addGameFilter2.Visible = false;
+            nameFilter2.Text = string.Empty;
+            nameFilter2.Visible = true;
+            removeGameFilter2.Visible = true;
+            addGameFilter3.Visible = true;
+            comboBoxNameFilter2.Visible = true;
+            comboBoxNameFilter2.SelectedIndex = 1;
+        }
+
+        private void removeGameFilter2_Click( object sender, EventArgs e )
+        {
+            removeGameFilter1.Visible = true;
+            addGameFilter2.Visible = true;
+            nameFilter2.Text = string.Empty;
+            nameFilter2.Visible = false;
+            removeGameFilter2.Visible = false;
+            addGameFilter3.Visible = false;
+            comboBoxNameFilter2.Visible = false;
+        }
+
+        private void addGameFilter3_Click( object sender, EventArgs e )
+        {
+            addGameFilter3.Visible = false;
+            nameFilter3.Text = string.Empty;
+            nameFilter3.Visible = true;
+            removeGameFilter2.Visible = false;
+            removeGameFilter3.Visible = true;
+            addGameFilter3.Visible = false;
+            comboBoxNameFilter3.Visible = true;
+            comboBoxNameFilter3.SelectedIndex = 1;
+        }
+
+        private void removeGameFilter3_Click( object sender, EventArgs e )
+        {
+            addGameFilter3.Visible = true;
+            nameFilter3.Text = string.Empty;
+            nameFilter2.Visible = true;
+            nameFilter3.Visible = false;
+            removeGameFilter2.Visible = true;
+            removeGameFilter3.Visible = false;
+            comboBoxNameFilter3.Visible = false;
+        }
+
+        private void nameFilter1_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^a-zA-Z0-9\s]" );
+
+            if ( !string.IsNullOrEmpty( nameFilter1.Text ) )
+            {
+                foreach ( char c in nameFilter1.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        nameFilter1.Text = nameFilter1.Text.Replace( c.ToString(), string.Empty );
+                        nameFilter1.SelectionStart = nameFilter1.Text.Length;
+                    }
+                }                
+            }
+        }
+
+        private void nameFilter2_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^a-zA-Z0-9\s]" );
+
+            if ( !string.IsNullOrEmpty( nameFilter2.Text ) )
+            {
+                foreach ( char c in nameFilter2.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        nameFilter2.Text = nameFilter2.Text.Replace( c.ToString(), string.Empty );
+                        nameFilter2.SelectionStart = nameFilter2.Text.Length;
+                    }
+                }
+            }
+        }
+
+        private void removeGameFilter1_Click( object sender, EventArgs e )
+        {
+            nameFilter1.Text = string.Empty;
+        }
+
+        private void nameFilter3_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^a-zA-Z0-9\s]" );
+
+            if ( !string.IsNullOrEmpty( nameFilter3.Text ) )
+            {
+                foreach ( char c in nameFilter3.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        nameFilter3.Text = nameFilter3.Text.Replace( c.ToString(), string.Empty );
+                        nameFilter3.SelectionStart = nameFilter3.Text.Length;
+                    }
+                }
+            }
+        }
+
+        private void removeCompetitionFilter1_Click( object sender, EventArgs e )
+        {
+            competitionFilter1.Text = string.Empty;
+        }
+
+        private void competitionFilter1_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^a-zA-Z0-9\s]" );
+
+            if ( !string.IsNullOrEmpty( competitionFilter1.Text ) )
+            {
+                foreach ( char c in competitionFilter1.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        competitionFilter1.Text = competitionFilter1.Text.Replace( c.ToString(), string.Empty );
+                        competitionFilter1.SelectionStart = competitionFilter1.Text.Length;
+                    }
+                }
+            }
+        }
+
+        private void competitionFilter2_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^a-zA-Z0-9\s]" );
+
+            if ( !string.IsNullOrEmpty( competitionFilter2.Text ) )
+            {
+                foreach ( char c in competitionFilter2.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        competitionFilter2.Text = competitionFilter2.Text.Replace( c.ToString(), string.Empty );
+                        competitionFilter2.SelectionStart = competitionFilter2.Text.Length;
+                    }
+                }
+            }
+        }
+
+        private void competitionFilter3_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^a-zA-Z0-9\s]" );
+
+            if ( !string.IsNullOrEmpty( competitionFilter3.Text ) )
+            {
+                foreach ( char c in competitionFilter3.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        competitionFilter3.Text = competitionFilter3.Text.Replace( c.ToString(), string.Empty );
+                        competitionFilter3.SelectionStart = competitionFilter3.Text.Length;
+                    }
+                }
+            }
+        }
+
+        private void addCompetitionFilter2_Click( object sender, EventArgs e )
+        {
+            removeCompetitionFilter1.Visible = false;
+            addCompetitionFilter2.Visible = false;
+            competitionFilter2.Text = string.Empty;
+            competitionFilter2.Visible = true;
+            removeCompetitionFilter2.Visible = true;
+            addCompetitionFilter3.Visible = true;
+            comboBoxCompetitionFilter2.Visible = true;
+            comboBoxCompetitionFilter2.SelectedIndex = 0;
+        }
+
+        private void removeCompetitionFilter2_Click( object sender, EventArgs e )
+        {
+            removeCompetitionFilter1.Visible = true;
+            addCompetitionFilter2.Visible = true;
+            competitionFilter2.Text = string.Empty;
+            competitionFilter2.Visible = false;
+            removeCompetitionFilter2.Visible = false;
+            addCompetitionFilter3.Visible = false;
+            comboBoxCompetitionFilter2.Visible = false;
+        }
+
+        private void addCompetitionFilter3_Click( object sender, EventArgs e )
+        {
+            addCompetitionFilter3.Visible = false;
+            competitionFilter3.Text = string.Empty;
+            competitionFilter3.Visible = true;
+            removeCompetitionFilter2.Visible = false;
+            removeCompetitionFilter3.Visible = true;
+            addCompetitionFilter3.Visible = false;
+            comboBoxCompetitionFilter3.Visible = true;
+            comboBoxCompetitionFilter3.SelectedIndex = 0;
+        }
+
+        private void removeCompetitionFilter3_Click( object sender, EventArgs e )
+        {
+            addCompetitionFilter3.Visible = true;
+            competitionFilter3.Text = string.Empty;
+            competitionFilter2.Visible = true;
+            competitionFilter3.Visible = false;
+            removeCompetitionFilter2.Visible = true;
+            removeCompetitionFilter3.Visible = false;
+            comboBoxCompetitionFilter3.Visible = false;
+        }
+
+        private void removeDateFilter1_Click( object sender, EventArgs e )
+        {
+            dateFilter1.Text = string.Empty;
+        }
+
+        private void addDateFilter2_Click( object sender, EventArgs e )
+        {
+            removeDateFilter1.Visible = false;
+            addDateFilter2.Visible = false;
+            dateFilter2.Text = string.Empty;
+            dateFilter2.Visible = true;
+            removeDateFilter2.Visible = true;
+            comboBoxDateFilter2.Visible = true;
+            comboBoxDateFilter2.SelectedIndex = 0;
+        }
+
+        private void removeDateFilter2_Click( object sender, EventArgs e )
+        {
+            removeDateFilter1.Visible = true;
+            addDateFilter2.Visible = true;
+            dateFilter2.Text = string.Empty;
+            dateFilter2.Visible = false;
+            removeDateFilter2.Visible = false;
+            comboBoxDateFilter2.Visible = false;
+        }
+
+        private void dateFilter1_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^0-9]" );
+
+            if ( !string.IsNullOrEmpty( dateFilter1.Text ) )
+            {
+                foreach ( char c in dateFilter1.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        dateFilter1.Text = dateFilter1.Text.Replace( c.ToString(), string.Empty );
+                        dateFilter1.SelectionStart = dateFilter1.Text.Length;
+                    }
+                }
+            }
+        }
+
+        private void dateFilter2_TextChanged( object sender, EventArgs e )
+        {
+            var regex = new Regex( @"[^0-9]" );
+
+            if ( !string.IsNullOrEmpty( dateFilter2.Text ) )
+            {
+                foreach ( char c in dateFilter2.Text )
+                {
+                    if ( regex.IsMatch( c.ToString() ) )
+                    {
+                        dateFilter2.Text = dateFilter2.Text.Replace( c.ToString(), string.Empty );
+                        dateFilter2.SelectionStart = dateFilter2.Text.Length;
+                    }
+                }
+            }
+        }
+
+        private void filterTableButton_Click( object sender, EventArgs e )
+        {
+            tempGames = new List<Game>();
+            nameGames = new List<Game>();
+            competitionGames = new List<Game>();
+            dateGames = new List<Game>();
+            dataGridView1.Rows.Clear();
+            totalSegments.Clear();
+            var path = Directory.CreateDirectory( "saved_games" );
+            string[] files = Directory.GetFiles( path.Name, "*.txt" );
+            string[] info;
+            Game game;
+            foreach ( string file in files )
+            {
+                if ( !file.Contains( '\\' ) )
+                    continue;
+                if ( !file.Contains( '.' ) )
+                    continue;
+
+                info = file.Split( '\\' );
+                info = info[ 1 ].Split( '.' );
+                info = info[ 0 ].Split( '_' );
+
+                if ( info.Length != 3 )
+                    continue;
+
+                game = new Game() { filePath = file, Name = info[ 0 ], Competition = info[ 1 ], Date = info[ 2 ] };
+                tempGames.Add( game );
+            }
+
+            ApplyNameFilters();
+            ApplyCompetitionFilters();
+            ApplyDateFilters();
+
+            foreach ( Game eachgame in tempGames )
+            {
+                if ( nameGames.Contains(eachgame) && competitionGames.Contains( eachgame ) && dateGames.Contains( eachgame ))
+                    dataGridView1.Rows.Add( eachgame.filePath, false, eachgame.Name, eachgame.Competition, eachgame.Date );
+            }
+
+            UpdateTotals();
+        }
+
+        private void ApplyNameFilters()
+        {
+            nameGames.Clear();
+            foreach (Game game in tempGames)
+            {
+                //third name filter
+                if ( string.IsNullOrEmpty( nameFilter3.Text ) )
+                {
+                    //second name filter
+                    if ( !string.IsNullOrEmpty( nameFilter2.Text ) )
+                    {
+                        if(comboBoxNameFilter2.SelectedIndex == 1)
+                        {
+                            if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Name.IndexOf( nameFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 && game.Name.IndexOf( nameFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                        //first name filter
+                        if ( string.IsNullOrEmpty( nameFilter1.Text ) )
+                        {
+                            if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ( game.Name.IndexOf( nameFilter3.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                        {
+                            if ( !string.IsNullOrEmpty( nameFilter1.Text ) )
+                            {
+                                if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                                {
+                                    nameGames.Add( game );
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if ( comboBoxNameFilter3.SelectedIndex == 1 )
+                    {
+                        if ( comboBoxNameFilter2.SelectedIndex == 1 )
+                        {
+                            if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Name.IndexOf( nameFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Name.IndexOf( nameFilter3.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 && game.Name.IndexOf( nameFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Name.IndexOf( nameFilter3.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ( comboBoxNameFilter2.SelectedIndex == 1 )
+                        {
+                            if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Name.IndexOf( nameFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 && game.Name.IndexOf( nameFilter3.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if ( game.Name.IndexOf( nameFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 && game.Name.IndexOf( nameFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 && game.Name.IndexOf( nameFilter3.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                nameGames.Add( game );
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ApplyCompetitionFilters()
+        {
+            competitionGames.Clear();
+            foreach ( Game game in tempGames )
+            {
+                //third competition filter
+                if ( string.IsNullOrEmpty( competitionFilter3.Text ) )
+                {
+                    //second competition filter
+                    if ( !string.IsNullOrEmpty( competitionFilter2.Text ) )
+                    {
+                        if ( game.Competition.IndexOf( competitionFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Competition.IndexOf( competitionFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                        {
+                            competitionGames.Add( game );
+                            continue;
+                        }
+                        //first name filter
+                        if ( string.IsNullOrEmpty( competitionFilter1.Text ) )
+                        {
+                            if ( game.Competition.IndexOf( competitionFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                competitionGames.Add( game );
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ( game.Competition.IndexOf( competitionFilter3.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                        {
+                            if ( !string.IsNullOrEmpty( competitionFilter1.Text ) )
+                            {
+                                if ( game.Competition.IndexOf( competitionFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                                {
+                                    competitionGames.Add( game );
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                competitionGames.Add( game );
+                                continue;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if ( game.Competition.IndexOf( competitionFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Competition.IndexOf( competitionFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Competition.IndexOf( competitionFilter3.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                    {
+                        competitionGames.Add( game );
+                        continue;
+                    }
+                }
+            }
+        }
+
+        private void ApplyDateFilters()
+        {
+            dateGames.Clear();
+            foreach ( Game game in tempGames )
+            {
+                //second date filter
+                if ( !string.IsNullOrEmpty( dateFilter2.Text ) )
+                {
+                    if ( game.Date.IndexOf( dateFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 || game.Date.IndexOf( dateFilter2.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                    {
+                        dateGames.Add( game );
+                        continue;
+                    }
+                    //first name filter
+                    if ( string.IsNullOrEmpty( dateFilter1.Text ) )
+                    {
+                        if ( game.Date.IndexOf( dateFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                        {
+                            dateGames.Add( game );
+                            continue;
+                        }
+                    }
+                }
+                else
+                {
+                    if ( game.Date.IndexOf( dateFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                    {
+                        if ( !string.IsNullOrEmpty( dateFilter1.Text ) )
+                        {
+                            if ( game.Date.IndexOf( dateFilter1.Text, StringComparison.OrdinalIgnoreCase ) >= 0 )
+                            {
+                                dateGames.Add( game );
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            dateGames.Add( game );
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public class Game
+    {
+        public string filePath;
+        public string Name;
+        public string Competition;
+        public string Date;
+
+        public Game()
+        {
         }
     }
 }

@@ -83,6 +83,36 @@
             this.CompetitionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GameDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BackButton = new System.Windows.Forms.Button();
+            this.filterTableButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.nameFilter1 = new System.Windows.Forms.TextBox();
+            this.addGameFilter2 = new System.Windows.Forms.Label();
+            this.addGameFilter3 = new System.Windows.Forms.Label();
+            this.nameFilter2 = new System.Windows.Forms.TextBox();
+            this.nameFilter3 = new System.Windows.Forms.TextBox();
+            this.removeGameFilter2 = new System.Windows.Forms.Label();
+            this.removeGameFilter3 = new System.Windows.Forms.Label();
+            this.comboBoxNameFilter2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxNameFilter3 = new System.Windows.Forms.ComboBox();
+            this.removeGameFilter1 = new System.Windows.Forms.Label();
+            this.removeCompetitionFilter1 = new System.Windows.Forms.Label();
+            this.comboBoxCompetitionFilter3 = new System.Windows.Forms.ComboBox();
+            this.comboBoxCompetitionFilter2 = new System.Windows.Forms.ComboBox();
+            this.removeCompetitionFilter3 = new System.Windows.Forms.Label();
+            this.removeCompetitionFilter2 = new System.Windows.Forms.Label();
+            this.competitionFilter3 = new System.Windows.Forms.TextBox();
+            this.addCompetitionFilter3 = new System.Windows.Forms.Label();
+            this.competitionFilter2 = new System.Windows.Forms.TextBox();
+            this.addCompetitionFilter2 = new System.Windows.Forms.Label();
+            this.competitionFilter1 = new System.Windows.Forms.TextBox();
+            this.removeDateFilter1 = new System.Windows.Forms.Label();
+            this.comboBoxDateFilter2 = new System.Windows.Forms.ComboBox();
+            this.removeDateFilter2 = new System.Windows.Forms.Label();
+            this.dateFilter2 = new System.Windows.Forms.TextBox();
+            this.addDateFilter2 = new System.Windows.Forms.Label();
+            this.dateFilter1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -522,12 +552,13 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 126);
+            this.dataGridView1.Location = new System.Drawing.Point(26, 306);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 31;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(804, 383);
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView1.Size = new System.Drawing.Size(819, 293);
             this.dataGridView1.TabIndex = 31;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -578,6 +609,362 @@
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // filterTableButton
+            // 
+            this.filterTableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterTableButton.Location = new System.Drawing.Point(702, 220);
+            this.filterTableButton.Name = "filterTableButton";
+            this.filterTableButton.Size = new System.Drawing.Size(143, 57);
+            this.filterTableButton.TabIndex = 33;
+            this.filterTableButton.Text = "Filtrar";
+            this.filterTableButton.UseVisualStyleBackColor = true;
+            this.filterTableButton.Click += new System.EventHandler(this.filterTableButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(94, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 33);
+            this.label1.TabIndex = 34;
+            this.label1.Text = "Jogo";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(397, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(171, 33);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Competição";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(724, 10);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 33);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "Data";
+            // 
+            // nameFilter1
+            // 
+            this.nameFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameFilter1.Location = new System.Drawing.Point(12, 59);
+            this.nameFilter1.MaxLength = 50;
+            this.nameFilter1.Name = "nameFilter1";
+            this.nameFilter1.Size = new System.Drawing.Size(250, 38);
+            this.nameFilter1.TabIndex = 37;
+            this.nameFilter1.TextChanged += new System.EventHandler(this.nameFilter1_TextChanged);
+            // 
+            // addGameFilter2
+            // 
+            this.addGameFilter2.AutoSize = true;
+            this.addGameFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addGameFilter2.ForeColor = System.Drawing.Color.Chartreuse;
+            this.addGameFilter2.Location = new System.Drawing.Point(300, 55);
+            this.addGameFilter2.Name = "addGameFilter2";
+            this.addGameFilter2.Size = new System.Drawing.Size(41, 42);
+            this.addGameFilter2.TabIndex = 38;
+            this.addGameFilter2.Text = "+";
+            this.addGameFilter2.Click += new System.EventHandler(this.addGameFilter2_Click);
+            // 
+            // addGameFilter3
+            // 
+            this.addGameFilter3.AutoSize = true;
+            this.addGameFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addGameFilter3.ForeColor = System.Drawing.Color.Chartreuse;
+            this.addGameFilter3.Location = new System.Drawing.Point(300, 145);
+            this.addGameFilter3.Name = "addGameFilter3";
+            this.addGameFilter3.Size = new System.Drawing.Size(41, 42);
+            this.addGameFilter3.TabIndex = 40;
+            this.addGameFilter3.Text = "+";
+            this.addGameFilter3.Visible = false;
+            this.addGameFilter3.Click += new System.EventHandler(this.addGameFilter3_Click);
+            // 
+            // nameFilter2
+            // 
+            this.nameFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameFilter2.Location = new System.Drawing.Point(12, 149);
+            this.nameFilter2.MaxLength = 50;
+            this.nameFilter2.Name = "nameFilter2";
+            this.nameFilter2.Size = new System.Drawing.Size(250, 38);
+            this.nameFilter2.TabIndex = 39;
+            this.nameFilter2.Visible = false;
+            this.nameFilter2.TextChanged += new System.EventHandler(this.nameFilter2_TextChanged);
+            // 
+            // nameFilter3
+            // 
+            this.nameFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameFilter3.Location = new System.Drawing.Point(12, 239);
+            this.nameFilter3.MaxLength = 50;
+            this.nameFilter3.Name = "nameFilter3";
+            this.nameFilter3.Size = new System.Drawing.Size(250, 38);
+            this.nameFilter3.TabIndex = 41;
+            this.nameFilter3.Visible = false;
+            this.nameFilter3.TextChanged += new System.EventHandler(this.nameFilter3_TextChanged);
+            // 
+            // removeGameFilter2
+            // 
+            this.removeGameFilter2.AutoSize = true;
+            this.removeGameFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeGameFilter2.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeGameFilter2.Location = new System.Drawing.Point(268, 138);
+            this.removeGameFilter2.Name = "removeGameFilter2";
+            this.removeGameFilter2.Size = new System.Drawing.Size(37, 51);
+            this.removeGameFilter2.TabIndex = 42;
+            this.removeGameFilter2.Text = "-";
+            this.removeGameFilter2.Visible = false;
+            this.removeGameFilter2.Click += new System.EventHandler(this.removeGameFilter2_Click);
+            // 
+            // removeGameFilter3
+            // 
+            this.removeGameFilter3.AutoSize = true;
+            this.removeGameFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeGameFilter3.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeGameFilter3.Location = new System.Drawing.Point(268, 233);
+            this.removeGameFilter3.Name = "removeGameFilter3";
+            this.removeGameFilter3.Size = new System.Drawing.Size(37, 51);
+            this.removeGameFilter3.TabIndex = 43;
+            this.removeGameFilter3.Text = "-";
+            this.removeGameFilter3.Visible = false;
+            this.removeGameFilter3.Click += new System.EventHandler(this.removeGameFilter3_Click);
+            // 
+            // comboBoxNameFilter2
+            // 
+            this.comboBoxNameFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNameFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxNameFilter2.FormattingEnabled = true;
+            this.comboBoxNameFilter2.Items.AddRange(new object[] {
+            "E",
+            "Ou"});
+            this.comboBoxNameFilter2.Location = new System.Drawing.Point(100, 110);
+            this.comboBoxNameFilter2.Name = "comboBoxNameFilter2";
+            this.comboBoxNameFilter2.Size = new System.Drawing.Size(56, 33);
+            this.comboBoxNameFilter2.TabIndex = 44;
+            this.comboBoxNameFilter2.Visible = false;
+            // 
+            // comboBoxNameFilter3
+            // 
+            this.comboBoxNameFilter3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNameFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxNameFilter3.FormattingEnabled = true;
+            this.comboBoxNameFilter3.Items.AddRange(new object[] {
+            "E",
+            "Ou"});
+            this.comboBoxNameFilter3.Location = new System.Drawing.Point(100, 200);
+            this.comboBoxNameFilter3.Name = "comboBoxNameFilter3";
+            this.comboBoxNameFilter3.Size = new System.Drawing.Size(56, 33);
+            this.comboBoxNameFilter3.TabIndex = 45;
+            this.comboBoxNameFilter3.Visible = false;
+            // 
+            // removeGameFilter1
+            // 
+            this.removeGameFilter1.AutoSize = true;
+            this.removeGameFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeGameFilter1.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeGameFilter1.Location = new System.Drawing.Point(270, 48);
+            this.removeGameFilter1.Name = "removeGameFilter1";
+            this.removeGameFilter1.Size = new System.Drawing.Size(37, 51);
+            this.removeGameFilter1.TabIndex = 46;
+            this.removeGameFilter1.Text = "-";
+            this.removeGameFilter1.Click += new System.EventHandler(this.removeGameFilter1_Click);
+            // 
+            // removeCompetitionFilter1
+            // 
+            this.removeCompetitionFilter1.AutoSize = true;
+            this.removeCompetitionFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeCompetitionFilter1.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeCompetitionFilter1.Location = new System.Drawing.Point(605, 45);
+            this.removeCompetitionFilter1.Name = "removeCompetitionFilter1";
+            this.removeCompetitionFilter1.Size = new System.Drawing.Size(37, 51);
+            this.removeCompetitionFilter1.TabIndex = 56;
+            this.removeCompetitionFilter1.Text = "-";
+            this.removeCompetitionFilter1.Click += new System.EventHandler(this.removeCompetitionFilter1_Click);
+            // 
+            // comboBoxCompetitionFilter3
+            // 
+            this.comboBoxCompetitionFilter3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCompetitionFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxCompetitionFilter3.FormattingEnabled = true;
+            this.comboBoxCompetitionFilter3.Items.AddRange(new object[] {
+            "Ou"});
+            this.comboBoxCompetitionFilter3.Location = new System.Drawing.Point(441, 200);
+            this.comboBoxCompetitionFilter3.Name = "comboBoxCompetitionFilter3";
+            this.comboBoxCompetitionFilter3.Size = new System.Drawing.Size(56, 33);
+            this.comboBoxCompetitionFilter3.TabIndex = 55;
+            this.comboBoxCompetitionFilter3.Visible = false;
+            // 
+            // comboBoxCompetitionFilter2
+            // 
+            this.comboBoxCompetitionFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCompetitionFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxCompetitionFilter2.FormattingEnabled = true;
+            this.comboBoxCompetitionFilter2.Items.AddRange(new object[] {
+            "Ou"});
+            this.comboBoxCompetitionFilter2.Location = new System.Drawing.Point(441, 110);
+            this.comboBoxCompetitionFilter2.Name = "comboBoxCompetitionFilter2";
+            this.comboBoxCompetitionFilter2.Size = new System.Drawing.Size(56, 33);
+            this.comboBoxCompetitionFilter2.TabIndex = 54;
+            this.comboBoxCompetitionFilter2.Visible = false;
+            // 
+            // removeCompetitionFilter3
+            // 
+            this.removeCompetitionFilter3.AutoSize = true;
+            this.removeCompetitionFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeCompetitionFilter3.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeCompetitionFilter3.Location = new System.Drawing.Point(603, 230);
+            this.removeCompetitionFilter3.Name = "removeCompetitionFilter3";
+            this.removeCompetitionFilter3.Size = new System.Drawing.Size(37, 51);
+            this.removeCompetitionFilter3.TabIndex = 53;
+            this.removeCompetitionFilter3.Text = "-";
+            this.removeCompetitionFilter3.Visible = false;
+            this.removeCompetitionFilter3.Click += new System.EventHandler(this.removeCompetitionFilter3_Click);
+            // 
+            // removeCompetitionFilter2
+            // 
+            this.removeCompetitionFilter2.AutoSize = true;
+            this.removeCompetitionFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeCompetitionFilter2.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeCompetitionFilter2.Location = new System.Drawing.Point(603, 135);
+            this.removeCompetitionFilter2.Name = "removeCompetitionFilter2";
+            this.removeCompetitionFilter2.Size = new System.Drawing.Size(37, 51);
+            this.removeCompetitionFilter2.TabIndex = 52;
+            this.removeCompetitionFilter2.Text = "-";
+            this.removeCompetitionFilter2.Visible = false;
+            this.removeCompetitionFilter2.Click += new System.EventHandler(this.removeCompetitionFilter2_Click);
+            // 
+            // competitionFilter3
+            // 
+            this.competitionFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.competitionFilter3.Location = new System.Drawing.Point(347, 237);
+            this.competitionFilter3.MaxLength = 50;
+            this.competitionFilter3.Name = "competitionFilter3";
+            this.competitionFilter3.Size = new System.Drawing.Size(250, 38);
+            this.competitionFilter3.TabIndex = 51;
+            this.competitionFilter3.Visible = false;
+            this.competitionFilter3.TextChanged += new System.EventHandler(this.competitionFilter3_TextChanged);
+            // 
+            // addCompetitionFilter3
+            // 
+            this.addCompetitionFilter3.AutoSize = true;
+            this.addCompetitionFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addCompetitionFilter3.ForeColor = System.Drawing.Color.Chartreuse;
+            this.addCompetitionFilter3.Location = new System.Drawing.Point(635, 142);
+            this.addCompetitionFilter3.Name = "addCompetitionFilter3";
+            this.addCompetitionFilter3.Size = new System.Drawing.Size(41, 42);
+            this.addCompetitionFilter3.TabIndex = 50;
+            this.addCompetitionFilter3.Text = "+";
+            this.addCompetitionFilter3.Visible = false;
+            this.addCompetitionFilter3.Click += new System.EventHandler(this.addCompetitionFilter3_Click);
+            // 
+            // competitionFilter2
+            // 
+            this.competitionFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.competitionFilter2.Location = new System.Drawing.Point(347, 147);
+            this.competitionFilter2.MaxLength = 50;
+            this.competitionFilter2.Name = "competitionFilter2";
+            this.competitionFilter2.Size = new System.Drawing.Size(250, 38);
+            this.competitionFilter2.TabIndex = 49;
+            this.competitionFilter2.Visible = false;
+            this.competitionFilter2.TextChanged += new System.EventHandler(this.competitionFilter2_TextChanged);
+            // 
+            // addCompetitionFilter2
+            // 
+            this.addCompetitionFilter2.AutoSize = true;
+            this.addCompetitionFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addCompetitionFilter2.ForeColor = System.Drawing.Color.Chartreuse;
+            this.addCompetitionFilter2.Location = new System.Drawing.Point(635, 52);
+            this.addCompetitionFilter2.Name = "addCompetitionFilter2";
+            this.addCompetitionFilter2.Size = new System.Drawing.Size(41, 42);
+            this.addCompetitionFilter2.TabIndex = 48;
+            this.addCompetitionFilter2.Text = "+";
+            this.addCompetitionFilter2.Click += new System.EventHandler(this.addCompetitionFilter2_Click);
+            // 
+            // competitionFilter1
+            // 
+            this.competitionFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.competitionFilter1.Location = new System.Drawing.Point(347, 57);
+            this.competitionFilter1.MaxLength = 50;
+            this.competitionFilter1.Name = "competitionFilter1";
+            this.competitionFilter1.Size = new System.Drawing.Size(250, 38);
+            this.competitionFilter1.TabIndex = 47;
+            this.competitionFilter1.TextChanged += new System.EventHandler(this.competitionFilter1_TextChanged);
+            // 
+            // removeDateFilter1
+            // 
+            this.removeDateFilter1.AutoSize = true;
+            this.removeDateFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeDateFilter1.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeDateFilter1.Location = new System.Drawing.Point(806, 48);
+            this.removeDateFilter1.Name = "removeDateFilter1";
+            this.removeDateFilter1.Size = new System.Drawing.Size(37, 51);
+            this.removeDateFilter1.TabIndex = 63;
+            this.removeDateFilter1.Text = "-";
+            this.removeDateFilter1.Click += new System.EventHandler(this.removeDateFilter1_Click);
+            // 
+            // comboBoxDateFilter2
+            // 
+            this.comboBoxDateFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDateFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxDateFilter2.FormattingEnabled = true;
+            this.comboBoxDateFilter2.Items.AddRange(new object[] {
+            "Ou"});
+            this.comboBoxDateFilter2.Location = new System.Drawing.Point(720, 111);
+            this.comboBoxDateFilter2.Name = "comboBoxDateFilter2";
+            this.comboBoxDateFilter2.Size = new System.Drawing.Size(56, 33);
+            this.comboBoxDateFilter2.TabIndex = 62;
+            this.comboBoxDateFilter2.Visible = false;
+            // 
+            // removeDateFilter2
+            // 
+            this.removeDateFilter2.AutoSize = true;
+            this.removeDateFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeDateFilter2.ForeColor = System.Drawing.Color.IndianRed;
+            this.removeDateFilter2.Location = new System.Drawing.Point(804, 138);
+            this.removeDateFilter2.Name = "removeDateFilter2";
+            this.removeDateFilter2.Size = new System.Drawing.Size(37, 51);
+            this.removeDateFilter2.TabIndex = 61;
+            this.removeDateFilter2.Text = "-";
+            this.removeDateFilter2.Visible = false;
+            this.removeDateFilter2.Click += new System.EventHandler(this.removeDateFilter2_Click);
+            // 
+            // dateFilter2
+            // 
+            this.dateFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateFilter2.Location = new System.Drawing.Point(693, 148);
+            this.dateFilter2.MaxLength = 4;
+            this.dateFilter2.Name = "dateFilter2";
+            this.dateFilter2.Size = new System.Drawing.Size(110, 38);
+            this.dateFilter2.TabIndex = 59;
+            this.dateFilter2.Visible = false;
+            this.dateFilter2.TextChanged += new System.EventHandler(this.dateFilter2_TextChanged);
+            // 
+            // addDateFilter2
+            // 
+            this.addDateFilter2.AutoSize = true;
+            this.addDateFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addDateFilter2.ForeColor = System.Drawing.Color.Chartreuse;
+            this.addDateFilter2.Location = new System.Drawing.Point(836, 55);
+            this.addDateFilter2.Name = "addDateFilter2";
+            this.addDateFilter2.Size = new System.Drawing.Size(41, 42);
+            this.addDateFilter2.TabIndex = 58;
+            this.addDateFilter2.Text = "+";
+            this.addDateFilter2.Click += new System.EventHandler(this.addDateFilter2_Click);
+            // 
+            // dateFilter1
+            // 
+            this.dateFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateFilter1.Location = new System.Drawing.Point(693, 58);
+            this.dateFilter1.MaxLength = 4;
+            this.dateFilter1.Name = "dateFilter1";
+            this.dateFilter1.Size = new System.Drawing.Size(110, 38);
+            this.dateFilter1.TabIndex = 57;
+            this.dateFilter1.TextChanged += new System.EventHandler(this.dateFilter1_TextChanged);
+            // 
             // HistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -585,6 +972,36 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1370, 618);
+            this.Controls.Add(this.removeDateFilter1);
+            this.Controls.Add(this.comboBoxDateFilter2);
+            this.Controls.Add(this.removeDateFilter2);
+            this.Controls.Add(this.dateFilter2);
+            this.Controls.Add(this.addDateFilter2);
+            this.Controls.Add(this.dateFilter1);
+            this.Controls.Add(this.removeCompetitionFilter1);
+            this.Controls.Add(this.comboBoxCompetitionFilter3);
+            this.Controls.Add(this.comboBoxCompetitionFilter2);
+            this.Controls.Add(this.removeCompetitionFilter3);
+            this.Controls.Add(this.removeCompetitionFilter2);
+            this.Controls.Add(this.competitionFilter3);
+            this.Controls.Add(this.addCompetitionFilter3);
+            this.Controls.Add(this.competitionFilter2);
+            this.Controls.Add(this.addCompetitionFilter2);
+            this.Controls.Add(this.competitionFilter1);
+            this.Controls.Add(this.removeGameFilter1);
+            this.Controls.Add(this.comboBoxNameFilter3);
+            this.Controls.Add(this.comboBoxNameFilter2);
+            this.Controls.Add(this.removeGameFilter3);
+            this.Controls.Add(this.removeGameFilter2);
+            this.Controls.Add(this.nameFilter3);
+            this.Controls.Add(this.addGameFilter3);
+            this.Controls.Add(this.nameFilter2);
+            this.Controls.Add(this.addGameFilter2);
+            this.Controls.Add(this.nameFilter1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.filterTableButton);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControl1);
@@ -604,6 +1021,7 @@
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -645,5 +1063,35 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GameName;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompetitionName;
         private System.Windows.Forms.DataGridViewTextBoxColumn GameDate;
+        private System.Windows.Forms.Button filterTableButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox nameFilter1;
+        private System.Windows.Forms.Label addGameFilter2;
+        private System.Windows.Forms.Label addGameFilter3;
+        private System.Windows.Forms.TextBox nameFilter2;
+        private System.Windows.Forms.TextBox nameFilter3;
+        private System.Windows.Forms.Label removeGameFilter2;
+        private System.Windows.Forms.Label removeGameFilter3;
+        private System.Windows.Forms.ComboBox comboBoxNameFilter2;
+        private System.Windows.Forms.ComboBox comboBoxNameFilter3;
+        private System.Windows.Forms.Label removeGameFilter1;
+        private System.Windows.Forms.Label removeCompetitionFilter1;
+        private System.Windows.Forms.ComboBox comboBoxCompetitionFilter3;
+        private System.Windows.Forms.ComboBox comboBoxCompetitionFilter2;
+        private System.Windows.Forms.Label removeCompetitionFilter3;
+        private System.Windows.Forms.Label removeCompetitionFilter2;
+        private System.Windows.Forms.TextBox competitionFilter3;
+        private System.Windows.Forms.Label addCompetitionFilter3;
+        private System.Windows.Forms.TextBox competitionFilter2;
+        private System.Windows.Forms.Label addCompetitionFilter2;
+        private System.Windows.Forms.TextBox competitionFilter1;
+        private System.Windows.Forms.Label removeDateFilter1;
+        private System.Windows.Forms.ComboBox comboBoxDateFilter2;
+        private System.Windows.Forms.Label removeDateFilter2;
+        private System.Windows.Forms.TextBox dateFilter2;
+        private System.Windows.Forms.Label addDateFilter2;
+        private System.Windows.Forms.TextBox dateFilter1;
     }
 }
