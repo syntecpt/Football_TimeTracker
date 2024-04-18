@@ -13,10 +13,7 @@ namespace Football_TimeTracker
 {
     public partial class HistoryDetailForm : Form
     {
-        List<Segment> segments;
-        List<Segment> SelectedSegments;
-        Segment segmentToSave;
-        Segment segmentToRestore;
+        List<Segment> originalSegments,falcaturaSegments, SelectedSegments;
         public HistoryDetailForm()
         {
             InitializeComponent();
@@ -27,8 +24,9 @@ namespace Football_TimeTracker
         {
             InitializeComponent();
             this.FormClosing += HistoryForm_FormClosing;
-            segments = JsonSerialization.ReadFromJsonFile<List<Segment>>( gamePath );
-
+            originalSegments = JsonSerialization.ReadFromJsonFile<List<Segment>>( gamePath );
+            falcaturaSegments = DoFalcatrua();
+            SelectedSegments = new List<Segment>();
             string[] info;
             info = gamePath.Split( '\\' );
             info = info[ 1 ].Split( '.' );
@@ -44,8 +42,6 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
 
-            CreateSegments();
-            SelectedSegments = new List<Segment>();
             GetSelectedSegments();
         }
 
@@ -59,14 +55,86 @@ namespace Football_TimeTracker
             InterceptKeys.CloseHistoryDetail();
         }
 
+        private List<Segment> DoFalcatrua()
+        {
+            List<Segment> falcatruaList = new List<Segment>();
+
+            List<Segment> regularSegment = new List<Segment>();
+            List<Segment> addedSegment = new List<Segment>();
+            int offset = 0;
+            //first half
+            regularSegment = originalSegments.Where( x => x.half == 0 && x.startingSeconds < 2700 ).OrderBy( x => x.startingSeconds ).ToList();
+            addedSegment = originalSegments.Where( x => x.half == 0 && x.startingSeconds >= 2700 ).OrderBy( x => x.startingSeconds ).ToList();
+            offset = ( regularSegment.LastOrDefault().startingSeconds + regularSegment.LastOrDefault().elapsedSeconds ) - 2700;
+            Segment falcatruaSegment = new Segment()
+            {
+                half = regularSegment.LastOrDefault().half,
+                segmentType = regularSegment.LastOrDefault().segmentType,
+                startingSeconds = regularSegment.LastOrDefault().startingSeconds,
+                elapsedSeconds = regularSegment.LastOrDefault().elapsedSeconds - offset
+            };
+            Segment falcatruaSegment2 = new Segment()
+            {
+                half = regularSegment.LastOrDefault().half,
+                segmentType = regularSegment.LastOrDefault().segmentType,
+                startingSeconds = 2700,
+                elapsedSeconds = offset
+            };
+            falcatruaList.AddRange( regularSegment );
+            falcatruaList.AddRange ( addedSegment );
+            falcatruaList.Remove( regularSegment.LastOrDefault() );
+            falcatruaList.Add( falcatruaSegment );
+            falcatruaList.Add( falcatruaSegment2 );
+            //second half
+            regularSegment = originalSegments.Where( x => x.half == 1 && x.startingSeconds < 2700 ).OrderBy( x => x.startingSeconds ).ToList();
+            addedSegment = originalSegments.Where( x => x.half == 1 && x.startingSeconds >= 2700 ).OrderBy( x => x.startingSeconds ).ToList();
+            offset = ( regularSegment.LastOrDefault().startingSeconds + regularSegment.LastOrDefault().elapsedSeconds ) - 2700;
+            falcatruaSegment = new Segment()
+            {
+                half = regularSegment.LastOrDefault().half,
+                segmentType = regularSegment.LastOrDefault().segmentType,
+                startingSeconds = regularSegment.LastOrDefault().startingSeconds,
+                elapsedSeconds = regularSegment.LastOrDefault().elapsedSeconds - offset
+            };
+            falcatruaSegment2 = new Segment()
+            {
+                half = regularSegment.LastOrDefault().half,
+                segmentType = regularSegment.LastOrDefault().segmentType,
+                startingSeconds = 2700,
+                elapsedSeconds = offset
+            };
+            falcatruaList.AddRange( regularSegment );
+            falcatruaList.AddRange( addedSegment );
+            falcatruaList.Remove( regularSegment.LastOrDefault() );
+            falcatruaList.Add( falcatruaSegment );
+            falcatruaList.Add( falcatruaSegment2 );
+
+            return falcatruaList;
+        }
+
         private void CreateSegments()
         {
-            foreach (Segment segment in segments)
+            foreach ( Segment segment in originalSegments )
+            {
+                if ( segment.image != null )
+                {
+                    Controls.Remove( segment.image );
+                }
+            }
+            foreach (Segment segment in falcaturaSegments)
+            {
+                if ( segment.image != null )
+                {
+                    Controls.Remove( segment.image );
+                }
+            }
+
+            foreach(Segment segment in SelectedSegments)
             {
                 var picture = new PictureBox
                 {
                     Size = new Size( 1, Constants.SegmentHeigth ),
-                    Location = new Point( GetXPosition(segment.startingSeconds,segment.half), GetYPosition(segment.half) ),
+                    Location = new Point( GetXPosition( segment.startingSeconds, segment.half ), GetYPosition( segment.half ) ),
                     SizeMode = PictureBoxSizeMode.StretchImage
                 };
                 this.Controls.Add( picture );
@@ -448,58 +516,111 @@ namespace Football_TimeTracker
 
         private void GetSelectedSegments()
         {
-            # region half radio buttons
-            if ( bothHalfsRadio.Checked )
+            #region gameTime radio buttons
+            if(allTimeRadio.Checked)
             {
-                SelectedSegments = new List<Segment>();
-                SelectedSegments.AddRange( segments );
-                foreach (Segment segment in segments)
-                {
-                    segment.image.Visible = true;
-                }
+                SelectedSegments = originalSegments;
             }
-            else if ( firstHalfRadio.Checked )
+            else
             {
-                SelectedSegments = new List<Segment>();
-                SelectedSegments = segments.Where( x => x.half == 0).ToList();
-                foreach ( Segment segment in segments )
+                SelectedSegments = falcaturaSegments;
+                if(regularTimeRadio.Checked)
                 {
-                    if( segment.half == 0)
-                        segment.image.Visible = true;
-                    else
-                        segment.image.Visible = false;
+                    SelectedSegments = SelectedSegments.Where( x => x.startingSeconds < 2700 ).ToList();
                 }
-            }
-            else if ( secondHalfRadio.Checked )
-            {
-                SelectedSegments = new List<Segment>();
-                SelectedSegments = segments.Where( x => x.half == 1 ).ToList();
-                foreach ( Segment segment in segments )
+                else if (addedTimeRadio.Checked)
                 {
-                    if ( segment.half == 0 )
-                        segment.image.Visible = false;
-                    else
-                        segment.image.Visible = true;
+                    SelectedSegments = SelectedSegments.Where( x => x.startingSeconds >= 2700 ).ToList();
                 }
             }
             #endregion
+
+            #region half radio buttons
+            if ( firstHalfRadio.Checked )
+            {
+                SelectedSegments = SelectedSegments.Where( x => x.half == 0).ToList();
+            }
+            else if ( secondHalfRadio.Checked )
+            {
+                SelectedSegments = SelectedSegments.Where( x => x.half == 1 ).ToList();
+            }
+            #endregion
+
+            CreateSegments();
 
             UpdateTotals();
         }
 
         private void bothHalfsRadio_CheckedChanged( object sender, EventArgs e )
         {
-            GetSelectedSegments();
+            RadioButton rb = sender as RadioButton;
+            if ( rb != null )
+            {
+                if ( rb.Checked )
+                {
+                    GetSelectedSegments();
+                }
+            }
         }
 
         private void firstHalfRadio_CheckedChanged( object sender, EventArgs e )
         {
-            GetSelectedSegments();
+            RadioButton rb = sender as RadioButton;
+            if ( rb != null )
+            {
+                if ( rb.Checked )
+                {
+                    GetSelectedSegments();
+                }
+            }
         }
 
         private void secondHalfRadio_CheckedChanged( object sender, EventArgs e )
         {
-            GetSelectedSegments();
+            RadioButton rb = sender as RadioButton;
+            if ( rb != null )
+            {
+                if ( rb.Checked )
+                {
+                    GetSelectedSegments();
+                }
+            }
+        }
+
+        private void allTimeRadio_CheckedChanged( object sender, EventArgs e )
+        {
+            RadioButton rb = sender as RadioButton;
+            if ( rb != null )
+            {
+                if ( rb.Checked )
+                {
+                    GetSelectedSegments();
+                }
+            }
+        }
+
+        private void regularTimeRadio_CheckedChanged( object sender, EventArgs e )
+        {
+            RadioButton rb = sender as RadioButton;
+            if ( rb != null )
+            {
+                if ( rb.Checked )
+                {
+                    GetSelectedSegments();
+                }
+            }
+        }
+
+        private void addedTimeRadio_CheckedChanged( object sender, EventArgs e )
+        {
+            RadioButton rb = sender as RadioButton;
+            if ( rb != null )
+            {
+                if ( rb.Checked )
+                {
+                    GetSelectedSegments();
+                }
+            }
         }
     }
 }

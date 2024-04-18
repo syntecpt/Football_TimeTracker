@@ -89,6 +89,10 @@
             this.firstHalfRadio = new System.Windows.Forms.RadioButton();
             this.secondHalfRadio = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.allTimeRadio = new System.Windows.Forms.RadioButton();
+            this.regularTimeRadio = new System.Windows.Forms.RadioButton();
+            this.addedTimeRadio = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -99,6 +103,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -616,6 +621,7 @@
             this.bothHalfsRadio.Name = "bothHalfsRadio";
             this.bothHalfsRadio.Size = new System.Drawing.Size(235, 35);
             this.bothHalfsRadio.TabIndex = 46;
+            this.bothHalfsRadio.TabStop = true;
             this.bothHalfsRadio.Text = "Ambas as partes";
             this.bothHalfsRadio.UseVisualStyleBackColor = true;
             this.bothHalfsRadio.CheckedChanged += new System.EventHandler(this.bothHalfsRadio_CheckedChanged);
@@ -654,6 +660,54 @@
             this.panel1.Size = new System.Drawing.Size(300, 142);
             this.panel1.TabIndex = 51;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.allTimeRadio);
+            this.panel2.Controls.Add(this.regularTimeRadio);
+            this.panel2.Controls.Add(this.addedTimeRadio);
+            this.panel2.Location = new System.Drawing.Point(709, 446);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(333, 142);
+            this.panel2.TabIndex = 52;
+            // 
+            // allTimeRadio
+            // 
+            this.allTimeRadio.AutoSize = true;
+            this.allTimeRadio.Checked = true;
+            this.allTimeRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.allTimeRadio.Location = new System.Drawing.Point(25, 16);
+            this.allTimeRadio.Name = "allTimeRadio";
+            this.allTimeRadio.Size = new System.Drawing.Size(176, 35);
+            this.allTimeRadio.TabIndex = 46;
+            this.allTimeRadio.TabStop = true;
+            this.allTimeRadio.Text = "Todo tempo";
+            this.allTimeRadio.UseVisualStyleBackColor = true;
+            this.allTimeRadio.CheckedChanged += new System.EventHandler(this.allTimeRadio_CheckedChanged);
+            // 
+            // regularTimeRadio
+            // 
+            this.regularTimeRadio.AutoSize = true;
+            this.regularTimeRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.regularTimeRadio.Location = new System.Drawing.Point(25, 57);
+            this.regularTimeRadio.Name = "regularTimeRadio";
+            this.regularTimeRadio.Size = new System.Drawing.Size(293, 35);
+            this.regularTimeRadio.TabIndex = 47;
+            this.regularTimeRadio.Text = "Tempo Regulamentar";
+            this.regularTimeRadio.UseVisualStyleBackColor = true;
+            this.regularTimeRadio.CheckedChanged += new System.EventHandler(this.regularTimeRadio_CheckedChanged);
+            // 
+            // addedTimeRadio
+            // 
+            this.addedTimeRadio.AutoSize = true;
+            this.addedTimeRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addedTimeRadio.Location = new System.Drawing.Point(25, 98);
+            this.addedTimeRadio.Name = "addedTimeRadio";
+            this.addedTimeRadio.Size = new System.Drawing.Size(233, 35);
+            this.addedTimeRadio.TabIndex = 48;
+            this.addedTimeRadio.Text = "Tempo Adicional";
+            this.addedTimeRadio.UseVisualStyleBackColor = true;
+            this.addedTimeRadio.CheckedChanged += new System.EventHandler(this.addedTimeRadio_CheckedChanged);
+            // 
             // HistoryDetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -661,6 +715,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1563, 615);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.DateLabel);
             this.Controls.Add(this.CompetitionLabel);
@@ -691,6 +746,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -741,5 +798,9 @@
         private System.Windows.Forms.RadioButton firstHalfRadio;
         private System.Windows.Forms.RadioButton secondHalfRadio;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton allTimeRadio;
+        private System.Windows.Forms.RadioButton regularTimeRadio;
+        private System.Windows.Forms.RadioButton addedTimeRadio;
     }
 }
