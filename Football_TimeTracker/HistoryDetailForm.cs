@@ -13,7 +13,7 @@ namespace Football_TimeTracker
 {
     public partial class HistoryDetailForm : Form
     {
-        List<Segment> originalSegments,falcaturaSegments, SelectedSegments;
+        List<Segment> originalSegments, falcaturaSegments, SelectedSegments;
         public HistoryDetailForm()
         {
             InitializeComponent();
@@ -63,51 +63,67 @@ namespace Football_TimeTracker
             List<Segment> addedSegment = new List<Segment>();
             int offset = 0;
             //first half
-            regularSegment = originalSegments.Where( x => x.half == 0 && x.startingSeconds < 2700 ).OrderBy( x => x.startingSeconds ).ToList();
-            addedSegment = originalSegments.Where( x => x.half == 0 && x.startingSeconds >= 2700 ).OrderBy( x => x.startingSeconds ).ToList();
-            offset = ( regularSegment.LastOrDefault().startingSeconds + regularSegment.LastOrDefault().elapsedSeconds ) - 2700;
-            Segment falcatruaSegment = new Segment()
+            if ( originalSegments.Where( x => x.half == 0 ).Sum( x => x.elapsedSeconds ) > Constants.minute45 )
             {
-                half = regularSegment.LastOrDefault().half,
-                segmentType = regularSegment.LastOrDefault().segmentType,
-                startingSeconds = regularSegment.LastOrDefault().startingSeconds,
-                elapsedSeconds = regularSegment.LastOrDefault().elapsedSeconds - offset
-            };
-            Segment falcatruaSegment2 = new Segment()
+                regularSegment = originalSegments.Where( x => x.half == 0 && x.startingSeconds < Constants.minute45 ).OrderBy( x => x.startingSeconds ).ToList();
+                addedSegment = originalSegments.Where( x => x.half == 0 && x.startingSeconds >= Constants.minute45 ).OrderBy( x => x.startingSeconds ).ToList();
+                offset = ( regularSegment.LastOrDefault().startingSeconds + regularSegment.LastOrDefault().elapsedSeconds ) - Constants.minute45;
+                Segment falcatruaSegment = new Segment()
+                {
+                    half = regularSegment.LastOrDefault().half,
+                    segmentType = regularSegment.LastOrDefault().segmentType,
+                    startingSeconds = regularSegment.LastOrDefault().startingSeconds,
+                    elapsedSeconds = regularSegment.LastOrDefault().elapsedSeconds - offset
+                };
+                Segment falcatruaSegment2 = new Segment()
+                {
+                    half = regularSegment.LastOrDefault().half,
+                    segmentType = regularSegment.LastOrDefault().segmentType,
+                    startingSeconds = Constants.minute45,
+                    elapsedSeconds = offset
+                };
+                falcatruaList.AddRange( regularSegment );
+                falcatruaList.AddRange( addedSegment );
+                falcatruaList.Remove( regularSegment.LastOrDefault() );
+                falcatruaList.Add( falcatruaSegment );
+                falcatruaList.Add( falcatruaSegment2 );
+            }
+            else
             {
-                half = regularSegment.LastOrDefault().half,
-                segmentType = regularSegment.LastOrDefault().segmentType,
-                startingSeconds = 2700,
-                elapsedSeconds = offset
-            };
-            falcatruaList.AddRange( regularSegment );
-            falcatruaList.AddRange ( addedSegment );
-            falcatruaList.Remove( regularSegment.LastOrDefault() );
-            falcatruaList.Add( falcatruaSegment );
-            falcatruaList.Add( falcatruaSegment2 );
+                regularSegment = originalSegments.Where( x => x.half == 0 && x.startingSeconds < Constants.minute45 ).OrderBy( x => x.startingSeconds ).ToList();
+                falcatruaList.AddRange( regularSegment );
+            }
             //second half
-            regularSegment = originalSegments.Where( x => x.half == 1 && x.startingSeconds < 2700 ).OrderBy( x => x.startingSeconds ).ToList();
-            addedSegment = originalSegments.Where( x => x.half == 1 && x.startingSeconds >= 2700 ).OrderBy( x => x.startingSeconds ).ToList();
-            offset = ( regularSegment.LastOrDefault().startingSeconds + regularSegment.LastOrDefault().elapsedSeconds ) - 2700;
-            falcatruaSegment = new Segment()
+            if ( originalSegments.Where( x => x.half == 1 ).Sum( x => x.elapsedSeconds ) > Constants.minute45 )
             {
-                half = regularSegment.LastOrDefault().half,
-                segmentType = regularSegment.LastOrDefault().segmentType,
-                startingSeconds = regularSegment.LastOrDefault().startingSeconds,
-                elapsedSeconds = regularSegment.LastOrDefault().elapsedSeconds - offset
-            };
-            falcatruaSegment2 = new Segment()
+                regularSegment = originalSegments.Where( x => x.half == 1 && x.startingSeconds < Constants.minute45 ).OrderBy( x => x.startingSeconds ).ToList();
+                addedSegment = originalSegments.Where( x => x.half == 1 && x.startingSeconds >= Constants.minute45 ).OrderBy( x => x.startingSeconds ).ToList();
+                offset = ( regularSegment.LastOrDefault().startingSeconds + regularSegment.LastOrDefault().elapsedSeconds ) - Constants.minute45;
+                Segment falcatruaSegment = new Segment()
+                {
+                    half = regularSegment.LastOrDefault().half,
+                    segmentType = regularSegment.LastOrDefault().segmentType,
+                    startingSeconds = regularSegment.LastOrDefault().startingSeconds,
+                    elapsedSeconds = regularSegment.LastOrDefault().elapsedSeconds - offset
+                };
+                Segment falcatruaSegment2 = new Segment()
+                {
+                    half = regularSegment.LastOrDefault().half,
+                    segmentType = regularSegment.LastOrDefault().segmentType,
+                    startingSeconds = Constants.minute45,
+                    elapsedSeconds = offset
+                };
+                falcatruaList.AddRange( regularSegment );
+                falcatruaList.AddRange( addedSegment );
+                falcatruaList.Remove( regularSegment.LastOrDefault() );
+                falcatruaList.Add( falcatruaSegment );
+                falcatruaList.Add( falcatruaSegment2 );
+            }
+            else
             {
-                half = regularSegment.LastOrDefault().half,
-                segmentType = regularSegment.LastOrDefault().segmentType,
-                startingSeconds = 2700,
-                elapsedSeconds = offset
-            };
-            falcatruaList.AddRange( regularSegment );
-            falcatruaList.AddRange( addedSegment );
-            falcatruaList.Remove( regularSegment.LastOrDefault() );
-            falcatruaList.Add( falcatruaSegment );
-            falcatruaList.Add( falcatruaSegment2 );
+                regularSegment = originalSegments.Where( x => x.half == 1 && x.startingSeconds < Constants.minute45 ).OrderBy( x => x.startingSeconds ).ToList();
+                falcatruaList.AddRange( regularSegment );
+            }
 
             return falcatruaList;
         }
@@ -516,7 +532,6 @@ namespace Football_TimeTracker
 
         private void GetSelectedSegments()
         {
-            #region gameTime radio buttons
             if(allTimeRadio.Checked)
             {
                 SelectedSegments = originalSegments;
@@ -526,16 +541,14 @@ namespace Football_TimeTracker
                 SelectedSegments = falcaturaSegments;
                 if(regularTimeRadio.Checked)
                 {
-                    SelectedSegments = SelectedSegments.Where( x => x.startingSeconds < 2700 ).ToList();
+                    SelectedSegments = SelectedSegments.Where( x => x.startingSeconds < Constants.minute45 ).ToList();
                 }
                 else if (addedTimeRadio.Checked)
                 {
-                    SelectedSegments = SelectedSegments.Where( x => x.startingSeconds >= 2700 ).ToList();
+                    SelectedSegments = SelectedSegments.Where( x => x.startingSeconds >= Constants.minute45 ).ToList();
                 }
             }
-            #endregion
 
-            #region half radio buttons
             if ( firstHalfRadio.Checked )
             {
                 SelectedSegments = SelectedSegments.Where( x => x.half == 0).ToList();
@@ -544,7 +557,6 @@ namespace Football_TimeTracker
             {
                 SelectedSegments = SelectedSegments.Where( x => x.half == 1 ).ToList();
             }
-            #endregion
 
             CreateSegments();
 

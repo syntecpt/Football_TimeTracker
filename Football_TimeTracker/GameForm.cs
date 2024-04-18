@@ -762,12 +762,14 @@ namespace Football_TimeTracker
     static class Constants
     {
         public const int SegmentHeigth = 20;
-        public const double secondWidth = 0.25;
+        public const double secondWidth = 0.251;
 
         public const int segmentTypeActive = 0;
         public const int segmentTypeOutofBounds = 1;
         public const int segmentTypeRefBlow = 2;
         public const int segmentTypeGoal = 3;
+
+        public const int minute45 = 2700;
 
         public static Color colorSegmentActive = Color.SpringGreen;
         public static Color colorSegmentOutofBounds = Color.Yellow;
