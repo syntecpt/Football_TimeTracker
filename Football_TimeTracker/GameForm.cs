@@ -129,6 +129,9 @@ namespace Football_TimeTracker
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
+            if ( !ticking )
+                return;
+
             if ( currentSegmentType == Constants.segmentTypeActive )
             {
                 //do nothing
@@ -146,6 +149,9 @@ namespace Football_TimeTracker
         {
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
+
+            if ( !ticking )
+                return;
 
             if ( currentSegmentType == Constants.segmentTypeOutofBounds )
             {
@@ -172,6 +178,9 @@ namespace Football_TimeTracker
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
+            if ( !ticking )
+                return;
+
             if ( currentSegmentType == Constants.segmentTypeRefBlow )
             {
                 //do nothing
@@ -196,6 +205,9 @@ namespace Football_TimeTracker
         {
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
+
+            if ( !ticking )
+                return;
 
             if ( currentSegmentType == Constants.segmentTypeGoal )
             {
