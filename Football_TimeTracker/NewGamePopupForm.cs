@@ -25,7 +25,7 @@ namespace Football_TimeTracker
 
         private void button1_Click( object sender, EventArgs e )
         {
-            InterceptKeys.NewGameWindow( GameNameTextbox.Text, CompetitionTextbox.Text, dateTimePicker1.Value );
+            InterceptKeys.NewGameWindow( GameNameTextbox.Text.Trim(), CompetitionTextbox.Text.Trim(), dateTimePicker1.Value );
             this.Close();
         }
 

@@ -402,7 +402,7 @@ namespace Football_TimeTracker
                 formattedSeconds -= 60;
                 formattedMinutes++;
             }
-            if ( seconds >= 2700 ) //45 mins
+            if ( seconds >= Constants.minute45 ) //45 mins
             {
                 tempoTotalLabel.Text = "45:00";
                 formattedMinutes -= 45;
