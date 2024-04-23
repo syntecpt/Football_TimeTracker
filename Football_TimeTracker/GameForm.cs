@@ -382,8 +382,10 @@ namespace Football_TimeTracker
             var path = System.IO.Directory.CreateDirectory( "saved_games" );
             string fullpath = path.Name + "\\" + this.Text + ".txt";
             JsonSerialization.WriteToJsonFile( fullpath, segments );
-            MessageBox.Show( "Jogo Gravado", "Sucesso" );
+            saveButton.Text = "Gravado!";
+            saveButton.BackColor = Color.FromArgb(64,112,69);
             saveButton.Enabled = false;
+            MessageBox.Show( "Jogo Gravado", "Sucesso" );
         }
 
         private int GetMinX()

@@ -297,6 +297,10 @@ namespace Football_TimeTracker
                 }
                 biggestActiveSegmentResult.Text = formattedMinutes.ToString( "D2" ) + ":" + formattedSeconds.ToString( "D2" );
             }
+            else
+            {
+                biggestActiveSegmentResult.Text = "00:00";
+            }
             Segment biggestStopped = totalSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();
             if ( biggestStopped != null )
             {
@@ -352,6 +356,10 @@ namespace Football_TimeTracker
                 }
 
                 averageActiveSegmentResult.Text = AverageActiveMinutes.ToString( "D2" ) + ":" + AverageActiveSeconds.ToString( "D2" );
+            }
+            else
+            {
+                averageActiveSegmentResult.Text = "00:00";
             }
 
             int CountSecondsStopped = totalSegments.Where( x => x.segmentType != Constants.segmentTypeActive ).Count();
