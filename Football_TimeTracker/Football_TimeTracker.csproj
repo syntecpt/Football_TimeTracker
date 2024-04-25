@@ -71,11 +71,23 @@
     <Compile Include="HistoryForm.Designer.cs">
       <DependentUpon>HistoryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeybindingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeybindingForm.Designer.cs">
+      <DependentUpon>KeybindingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewGamePopupForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewGamePopupForm.Designer.cs">
       <DependentUpon>NewGamePopupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,8 +106,14 @@
     <EmbeddedResource Include="HistoryForm.resx">
       <DependentUpon>HistoryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KeybindingForm.resx">
+      <DependentUpon>KeybindingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewGamePopupForm.resx">
       <DependentUpon>NewGamePopupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

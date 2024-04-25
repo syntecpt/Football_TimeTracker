@@ -98,9 +98,9 @@
             this.currentStatusLabel = new System.Windows.Forms.Label();
             this.RemoveSegmentButton = new System.Windows.Forms.Button();
             this.KeybindUndo = new System.Windows.Forms.Label();
+            this.saveButton = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.saveButton = new System.Windows.Forms.Button();
             this.segmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BarChart)).BeginInit();
@@ -228,53 +228,52 @@
             // 
             // KeybindActive
             // 
-            this.KeybindActive.AutoSize = true;
             this.KeybindActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindActive.Location = new System.Drawing.Point(512, 454);
+            this.KeybindActive.Location = new System.Drawing.Point(439, 454);
             this.KeybindActive.Name = "KeybindActive";
-            this.KeybindActive.Size = new System.Drawing.Size(39, 31);
+            this.KeybindActive.Size = new System.Drawing.Size(187, 31);
             this.KeybindActive.TabIndex = 21;
             this.KeybindActive.Text = "W";
+            this.KeybindActive.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // KeybindOutofBounds
             // 
-            this.KeybindOutofBounds.AutoSize = true;
             this.KeybindOutofBounds.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindOutofBounds.Location = new System.Drawing.Point(211, 591);
+            this.KeybindOutofBounds.Location = new System.Drawing.Point(61, 591);
             this.KeybindOutofBounds.Name = "KeybindOutofBounds";
-            this.KeybindOutofBounds.Size = new System.Drawing.Size(32, 31);
+            this.KeybindOutofBounds.Size = new System.Drawing.Size(187, 31);
             this.KeybindOutofBounds.TabIndex = 22;
             this.KeybindOutofBounds.Text = "A";
+            this.KeybindOutofBounds.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // KeybindRefBlow
             // 
-            this.KeybindRefBlow.AutoSize = true;
             this.KeybindRefBlow.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeybindRefBlow.Location = new System.Drawing.Point(817, 591);
             this.KeybindRefBlow.Name = "KeybindRefBlow";
-            this.KeybindRefBlow.Size = new System.Drawing.Size(34, 31);
+            this.KeybindRefBlow.Size = new System.Drawing.Size(187, 31);
             this.KeybindRefBlow.TabIndex = 23;
             this.KeybindRefBlow.Text = "D";
             // 
             // KeybindGoal
             // 
-            this.KeybindGoal.AutoSize = true;
             this.KeybindGoal.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindGoal.Location = new System.Drawing.Point(512, 719);
+            this.KeybindGoal.Location = new System.Drawing.Point(439, 719);
             this.KeybindGoal.Name = "KeybindGoal";
-            this.KeybindGoal.Size = new System.Drawing.Size(32, 31);
+            this.KeybindGoal.Size = new System.Drawing.Size(187, 31);
             this.KeybindGoal.TabIndex = 24;
             this.KeybindGoal.Text = "S";
+            this.KeybindGoal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // KeybindStartStop
             // 
-            this.KeybindStartStop.AutoSize = true;
             this.KeybindStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeybindStartStop.Location = new System.Drawing.Point(1191, 591);
+            this.KeybindStartStop.Location = new System.Drawing.Point(1061, 591);
             this.KeybindStartStop.Name = "KeybindStartStop";
-            this.KeybindStartStop.Size = new System.Drawing.Size(32, 31);
+            this.KeybindStartStop.Size = new System.Drawing.Size(162, 31);
             this.KeybindStartStop.TabIndex = 26;
             this.KeybindStartStop.Text = "P";
+            this.KeybindStartStop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // placeholder_label
             // 
@@ -745,13 +744,25 @@
             // 
             // KeybindUndo
             // 
-            this.KeybindUndo.AutoSize = true;
             this.KeybindUndo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeybindUndo.Location = new System.Drawing.Point(911, 626);
             this.KeybindUndo.Name = "KeybindUndo";
             this.KeybindUndo.Size = new System.Drawing.Size(148, 31);
             this.KeybindUndo.TabIndex = 34;
             this.KeybindUndo.Text = "Backspace";
+            this.KeybindUndo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // saveButton
+            // 
+            this.saveButton.Enabled = false;
+            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveButton.Location = new System.Drawing.Point(1229, 706);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(187, 56);
+            this.saveButton.TabIndex = 35;
+            this.saveButton.Text = "Gravar Jogo";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // pictureBox2
             // 
@@ -772,18 +783,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // saveButton
-            // 
-            this.saveButton.Enabled = false;
-            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveButton.Location = new System.Drawing.Point(1229, 706);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(187, 56);
-            this.saveButton.TabIndex = 35;
-            this.saveButton.Text = "Gravar Jogo";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // segmentBindingSource
             // 

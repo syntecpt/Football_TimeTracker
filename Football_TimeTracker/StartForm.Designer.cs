@@ -66,6 +66,7 @@
             this.OptionsButton.TabIndex = 2;
             this.OptionsButton.Text = "Opções";
             this.OptionsButton.UseVisualStyleBackColor = true;
+            this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
             // 
             // ExitButton
             // 

@@ -21,6 +21,7 @@ namespace Football_TimeTracker
         int seconds, half, currentSegmentType;
         List<Segment> segments;
         bool ticking;
+        private Options _options;
 
         public GameForm()
         {
@@ -55,6 +56,16 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
             this.Text = gameName;
             this.FormClosing += GameForm_FormClosing;
+            _options = InterceptKeys.GetOptions();
+            KeybindActive.Text = InterceptKeys.GetKeyDescription( _options.currentActiveKey );
+            KeybindOutofBounds.Text = InterceptKeys.GetKeyDescription( _options.currentOutOfBoundsKey );
+            KeybindRefBlow.Text = InterceptKeys.GetKeyDescription( _options.currentRefBlowKey );
+            KeybindGoal.Text = InterceptKeys.GetKeyDescription( _options.currentGoalKey );
+            KeybindUndo.Text = InterceptKeys.GetKeyDescription( _options.currentUndoKey );
+            KeybindStartStop.Text = InterceptKeys.GetKeyDescription( _options.currentStartStopKey );
+            saveButton.BackColor = Constants.colorDisabledButton;
+            RemoveSegmentButton.Enabled = false;
+            RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
         }
 
         private void endButton_Click( object sender, EventArgs e )
@@ -64,6 +75,7 @@ namespace Football_TimeTracker
 
         public void startButton_Click( object sender, EventArgs e )
         {
+            currentStatusLabel.Focus(); //focus hack to prevent space/enter from triggerring buttons
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
@@ -82,6 +94,9 @@ namespace Football_TimeTracker
                 currentStatusLabel.Text = "1ª parte a decorrer";
                 startstopButton.Text = "Terminar 1ª parte";
                 resetButton.Enabled = false;
+                resetButton.BackColor = Constants.colorDisabledButton;
+                RemoveSegmentButton.Enabled = true;
+                RemoveSegmentButton.BackColor = Constants.colorEnabledButton;
                 AddSegment();
             }
             else if(ticking && half == 0)
@@ -92,6 +107,9 @@ namespace Football_TimeTracker
                 currentStatusLabel.Text = "intervalo";
                 ticking = false;
                 resetButton.Enabled = true;
+                resetButton.BackColor = Constants.colorEnabledButton;
+                RemoveSegmentButton.Enabled = false;
+                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
                 startstopButton.Text = "Iniciar 2ª parte";
             }
             else if ( !ticking && half == 1 )
@@ -109,6 +127,9 @@ namespace Football_TimeTracker
                 currentStatusLabel.Text = "2ª parte a decorrer";
                 startstopButton.Text = "Terminar 2ª parte";
                 resetButton.Enabled = false;
+                resetButton.BackColor = Constants.colorDisabledButton;
+                RemoveSegmentButton.Enabled = true;
+                RemoveSegmentButton.BackColor = Constants.colorEnabledButton;
                 AddSegment();
             }
             else if ( ticking && half == 1 )
@@ -119,13 +140,19 @@ namespace Football_TimeTracker
                 currentStatusLabel.Text = "jogo terminado";
                 ticking = false;
                 resetButton.Enabled = true;
+                resetButton.BackColor = Constants.colorEnabledButton;
                 startstopButton.Enabled = false;
+                startstopButton.BackColor = Constants.colorDisabledButton;
+                RemoveSegmentButton.Enabled = false;
+                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
                 saveButton.Enabled = true;
+                saveButton.BackColor = Constants.colorEnabledButton;
             }
         }
 
         public void SegmentActiveButton_Click( object sender, EventArgs e )
         {
+            currentStatusLabel.Focus(); //focus hack to prevent space/enter from triggerring buttons
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
@@ -147,6 +174,7 @@ namespace Football_TimeTracker
 
         public void SegmentOutofBoundsButton_Click( object sender, EventArgs e )
         {
+            currentStatusLabel.Focus(); //focus hack to prevent space/enter from triggerring buttons
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
@@ -175,6 +203,7 @@ namespace Football_TimeTracker
 
         public void SegmentRefBlowButton_Click( object sender, EventArgs e )
         {
+            currentStatusLabel.Focus(); //focus hack to prevent space/enter from triggerring buttons
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
@@ -203,6 +232,7 @@ namespace Football_TimeTracker
 
         public void SegmentGoalButton_Click( object sender, EventArgs e )
         {
+            currentStatusLabel.Focus(); //focus hack to prevent space/enter from triggerring buttons
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
@@ -231,6 +261,7 @@ namespace Football_TimeTracker
 
         public void RemoveSegmentButton_Click( object sender, EventArgs e )
         {
+            currentStatusLabel.Focus(); //focus hack to prevent space/enter from triggerring buttons
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
             { return; }
 
@@ -791,6 +822,8 @@ namespace Football_TimeTracker
         public static Color colorSegmentGoal = Color.LightSkyBlue;
 
         public static Color colorBackgroundGray = Color.DimGray;
+        public static Color colorDisabledButton = SystemColors.ControlDark;
+        public static Color colorEnabledButton = SystemColors.Control;
     }
 
     public class Segment
