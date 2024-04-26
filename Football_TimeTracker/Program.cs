@@ -309,6 +309,18 @@ namespace Football_TimeTracker
                     }
                     else return CallNextHookEx( _hookID, nCode, wParam, lParam );
                 }
+
+                if(_historyForm != null)
+                {
+                    if (vkCode == 13)    // Enter
+                        _historyForm.filterTableButton_Click( null, null );
+                }
+
+                if(_popupForm != null)
+                {
+                    if (vkCode == 13)    // Enter
+                        _popupForm.SetFocus();
+                }
             }
             return CallNextHookEx( _hookID, nCode, wParam, lParam );
         }

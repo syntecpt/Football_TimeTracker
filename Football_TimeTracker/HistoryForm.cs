@@ -606,7 +606,7 @@ namespace Football_TimeTracker
             }
         }
 
-        private void filterTableButton_Click( object sender, EventArgs e )
+        public void filterTableButton_Click( object sender, EventArgs e )
         {
             tempGames = new List<Game>();
             nameGames = new List<Game>();

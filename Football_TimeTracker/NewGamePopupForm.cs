@@ -43,5 +43,14 @@ namespace Football_TimeTracker
                 eargs.Handled = true;
             }
         }
+
+        public void SetFocus()
+        {
+            if (GameNameTextbox.Text.Length == 0)
+                GameNameTextbox.Focus();
+            else if (CompetitionTextbox.Text.Length == 0)
+                CompetitionTextbox.Focus();
+            else button1.Focus();
+        }
     }
 }
