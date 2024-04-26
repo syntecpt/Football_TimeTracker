@@ -72,44 +72,127 @@ namespace Football_TimeTracker
 
             if(settingActive)
             {
+                //unbind other keys
+                if (_options.currentOutOfBoundsKey == KeyCode)
+                    _options.currentOutOfBoundsKey = 0;
+                if(_options.currentRefBlowKey == KeyCode)
+                    _options.currentRefBlowKey = 0;
+                if (_options.currentGoalKey == KeyCode)
+                    _options.currentGoalKey = 0;
+                if (_options.currentUndoKey == KeyCode)
+                    _options.currentUndoKey = 0;
+                if (_options.currentStartStopKey == KeyCode)
+                    _options.currentStartStopKey = 0;
+                
                 settingActive = false;
                 _options.currentActiveKey = KeyCode;
-                ActiveKey.Text = InterceptKeys.GetKeyDescription( KeyCode );
+                
             }
             else if (settingOutOfBounds)
             {
+                //unbind other keys
+                if (_options.currentActiveKey == KeyCode)
+                    _options.currentActiveKey= 0;
+                if (_options.currentRefBlowKey == KeyCode)
+                    _options.currentRefBlowKey = 0;
+                if (_options.currentGoalKey == KeyCode)
+                    _options.currentGoalKey = 0;
+                if (_options.currentUndoKey == KeyCode)
+                    _options.currentUndoKey = 0;
+                if (_options.currentStartStopKey == KeyCode)
+                    _options.currentStartStopKey = 0;
+
                 settingOutOfBounds = false;
                 _options.currentOutOfBoundsKey = KeyCode;
-                OutOfBoundsKey.Text = InterceptKeys.GetKeyDescription( KeyCode );
+                
             }
             else if (settingRefBlow)
             {
+                //unbind other keys
+                if (_options.currentActiveKey == KeyCode)
+                    _options.currentActiveKey = 0;
+                if (_options.currentOutOfBoundsKey == KeyCode)
+                    _options.currentOutOfBoundsKey = 0;
+                if (_options.currentGoalKey == KeyCode)
+                    _options.currentGoalKey = 0;
+                if (_options.currentUndoKey == KeyCode)
+                    _options.currentUndoKey = 0;
+                if (_options.currentStartStopKey == KeyCode)
+                    _options.currentStartStopKey = 0;
+
                 settingRefBlow = false;
                 _options.currentRefBlowKey = KeyCode;
-                RefBlowKey.Text = InterceptKeys.GetKeyDescription( KeyCode );
+                
             }
             else if (settingGoal)
             {
+                //unbind other keys
+                if (_options.currentActiveKey == KeyCode)
+                    _options.currentActiveKey = 0;
+                if (_options.currentOutOfBoundsKey == KeyCode)
+                    _options.currentOutOfBoundsKey = 0;
+                if (_options.currentRefBlowKey == KeyCode)
+                    _options.currentRefBlowKey = 0;
+                if (_options.currentUndoKey == KeyCode)
+                    _options.currentUndoKey = 0;
+                if (_options.currentStartStopKey == KeyCode)
+                    _options.currentStartStopKey = 0;
+
                 settingGoal = false;
                 _options.currentGoalKey = KeyCode;
-                GoalKey.Text = InterceptKeys.GetKeyDescription( KeyCode );
+                
             }
             else if (settingUndo)
             {
+                //unbind other keys
+                if (_options.currentActiveKey == KeyCode)
+                    _options.currentActiveKey = 0;
+                if (_options.currentOutOfBoundsKey == KeyCode)
+                    _options.currentOutOfBoundsKey = 0;
+                if (_options.currentRefBlowKey == KeyCode)
+                    _options.currentRefBlowKey = 0;
+                if (_options.currentGoalKey == KeyCode)
+                    _options.currentGoalKey = 0;
+                if (_options.currentStartStopKey == KeyCode)
+                    _options.currentStartStopKey = 0;
+
                 settingUndo = false;
                 _options.currentUndoKey = KeyCode;
-                UndoKey.Text = InterceptKeys.GetKeyDescription( KeyCode );
+                
             }
             else if (settingStartStop)
             {
+                //unbind other keys
+                if (_options.currentActiveKey == KeyCode)
+                    _options.currentActiveKey = 0;
+                if (_options.currentOutOfBoundsKey == KeyCode)
+                    _options.currentOutOfBoundsKey = 0;
+                if (_options.currentRefBlowKey == KeyCode)
+                    _options.currentRefBlowKey = 0;
+                if (_options.currentGoalKey == KeyCode)
+                    _options.currentGoalKey = 0;
+                if (_options.currentUndoKey == KeyCode)
+                    _options.currentUndoKey = 0;
+
                 settingStartStop = false;
                 _options.currentStartStopKey = KeyCode;
-                StartStopKey.Text = InterceptKeys.GetKeyDescription( KeyCode );
+                
             }
 
             settingKey = false;
+            ResetKeyDescriptions();
             SaveKeys();
             //Console.WriteLine( "keycode " + KeyCode + " equals key: " + InterceptKeys.GetKeyDescription( KeyCode ) );
+        }
+
+        private void ResetKeyDescriptions()
+        {
+            ActiveKey.Text = InterceptKeys.GetKeyDescription( _options.currentActiveKey );
+            OutOfBoundsKey.Text = InterceptKeys.GetKeyDescription( _options.currentOutOfBoundsKey );
+            RefBlowKey.Text = InterceptKeys.GetKeyDescription( _options.currentRefBlowKey );
+            GoalKey.Text = InterceptKeys.GetKeyDescription( _options.currentGoalKey );
+            UndoKey.Text = InterceptKeys.GetKeyDescription( _options.currentUndoKey );
+            StartStopKey.Text = InterceptKeys.GetKeyDescription( _options.currentStartStopKey );
         }
 
         private void SaveKeys()
@@ -159,12 +242,7 @@ namespace Football_TimeTracker
         {
             toolTip1.SetToolTip( label1, GetTooltipText() );
             toolTip1.SetToolTip( label8, GetTooltipText() );
-            ActiveKey.Text = InterceptKeys.GetKeyDescription( _options.currentActiveKey );
-            OutOfBoundsKey.Text = InterceptKeys.GetKeyDescription( _options.currentOutOfBoundsKey );
-            RefBlowKey.Text = InterceptKeys.GetKeyDescription( _options.currentRefBlowKey );
-            GoalKey.Text = InterceptKeys.GetKeyDescription( _options.currentGoalKey );
-            UndoKey.Text = InterceptKeys.GetKeyDescription( _options.currentUndoKey );
-            StartStopKey.Text = InterceptKeys.GetKeyDescription( _options.currentStartStopKey );
+            ResetKeyDescriptions();
         }
 
         private string GetTooltipText()
