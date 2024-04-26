@@ -17,6 +17,7 @@ namespace Football_TimeTracker
     public partial class HistoryForm : Form
     {
         List<Segment> totalSegments;
+        int numberOfGames;
         List<Game> tempGames, nameGames, competitionGames, dateGames;
 
         public HistoryForm()
@@ -92,6 +93,7 @@ namespace Football_TimeTracker
         {
             totalSegments = new List<Segment>();
             List<Segment> currSegments = new List<Segment>();
+            numberOfGames = 0;
             foreach ( DataGridViewRow row in sender.Rows )
             {
                 bool isSelected = Convert.ToBoolean( row.Cells[ "SelectedCheckbox" ].Value );
@@ -100,6 +102,7 @@ namespace Football_TimeTracker
                     string path = row.Cells[ 0 ].Value.ToString();
                     List<Segment> thisSegment = JsonSerialization.ReadFromJsonFile<List<Segment>>( path );
                     totalSegments.AddRange( thisSegment );
+                    numberOfGames++;
                 }
             }
 
@@ -118,6 +121,14 @@ namespace Football_TimeTracker
             int elapsedSecondsOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
             int elapsedSecondsRefBlow = totalSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
             int elapsedSecondsGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
+
+            if (numberOfGames > 0)
+            {
+                elapsedSecondsActive = elapsedSecondsActive / numberOfGames;
+                elapsedSecondsOutofBounds = elapsedSecondsOutofBounds / numberOfGames;
+                elapsedSecondsRefBlow = elapsedSecondsRefBlow / numberOfGames;
+                elapsedSecondsGoal = elapsedSecondsGoal / numberOfGames;
+            }
 
             while ( elapsedSecondsActive >= 60 )
             {
@@ -148,6 +159,8 @@ namespace Football_TimeTracker
 
             int TotalMinutes = 0;
             int TotalSeconds = totalSegments.Sum( x => x.elapsedSeconds );
+            if (numberOfGames > 0)
+                TotalSeconds = TotalSeconds / numberOfGames;
             while ( TotalSeconds >= 60 )
             {
                 TotalSeconds -= 60;
@@ -208,81 +221,8 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 3 ].SetValueY( elapsedSecondsGoal );
             #endregion
 
-            #region Bar Chart
-            elapsedSecondsActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsOutofBounds = totalSegments.Where( x => x.segmentType == Constants.segmentTypeOutofBounds ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsRefBlow = totalSegments.Where( x => x.segmentType == Constants.segmentTypeRefBlow ).Sum( x => x.elapsedSeconds );
-            elapsedSecondsGoal = totalSegments.Where( x => x.segmentType == Constants.segmentTypeGoal ).Sum( x => x.elapsedSeconds );
-
-            double BarMinutesActive = (double)elapsedSecondsActive / 60;
-            double BarMinutesOutOfBounds = (double)elapsedSecondsOutofBounds / 60;
-            double BarMinutesRefBlow = (double)elapsedSecondsRefBlow / 60;
-            double BarMinutesGoal = (double)elapsedSecondsGoal / 60;
-
-            if ( BarMinutesActive > 0 )
-            {
-                BarChart.Series[ 0 ].Points[ 0 ].Label = BarMinutesActive.ToString( "0.##" );
-                BarChart.Series[ 0 ].Points[ 0 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 0 ].SetValueY( BarMinutesActive );
-            }
-            else
-            {
-                BarChart.Series[ 0 ].Points[ 0 ].Label = "";
-                BarChart.Series[ 0 ].Points[ 0 ].IsEmpty = true;
-                BarChart.Series[ 0 ].Points[ 0 ].SetValueY( BarMinutesActive );
-            }
-            if ( BarMinutesOutOfBounds > 0 )
-            {
-                BarChart.Series[ 0 ].Points[ 1 ].Label = BarMinutesOutOfBounds.ToString( "0.##" );
-                BarChart.Series[ 0 ].Points[ 1 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 1 ].SetValueY( BarMinutesOutOfBounds );
-            }
-            else
-            {
-                BarChart.Series[ 0 ].Points[ 1 ].Label = "";
-                BarChart.Series[ 0 ].Points[ 1 ].IsEmpty = true;
-                BarChart.Series[ 0 ].Points[ 1 ].SetValueY( BarMinutesOutOfBounds );
-            }
-            if ( BarMinutesRefBlow > 0 )
-            {
-                BarChart.Series[ 0 ].Points[ 2 ].Label = BarMinutesRefBlow.ToString( "0.##" );
-                BarChart.Series[ 0 ].Points[ 2 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 2 ].SetValueY( BarMinutesRefBlow );
-            }
-            else
-            {
-                BarChart.Series[ 0 ].Points[ 2 ].Label = "";
-                BarChart.Series[ 0 ].Points[ 2 ].IsEmpty = true;
-                BarChart.Series[ 0 ].Points[ 2 ].SetValueY( BarMinutesRefBlow );
-            }
-            if ( BarMinutesGoal > 0 )
-            {
-                BarChart.Series[ 0 ].Points[ 3 ].Label = BarMinutesGoal.ToString( "0.##" );
-                BarChart.Series[ 0 ].Points[ 3 ].IsEmpty = false;
-                BarChart.Series[ 0 ].Points[ 3 ].SetValueY( BarMinutesGoal );
-            }
-            else
-            {
-                BarChart.Series[ 0 ].Points[ 3 ].Label = "";
-                BarChart.Series[ 0 ].Points[ 3 ].IsEmpty = true;
-                BarChart.Series[ 0 ].Points[ 3 ].SetValueY( BarMinutesGoal );
-            }
-
-            double MaxYValue;
-            MaxYValue = BarMinutesActive;
-            if ( BarMinutesOutOfBounds > MaxYValue )
-                MaxYValue = BarMinutesOutOfBounds;
-            if ( BarMinutesRefBlow > MaxYValue )
-                MaxYValue = BarMinutesRefBlow;
-            if ( BarMinutesGoal > MaxYValue )
-                MaxYValue = BarMinutesGoal;
-
-            MaxYValue = Math.Ceiling( MaxYValue );
-            BarChart.ChartAreas[ 0 ].AxisY.Maximum = MaxYValue;
-            #endregion
-
             #region Other Text Stats
-            totalSegmentsResult.Text = totalSegments.Count.ToString();
+            totalGamesResult.Text = numberOfGames.ToString();
             int formattedMinutes, formattedSeconds;
 
             Segment biggestActive = totalSegments.Where( x => x.segmentType == Constants.segmentTypeActive ).OrderByDescending( x => x.elapsedSeconds ).FirstOrDefault();

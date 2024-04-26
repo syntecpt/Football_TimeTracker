@@ -35,16 +35,6 @@
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HistoryForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -61,15 +51,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.PieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.BarChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.averageGoalSegmentResult = new System.Windows.Forms.Label();
             this.averageStoppedSegmentResult = new System.Windows.Forms.Label();
             this.averageActiveSegmentResult = new System.Windows.Forms.Label();
             this.biggestStoppedSegmentResult = new System.Windows.Forms.Label();
             this.biggestActiveSegmentResult = new System.Windows.Forms.Label();
-            this.totalSegmentsResult = new System.Windows.Forms.Label();
+            this.totalGamesResult = new System.Windows.Forms.Label();
             this.averageGoalSegmentLabel = new System.Windows.Forms.Label();
             this.averageStoppedSegmentLabel = new System.Windows.Forms.Label();
             this.biggestStoppedSegmentLabel = new System.Windows.Forms.Label();
@@ -117,8 +105,6 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PieChart)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BarChart)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -127,12 +113,11 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(883, 14);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(450, 495);
+            this.tabControl1.Size = new System.Drawing.Size(450, 482);
             this.tabControl1.TabIndex = 30;
             // 
             // tabPage1
@@ -151,7 +136,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(442, 469);
+            this.tabPage1.Size = new System.Drawing.Size(442, 456);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Texto";
             // 
@@ -218,56 +203,56 @@
             // label6
             // 
             this.label6.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(0, 270);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(446, 90);
             this.label6.TabIndex = 24;
-            this.label6.Text = "Golo / Celebração / Revisão:";
+            this.label6.Text = "Tempo médio de\r\nGolo / Celebração / Revisão:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Salmon;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(0, 180);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(446, 90);
             this.label5.TabIndex = 23;
-            this.label5.Text = "Arbitro interrompeu jogo:";
+            this.label5.Text = "Tempo médio de\r\nArbitro interrompeu jogo:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Yellow;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(0, 90);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(446, 90);
             this.label4.TabIndex = 22;
-            this.label4.Text = "Bola fora do terreno de jogo:";
+            this.label4.Text = "Tempo médio de\r\nBola fora do terreno de jogo:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.SpringGreen;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(446, 90);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Jogo a seguir:";
+            this.label3.Text = "Tempo médio de\r\nJogo a seguir:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
             // 
             this.label8.BackColor = System.Drawing.Color.DimGray;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(0, 360);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(446, 90);
             this.label8.TabIndex = 29;
-            this.label8.Text = "Tempo Total de jogo:";
+            this.label8.Text = "Tempo médio de jogo:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabPage2
@@ -277,7 +262,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(442, 469);
+            this.tabPage2.Size = new System.Drawing.Size(442, 456);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Gráfico Circular";
             // 
@@ -320,69 +305,6 @@
             this.PieChart.TabIndex = 0;
             this.PieChart.Text = "Gráfico Circular";
             // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.DimGray;
-            this.tabPage3.Controls.Add(this.BarChart);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(442, 469);
-            this.tabPage3.TabIndex = 1;
-            this.tabPage3.Text = "Gráfico de Barras";
-            // 
-            // BarChart
-            // 
-            this.BarChart.BackColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea2.AxisX.IsLabelAutoFit = false;
-            chartArea2.AxisX.LabelStyle.Enabled = false;
-            chartArea2.AxisY.Title = "Minutos";
-            chartArea2.BackColor = System.Drawing.Color.DimGray;
-            chartArea2.Name = "ChartArea1";
-            this.BarChart.ChartAreas.Add(chartArea2);
-            legend2.BackColor = System.Drawing.Color.DimGray;
-            legend2.Name = "Legend1";
-            this.BarChart.Legends.Add(legend2);
-            this.BarChart.Location = new System.Drawing.Point(-4, 0);
-            this.BarChart.Name = "BarChart";
-            series2.ChartArea = "ChartArea1";
-            series2.Color = System.Drawing.Color.SpringGreen;
-            series2.Legend = "Legend1";
-            series2.Name = "A seguir";
-            dataPoint5.Color = System.Drawing.Color.SpringGreen;
-            dataPoint5.Label = "";
-            dataPoint5.LabelFormat = "";
-            dataPoint5.LabelToolTip = "";
-            dataPoint5.LegendText = "";
-            dataPoint5.LegendToolTip = "";
-            dataPoint6.Color = System.Drawing.Color.Yellow;
-            dataPoint7.Color = System.Drawing.Color.Salmon;
-            dataPoint8.Color = System.Drawing.Color.LightSkyBlue;
-            series2.Points.Add(dataPoint5);
-            series2.Points.Add(dataPoint6);
-            series2.Points.Add(dataPoint7);
-            series2.Points.Add(dataPoint8);
-            series3.ChartArea = "ChartArea1";
-            series3.Color = System.Drawing.Color.Yellow;
-            series3.Legend = "Legend1";
-            series3.Name = "Bola fora";
-            series4.ChartArea = "ChartArea1";
-            series4.Color = System.Drawing.Color.Salmon;
-            series4.Legend = "Legend1";
-            series4.Name = "Arbitro apita";
-            series5.ChartArea = "ChartArea1";
-            series5.Color = System.Drawing.Color.LightSkyBlue;
-            series5.Legend = "Legend1";
-            series5.Name = "Golo";
-            this.BarChart.Series.Add(series2);
-            this.BarChart.Series.Add(series3);
-            this.BarChart.Series.Add(series4);
-            this.BarChart.Series.Add(series5);
-            this.BarChart.Size = new System.Drawing.Size(450, 473);
-            this.BarChart.TabIndex = 0;
-            this.BarChart.Text = "chart1";
-            // 
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.DimGray;
@@ -391,7 +313,7 @@
             this.tabPage4.Controls.Add(this.averageActiveSegmentResult);
             this.tabPage4.Controls.Add(this.biggestStoppedSegmentResult);
             this.tabPage4.Controls.Add(this.biggestActiveSegmentResult);
-            this.tabPage4.Controls.Add(this.totalSegmentsResult);
+            this.tabPage4.Controls.Add(this.totalGamesResult);
             this.tabPage4.Controls.Add(this.averageGoalSegmentLabel);
             this.tabPage4.Controls.Add(this.averageStoppedSegmentLabel);
             this.tabPage4.Controls.Add(this.biggestStoppedSegmentLabel);
@@ -400,7 +322,7 @@
             this.tabPage4.Controls.Add(this.totalSegmentsLabel);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(442, 469);
+            this.tabPage4.Size = new System.Drawing.Size(442, 456);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "Outras Estatísticas";
             // 
@@ -457,15 +379,15 @@
             this.biggestActiveSegmentResult.Text = "00:00";
             this.biggestActiveSegmentResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // totalSegmentsResult
+            // totalGamesResult
             // 
-            this.totalSegmentsResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalSegmentsResult.Location = new System.Drawing.Point(3, 38);
-            this.totalSegmentsResult.Name = "totalSegmentsResult";
-            this.totalSegmentsResult.Size = new System.Drawing.Size(443, 38);
-            this.totalSegmentsResult.TabIndex = 7;
-            this.totalSegmentsResult.Text = "0";
-            this.totalSegmentsResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.totalGamesResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalGamesResult.Location = new System.Drawing.Point(3, 38);
+            this.totalGamesResult.Name = "totalGamesResult";
+            this.totalGamesResult.Size = new System.Drawing.Size(443, 38);
+            this.totalGamesResult.TabIndex = 7;
+            this.totalGamesResult.Text = "0";
+            this.totalGamesResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // averageGoalSegmentLabel
             // 
@@ -475,7 +397,7 @@
             this.averageGoalSegmentLabel.Name = "averageGoalSegmentLabel";
             this.averageGoalSegmentLabel.Size = new System.Drawing.Size(443, 38);
             this.averageGoalSegmentLabel.TabIndex = 6;
-            this.averageGoalSegmentLabel.Text = "Tempo medio de celebração de golo";
+            this.averageGoalSegmentLabel.Text = "Tempo médio de celebração de golo";
             this.averageGoalSegmentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // averageStoppedSegmentLabel
@@ -485,7 +407,7 @@
             this.averageStoppedSegmentLabel.Name = "averageStoppedSegmentLabel";
             this.averageStoppedSegmentLabel.Size = new System.Drawing.Size(443, 38);
             this.averageStoppedSegmentLabel.TabIndex = 5;
-            this.averageStoppedSegmentLabel.Text = "Tempo medio de jogo parado";
+            this.averageStoppedSegmentLabel.Text = "Tempo médio de segmento parado";
             this.averageStoppedSegmentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // biggestStoppedSegmentLabel
@@ -506,7 +428,7 @@
             this.averageActiveSegmentLabel.Name = "averageActiveSegmentLabel";
             this.averageActiveSegmentLabel.Size = new System.Drawing.Size(443, 38);
             this.averageActiveSegmentLabel.TabIndex = 2;
-            this.averageActiveSegmentLabel.Text = "Tempo medio \"A seguir\"";
+            this.averageActiveSegmentLabel.Text = "Tempo médio de segmento  \"A seguir\"";
             this.averageActiveSegmentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // biggestActiveSegmentLabel
@@ -527,7 +449,7 @@
             this.totalSegmentsLabel.Name = "totalSegmentsLabel";
             this.totalSegmentsLabel.Size = new System.Drawing.Size(443, 38);
             this.totalSegmentsLabel.TabIndex = 0;
-            this.totalSegmentsLabel.Text = "Nº total de segmentos";
+            this.totalSegmentsLabel.Text = "Nº de jogos";
             this.totalSegmentsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridView1
@@ -1019,8 +941,6 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PieChart)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.BarChart)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -1044,15 +964,13 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataVisualization.Charting.Chart PieChart;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.DataVisualization.Charting.Chart BarChart;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label averageGoalSegmentResult;
         private System.Windows.Forms.Label averageStoppedSegmentResult;
         private System.Windows.Forms.Label averageActiveSegmentResult;
         private System.Windows.Forms.Label biggestStoppedSegmentResult;
         private System.Windows.Forms.Label biggestActiveSegmentResult;
-        private System.Windows.Forms.Label totalSegmentsResult;
+        private System.Windows.Forms.Label totalGamesResult;
         private System.Windows.Forms.Label averageGoalSegmentLabel;
         private System.Windows.Forms.Label averageStoppedSegmentLabel;
         private System.Windows.Forms.Label biggestStoppedSegmentLabel;
