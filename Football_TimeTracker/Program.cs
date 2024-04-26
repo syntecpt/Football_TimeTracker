@@ -237,7 +237,7 @@ namespace Football_TimeTracker
             if (keyCode == 98) return "(num)2";
             if (keyCode == 9) return "(num)3";
             if (keyCode == 13) return "(num)Enter";
-            if (keyCode == 161) return "L Ctrl";
+            if (keyCode == 162) return "L Ctrl";
             if (keyCode == 91) return "Windows";
             if (keyCode == 32) return "Space";
             if (keyCode == 93) return "Menu";
