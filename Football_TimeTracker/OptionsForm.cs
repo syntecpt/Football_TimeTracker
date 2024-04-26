@@ -43,7 +43,7 @@ namespace Football_TimeTracker
 
         private void DimScreenAndShowPopup()
         {
-            this.Opacity = 0.2;
+            this.Opacity = 0.8;
             label1.Focus();
             _keybindingForm.Show();
             _keybindingForm.Focus();

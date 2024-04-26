@@ -788,6 +788,7 @@
             // comboBoxCompetitionFilter3
             // 
             this.comboBoxCompetitionFilter3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCompetitionFilter3.Enabled = false;
             this.comboBoxCompetitionFilter3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCompetitionFilter3.FormattingEnabled = true;
             this.comboBoxCompetitionFilter3.Items.AddRange(new object[] {
@@ -801,6 +802,7 @@
             // comboBoxCompetitionFilter2
             // 
             this.comboBoxCompetitionFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCompetitionFilter2.Enabled = false;
             this.comboBoxCompetitionFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCompetitionFilter2.FormattingEnabled = true;
             this.comboBoxCompetitionFilter2.Items.AddRange(new object[] {
@@ -909,6 +911,7 @@
             // comboBoxDateFilter2
             // 
             this.comboBoxDateFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDateFilter2.Enabled = false;
             this.comboBoxDateFilter2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxDateFilter2.FormattingEnabled = true;
             this.comboBoxDateFilter2.Items.AddRange(new object[] {
