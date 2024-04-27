@@ -302,7 +302,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(442, 469);
+            this.tabPage3.Size = new System.Drawing.Size(442, 454);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Gráfico de Barras";
             // 
@@ -365,7 +365,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(442, 469);
+            this.tabPage2.Size = new System.Drawing.Size(442, 454);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Gráfico Circular";
             // 
@@ -424,66 +424,61 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(442, 469);
+            this.tabPage1.Size = new System.Drawing.Size(442, 454);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Texto";
             // 
             // TotalGameTimeLabel
             // 
-            this.TotalGameTimeLabel.AutoSize = true;
             this.TotalGameTimeLabel.BackColor = System.Drawing.Color.DimGray;
             this.TotalGameTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalGameTimeLabel.Location = new System.Drawing.Point(354, 390);
+            this.TotalGameTimeLabel.Location = new System.Drawing.Point(334, 390);
             this.TotalGameTimeLabel.Name = "TotalGameTimeLabel";
-            this.TotalGameTimeLabel.Size = new System.Drawing.Size(82, 31);
+            this.TotalGameTimeLabel.Size = new System.Drawing.Size(102, 31);
             this.TotalGameTimeLabel.TabIndex = 30;
             this.TotalGameTimeLabel.Text = "00:00";
             this.TotalGameTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateGoalTimer
             // 
-            this.StateGoalTimer.AutoSize = true;
             this.StateGoalTimer.BackColor = System.Drawing.Color.LightSkyBlue;
             this.StateGoalTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateGoalTimer.Location = new System.Drawing.Point(354, 300);
+            this.StateGoalTimer.Location = new System.Drawing.Point(334, 300);
             this.StateGoalTimer.Name = "StateGoalTimer";
-            this.StateGoalTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateGoalTimer.Size = new System.Drawing.Size(102, 31);
             this.StateGoalTimer.TabIndex = 28;
             this.StateGoalTimer.Text = "00:00";
             this.StateGoalTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateRefBlowTimer
             // 
-            this.StateRefBlowTimer.AutoSize = true;
             this.StateRefBlowTimer.BackColor = System.Drawing.Color.Salmon;
             this.StateRefBlowTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateRefBlowTimer.Location = new System.Drawing.Point(354, 210);
+            this.StateRefBlowTimer.Location = new System.Drawing.Point(334, 210);
             this.StateRefBlowTimer.Name = "StateRefBlowTimer";
-            this.StateRefBlowTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateRefBlowTimer.Size = new System.Drawing.Size(102, 31);
             this.StateRefBlowTimer.TabIndex = 27;
             this.StateRefBlowTimer.Text = "00:00";
             this.StateRefBlowTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateOutofBoundsTimer
             // 
-            this.StateOutofBoundsTimer.AutoSize = true;
             this.StateOutofBoundsTimer.BackColor = System.Drawing.Color.Yellow;
             this.StateOutofBoundsTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateOutofBoundsTimer.Location = new System.Drawing.Point(354, 120);
+            this.StateOutofBoundsTimer.Location = new System.Drawing.Point(334, 120);
             this.StateOutofBoundsTimer.Name = "StateOutofBoundsTimer";
-            this.StateOutofBoundsTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateOutofBoundsTimer.Size = new System.Drawing.Size(102, 31);
             this.StateOutofBoundsTimer.TabIndex = 26;
             this.StateOutofBoundsTimer.Text = "00:00";
             this.StateOutofBoundsTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateActiveTimer
             // 
-            this.StateActiveTimer.AutoSize = true;
             this.StateActiveTimer.BackColor = System.Drawing.Color.SpringGreen;
             this.StateActiveTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateActiveTimer.Location = new System.Drawing.Point(354, 30);
+            this.StateActiveTimer.Location = new System.Drawing.Point(334, 30);
             this.StateActiveTimer.Name = "StateActiveTimer";
-            this.StateActiveTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateActiveTimer.Size = new System.Drawing.Size(102, 31);
             this.StateActiveTimer.TabIndex = 25;
             this.StateActiveTimer.Text = "00:00";
             this.StateActiveTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -491,7 +486,7 @@
             // label6
             // 
             this.label6.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(0, 270);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(446, 90);
@@ -502,7 +497,7 @@
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Salmon;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(0, 180);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(446, 90);
@@ -513,7 +508,7 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Yellow;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(0, 90);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(446, 90);
@@ -524,7 +519,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.SpringGreen;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(446, 90);
@@ -535,7 +530,7 @@
             // label8
             // 
             this.label8.BackColor = System.Drawing.Color.DimGray;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(0, 360);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(446, 90);
@@ -552,7 +547,7 @@
             this.tabControl1.Location = new System.Drawing.Point(1092, 18);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(450, 495);
+            this.tabControl1.Size = new System.Drawing.Size(450, 480);
             this.tabControl1.TabIndex = 29;
             // 
             // tabPage4
@@ -572,7 +567,7 @@
             this.tabPage4.Controls.Add(this.totalSegmentsLabel);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(442, 469);
+            this.tabPage4.Size = new System.Drawing.Size(442, 454);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "Outras Estatísticas";
             // 
@@ -830,7 +825,6 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PieChart)).EndInit();
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

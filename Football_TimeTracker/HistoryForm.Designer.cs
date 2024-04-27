@@ -142,60 +142,55 @@
             // 
             // TotalGameTimeLabel
             // 
-            this.TotalGameTimeLabel.AutoSize = true;
             this.TotalGameTimeLabel.BackColor = System.Drawing.Color.DimGray;
             this.TotalGameTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalGameTimeLabel.Location = new System.Drawing.Point(354, 390);
+            this.TotalGameTimeLabel.Location = new System.Drawing.Point(320, 390);
             this.TotalGameTimeLabel.Name = "TotalGameTimeLabel";
-            this.TotalGameTimeLabel.Size = new System.Drawing.Size(82, 31);
+            this.TotalGameTimeLabel.Size = new System.Drawing.Size(116, 31);
             this.TotalGameTimeLabel.TabIndex = 30;
             this.TotalGameTimeLabel.Text = "00:00";
             this.TotalGameTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateGoalTimer
             // 
-            this.StateGoalTimer.AutoSize = true;
             this.StateGoalTimer.BackColor = System.Drawing.Color.LightSkyBlue;
             this.StateGoalTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateGoalTimer.Location = new System.Drawing.Point(354, 300);
+            this.StateGoalTimer.Location = new System.Drawing.Point(320, 300);
             this.StateGoalTimer.Name = "StateGoalTimer";
-            this.StateGoalTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateGoalTimer.Size = new System.Drawing.Size(116, 31);
             this.StateGoalTimer.TabIndex = 28;
             this.StateGoalTimer.Text = "00:00";
             this.StateGoalTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateRefBlowTimer
             // 
-            this.StateRefBlowTimer.AutoSize = true;
             this.StateRefBlowTimer.BackColor = System.Drawing.Color.Salmon;
             this.StateRefBlowTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateRefBlowTimer.Location = new System.Drawing.Point(354, 210);
+            this.StateRefBlowTimer.Location = new System.Drawing.Point(320, 210);
             this.StateRefBlowTimer.Name = "StateRefBlowTimer";
-            this.StateRefBlowTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateRefBlowTimer.Size = new System.Drawing.Size(116, 31);
             this.StateRefBlowTimer.TabIndex = 27;
             this.StateRefBlowTimer.Text = "00:00";
             this.StateRefBlowTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateOutofBoundsTimer
             // 
-            this.StateOutofBoundsTimer.AutoSize = true;
             this.StateOutofBoundsTimer.BackColor = System.Drawing.Color.Yellow;
             this.StateOutofBoundsTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateOutofBoundsTimer.Location = new System.Drawing.Point(354, 120);
+            this.StateOutofBoundsTimer.Location = new System.Drawing.Point(320, 120);
             this.StateOutofBoundsTimer.Name = "StateOutofBoundsTimer";
-            this.StateOutofBoundsTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateOutofBoundsTimer.Size = new System.Drawing.Size(116, 31);
             this.StateOutofBoundsTimer.TabIndex = 26;
             this.StateOutofBoundsTimer.Text = "00:00";
             this.StateOutofBoundsTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StateActiveTimer
             // 
-            this.StateActiveTimer.AutoSize = true;
             this.StateActiveTimer.BackColor = System.Drawing.Color.SpringGreen;
             this.StateActiveTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StateActiveTimer.Location = new System.Drawing.Point(354, 30);
+            this.StateActiveTimer.Location = new System.Drawing.Point(320, 30);
             this.StateActiveTimer.Name = "StateActiveTimer";
-            this.StateActiveTimer.Size = new System.Drawing.Size(82, 31);
+            this.StateActiveTimer.Size = new System.Drawing.Size(116, 31);
             this.StateActiveTimer.TabIndex = 25;
             this.StateActiveTimer.Text = "00:00";
             this.StateActiveTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -938,7 +933,6 @@
             this.Load += new System.EventHandler(this.HistoryForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PieChart)).EndInit();
             this.tabPage4.ResumeLayout(false);
