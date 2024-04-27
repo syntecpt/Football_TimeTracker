@@ -95,8 +95,6 @@ namespace Football_TimeTracker
                 startstopButton.Text = "Terminar 1ª parte";
                 resetButton.Enabled = false;
                 resetButton.BackColor = Constants.colorDisabledButton;
-                RemoveSegmentButton.Enabled = true;
-                RemoveSegmentButton.BackColor = Constants.colorEnabledButton;
                 AddSegment();
             }
             else if(ticking && half == 0)
@@ -108,9 +106,8 @@ namespace Football_TimeTracker
                 ticking = false;
                 resetButton.Enabled = true;
                 resetButton.BackColor = Constants.colorEnabledButton;
-                RemoveSegmentButton.Enabled = false;
-                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
                 startstopButton.Text = "Iniciar 2ª parte";
+                CheckUndoButton();
             }
             else if ( !ticking && half == 1 )
             {
@@ -128,8 +125,6 @@ namespace Football_TimeTracker
                 startstopButton.Text = "Terminar 2ª parte";
                 resetButton.Enabled = false;
                 resetButton.BackColor = Constants.colorDisabledButton;
-                RemoveSegmentButton.Enabled = true;
-                RemoveSegmentButton.BackColor = Constants.colorEnabledButton;
                 AddSegment();
             }
             else if ( ticking && half == 1 )
@@ -143,10 +138,9 @@ namespace Football_TimeTracker
                 resetButton.BackColor = Constants.colorEnabledButton;
                 startstopButton.Enabled = false;
                 startstopButton.BackColor = Constants.colorDisabledButton;
-                RemoveSegmentButton.Enabled = false;
-                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
                 saveButton.Enabled = true;
                 saveButton.BackColor = Constants.colorEnabledButton;
+                CheckUndoButton();
             }
         }
 
@@ -308,6 +302,8 @@ namespace Football_TimeTracker
                     tempoAdicionalLabel.BackColor = Constants.colorSegmentGoal;
                     break;
             }
+
+            CheckUndoButton();
         }
 
         private void ReplaceLastSegment( int segmentType)
@@ -383,11 +379,13 @@ namespace Football_TimeTracker
             }
 
             segments.Add( segment );
+
+            CheckUndoButton();
         }
 
         private bool GarbageCollected()
         {
-            if ( segments.Count > 1 )
+            if ( segments.Where( x => x.half == half).Count() > 1 )
             {
                 Segment lastSegment = segments.Last();
                 if (lastSegment.elapsedSeconds == 0)
@@ -399,6 +397,26 @@ namespace Football_TimeTracker
                 }
             }
             return false;
+        }
+
+        private void CheckUndoButton()
+        {
+            if(!ticking)
+            {
+                RemoveSegmentButton.Enabled = false;
+                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
+            }
+
+            if (segments.Where( x => x.half == half ).Count() > 1)
+            {
+                RemoveSegmentButton.Enabled = true;
+                RemoveSegmentButton.BackColor = Constants.colorEnabledButton;
+            }
+            else
+            {
+                RemoveSegmentButton.Enabled = false;
+                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
+            }
         }
 
         private int GetXPosition()
