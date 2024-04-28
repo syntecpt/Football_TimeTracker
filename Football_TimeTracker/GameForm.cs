@@ -64,8 +64,8 @@ namespace Football_TimeTracker
             KeybindUndo.Text = InterceptKeys.GetKeyDescription( _options.currentUndoKey );
             KeybindStartStop.Text = InterceptKeys.GetKeyDescription( _options.currentStartStopKey );
             saveButton.BackColor = Constants.colorDisabledButton;
-            RemoveSegmentButton.Enabled = false;
-            RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
+            UndoButton.Enabled = false;
+            UndoButton.BackColor = Constants.colorDisabledButton;
         }
 
         private void endButton_Click( object sender, EventArgs e )
@@ -253,7 +253,7 @@ namespace Football_TimeTracker
             }
         }
 
-        public void RemoveSegmentButton_Click( object sender, EventArgs e )
+        public void UndoButton_Click( object sender, EventArgs e )
         {
             currentStatusLabel.Focus(); //focus hack to prevent space/enter from triggerring buttons
             if ( sender == null && e == null && BlockKeybindingsSwitch.Checked )
@@ -262,16 +262,44 @@ namespace Football_TimeTracker
             if(!ticking)
             { return; }
 
-            if ( segments.Count > 1 && half==0)
+            if (segments.Where( x => x.half == half ).Count() > 1)
             {
                 RemoveSegment();
             }
             else
             {
-                if ( segments.Where( x => x.half == 1 ).Count() > 1)
-                {
-                    RemoveSegment();
-                }
+                ResetHalf();
+            }
+        }
+
+        private void ResetHalf()
+        {
+            Segment lastsegment = segments.Last();
+            segments.Remove( lastsegment );
+            this.Controls.Remove( lastsegment.image );
+            UpdateTotals();
+            CheckUndoButton();
+            seconds = 0;
+            timerPrincipal.Stop();
+            tempoTotalLabel.Text = "00:00";
+            tempoAdicionalLabel.Visible = false;
+            tempoAdicionalLabel.Text = "+ 00:00";
+            ticking = false;
+            tempoTotalLabel.BackColor = Constants.colorBackgroundGray;
+            tempoAdicionalLabel.BackColor = Constants.colorBackgroundGray;
+            resetButton.Enabled = true;
+            resetButton.BackColor = Constants.colorEnabledButton;
+            if (half == 0)
+            {
+                currentStatusLabel.ForeColor = Color.Khaki;
+                currentStatusLabel.Text = "Jogo por iniciar";
+                startstopButton.Text = "Iniciar 1ª parte";
+            }
+            else
+            {
+                currentStatusLabel.ForeColor = Color.Khaki;
+                currentStatusLabel.Text = "intervalo";
+                startstopButton.Text = "Iniciar 2ª parte";
             }
         }
 
@@ -403,19 +431,19 @@ namespace Football_TimeTracker
         {
             if(!ticking)
             {
-                RemoveSegmentButton.Enabled = false;
-                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
+                UndoButton.Enabled = false;
+                UndoButton.BackColor = Constants.colorDisabledButton;
             }
 
-            if (segments.Where( x => x.half == half ).Count() > 1)
+            if (segments.Where( x => x.half == half ).Count() >= 1)
             {
-                RemoveSegmentButton.Enabled = true;
-                RemoveSegmentButton.BackColor = Constants.colorEnabledButton;
+                UndoButton.Enabled = true;
+                UndoButton.BackColor = Constants.colorEnabledButton;
             }
             else
             {
-                RemoveSegmentButton.Enabled = false;
-                RemoveSegmentButton.BackColor = Constants.colorDisabledButton;
+                UndoButton.Enabled = false;
+                UndoButton.BackColor = Constants.colorDisabledButton;
             }
         }
 

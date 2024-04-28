@@ -297,7 +297,7 @@ namespace Football_TimeTracker
                     }
                     else if (vkCode == _currOptions.currentUndoKey) // Undo Key
                     {
-                        _gameForm.RemoveSegmentButton_Click( null, null );
+                        _gameForm.UndoButton_Click( null, null );
                     }
                 }
 

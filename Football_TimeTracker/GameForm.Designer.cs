@@ -96,7 +96,7 @@
             this.BlockKeybindingsSwitch = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.currentStatusLabel = new System.Windows.Forms.Label();
-            this.RemoveSegmentButton = new System.Windows.Forms.Button();
+            this.UndoButton = new System.Windows.Forms.Button();
             this.KeybindUndo = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -727,15 +727,15 @@
             this.currentStatusLabel.TabIndex = 32;
             this.currentStatusLabel.Text = "Jogo por iniciar";
             // 
-            // RemoveSegmentButton
+            // UndoButton
             // 
-            this.RemoveSegmentButton.Location = new System.Drawing.Point(931, 660);
-            this.RemoveSegmentButton.Name = "RemoveSegmentButton";
-            this.RemoveSegmentButton.Size = new System.Drawing.Size(111, 56);
-            this.RemoveSegmentButton.TabIndex = 33;
-            this.RemoveSegmentButton.Text = "desfazer ultimo segmento";
-            this.RemoveSegmentButton.UseVisualStyleBackColor = true;
-            this.RemoveSegmentButton.Click += new System.EventHandler(this.RemoveSegmentButton_Click);
+            this.UndoButton.Location = new System.Drawing.Point(931, 660);
+            this.UndoButton.Name = "UndoButton";
+            this.UndoButton.Size = new System.Drawing.Size(111, 56);
+            this.UndoButton.TabIndex = 33;
+            this.UndoButton.Text = "desfazer ultimo segmento";
+            this.UndoButton.UseVisualStyleBackColor = true;
+            this.UndoButton.Click += new System.EventHandler(this.UndoButton_Click);
             // 
             // KeybindUndo
             // 
@@ -791,7 +791,7 @@
             this.ClientSize = new System.Drawing.Size(1554, 771);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.KeybindUndo);
-            this.Controls.Add(this.RemoveSegmentButton);
+            this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.currentStatusLabel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.BlockKeybindingsSwitch);
@@ -889,7 +889,7 @@
         private System.Windows.Forms.Label averageGoalSegmentLabel;
         private System.Windows.Forms.Label TotalGameTimeLabel;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button RemoveSegmentButton;
+        private System.Windows.Forms.Button UndoButton;
         private System.Windows.Forms.Label KeybindUndo;
         private System.Windows.Forms.Button saveButton;
     }
