@@ -28,7 +28,7 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";
             PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
-            totalSegments = new List<Segment>();
+            totalSegments = new List<Segment>();          
         }
 
         private void HistoryForm_Load( object sender, EventArgs e )
@@ -57,6 +57,8 @@ namespace Football_TimeTracker
                     continue;
                 dataGridView1.Rows.Add( file, false, info[ 0 ], info[ 1 ], info[ 2 ] );
             }
+
+            dataGridView1.Sort( GameDate, ListSortDirection.Descending );
         }
 
         private void BackButton_Click( object sender, EventArgs e )
@@ -67,6 +69,21 @@ namespace Football_TimeTracker
         private void HistoryForm_FormClosing( Object sender, FormClosingEventArgs e )
         {
             Application.Exit();
+        }
+
+        private void dataGridView1_SortCompare( object sender, DataGridViewSortCompareEventArgs e )
+        {
+            if(e.Column == GameDate)
+            {
+                string s1 = e.CellValue1.ToString();
+                string s2 = e.CellValue2.ToString();
+
+                DateTime d1 = DateTime.Parse(s1);
+                DateTime d2 = DateTime.Parse(s2);
+
+                e.SortResult = d1.CompareTo( d2 );
+                e.Handled = true;
+            }
         }
 
         private void dataGridView1_CellContentClick( object sender, DataGridViewCellEventArgs e )

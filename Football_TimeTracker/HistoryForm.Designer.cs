@@ -478,6 +478,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(819, 293);
             this.dataGridView1.TabIndex = 31;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler( this.dataGridView1_SortCompare );
             // 
             // FullPath
             // 
