@@ -663,6 +663,8 @@ namespace Football_TimeTracker
                     dataGridView1.Rows.Add( eachgame.filePath, false, eachgame.Name, eachgame.Competition, eachgame.Date );
             }
 
+            dataGridView1.Sort( GameDate, ListSortDirection.Descending );
+
             UpdateTotals();
         }
 
