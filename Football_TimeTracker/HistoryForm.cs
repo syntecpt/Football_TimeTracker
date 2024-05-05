@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,8 @@ namespace Football_TimeTracker
         List<Segment> totalSegments;
         int numberOfGames;
         List<Game> tempGames, nameGames, competitionGames, dateGames, loadedGames;
+        GitHubClient github;
+        
 
         public HistoryForm()
         {
@@ -45,13 +48,38 @@ namespace Football_TimeTracker
             dataGridView1.Columns.Insert( 6, locationColumn );
 
             loadedGames = new List<Game>();
-            /*
+
             //internet files
-            WebClient webClient = new WebClient();
-            webClient.DownloadFile();*/
+            github = new GitHubClient( new ProductHeaderValue( Constants.ProjectName ) );
+            try
+            {
+                var result = github.Repository.Content.GetAllContents( Constants.GitHubUserName, Constants.ProjectName, Constants.SavesDir ).Result;
+                foreach (var item in result)
+                {
+                    string[] itemInfo;
+                    itemInfo = item.Name.Split( '.' );
+                    itemInfo = itemInfo[ 0 ].Split( '_' );
+
+                    if (itemInfo.Length != 3)
+                        continue;
+
+                    if (loadedGames.Any( x => x.Name == itemInfo[ 0 ] && x.Date == itemInfo[ 2 ] ))
+                        continue;
+
+                    Game loadingGame = new Game() { filePath = item.Path, Name = itemInfo[ 0 ], Competition = itemInfo[ 1 ], Date = itemInfo[ 2 ], Location = "Internet" };
+                    loadedGames.Add( loadingGame );
+
+                    dataGridView1.Rows.Add( loadingGame.filePath, false, loadingGame.Name, loadingGame.Competition, loadingGame.Date, null, loadingGame.Location );
+                }
+            }
+            catch {
+                string message = "Sem ligação à internet. Usando apenas ficheiros locais.";
+                string title = "Sem Internet";
+                MessageBox.Show( message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+            }
 
             //local files
-            var path = Directory.CreateDirectory( "saved_games" );
+            var path = Directory.CreateDirectory( Constants.SavesDir );
             string[] files = Directory.GetFiles( path.Name, "*.txt" );
             string[] info;
             foreach ( string file in files )
@@ -87,7 +115,7 @@ namespace Football_TimeTracker
 
         private void HistoryForm_FormClosing( Object sender, FormClosingEventArgs e )
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void dataGridView1_SortCompare( object sender, DataGridViewSortCompareEventArgs e )
@@ -113,7 +141,8 @@ namespace Football_TimeTracker
                 e.RowIndex >= 0 )
             {
                 var path = senderGrid.Rows[ e.RowIndex ].Cells[0].Value;
-                InterceptKeys.ShowHistoryDetail(path.ToString());
+                var location = senderGrid.Rows[ e.RowIndex ].Cells[ 6 ].Value;
+                InterceptKeys.ShowHistoryDetail(path.ToString(), location.ToString());
             }
 
             if ( senderGrid.Columns[ e.ColumnIndex ] is DataGridViewCheckBoxColumn &&
@@ -136,9 +165,20 @@ namespace Football_TimeTracker
                 if ( isSelected )
                 {
                     string path = row.Cells[ 0 ].Value.ToString();
-                    List<Segment> thisSegment = JsonSerialization.ReadFromJsonFile<List<Segment>>( path );
-                    totalSegments.AddRange( thisSegment );
-                    numberOfGames++;
+                    if ((string)row.Cells[ 6 ].Value == "Internet")
+                    {
+                        var result = github.Repository.Content.GetAllContents( Constants.GitHubUserName, Constants.ProjectName, path ).Result;
+                        IEnumerable<Segment> deserialized = JsonConvert.DeserializeObject<IEnumerable<Segment>>( result.SingleOrDefault().Content );
+                        List<Segment> thisSegment = deserialized.ToList();
+                        totalSegments.AddRange( thisSegment );
+                        numberOfGames++;
+                    }
+                    else
+                    {
+                        List<Segment> thisSegment = JsonSerialization.ReadFromJsonFile<List<Segment>>( path );
+                        totalSegments.AddRange( thisSegment );
+                        numberOfGames++;
+                    }
                 }
             }
 

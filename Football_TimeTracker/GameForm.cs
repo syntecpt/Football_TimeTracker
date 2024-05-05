@@ -870,6 +870,10 @@ namespace Football_TimeTracker
         public static Color colorBackgroundGray = Color.DimGray;
         public static Color colorDisabledButton = SystemColors.ControlDark;
         public static Color colorEnabledButton = SystemColors.Control;
+
+        public const string ProjectName = "Football_TimeTracker";
+        public const string SavesDir = "saved_games";
+        public const string GitHubUserName = "syntecpt";
     }
 
     public class Segment
