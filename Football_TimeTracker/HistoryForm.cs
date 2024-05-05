@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Football_TimeTracker
     {
         List<Segment> totalSegments;
         int numberOfGames;
-        List<Game> tempGames, nameGames, competitionGames, dateGames;
+        List<Game> tempGames, nameGames, competitionGames, dateGames, loadedGames;
 
         public HistoryForm()
         {
@@ -39,6 +40,17 @@ namespace Football_TimeTracker
             SelectButton.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Insert( 5, SelectButton );
 
+            DataGridViewTextBoxColumn locationColumn = new DataGridViewTextBoxColumn();
+            locationColumn.Name = "Localização";
+            dataGridView1.Columns.Insert( 6, locationColumn );
+
+            loadedGames = new List<Game>();
+            /*
+            //internet files
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile();*/
+
+            //local files
             var path = Directory.CreateDirectory( "saved_games" );
             string[] files = Directory.GetFiles( path.Name, "*.txt" );
             string[] info;
@@ -55,7 +67,14 @@ namespace Football_TimeTracker
 
                 if ( info.Length != 3 )
                     continue;
-                dataGridView1.Rows.Add( file, false, info[ 0 ], info[ 1 ], info[ 2 ] );
+
+                if (loadedGames.Any( x => x.Name == info[ 0 ] && x.Date == info[ 2 ] ))
+                    continue;
+
+                Game loadingGame = new Game() { filePath = file, Name = info[ 0 ], Competition = info[ 1 ], Date = info[ 2 ], Location = "Local" };
+                loadedGames.Add( loadingGame );
+
+                dataGridView1.Rows.Add( loadingGame.filePath, false, loadingGame.Name, loadingGame.Competition, loadingGame.Date, null, loadingGame.Location );
             }
 
             dataGridView1.Sort( GameDate, ListSortDirection.Descending );
@@ -631,25 +650,9 @@ namespace Football_TimeTracker
             dateGames = new List<Game>();
             dataGridView1.Rows.Clear();
             totalSegments.Clear();
-            var path = Directory.CreateDirectory( "saved_games" );
-            string[] files = Directory.GetFiles( path.Name, "*.txt" );
-            string[] info;
-            Game game;
-            foreach ( string file in files )
+
+            foreach ( Game game in loadedGames )
             {
-                if ( !file.Contains( '\\' ) )
-                    continue;
-                if ( !file.Contains( '.' ) )
-                    continue;
-
-                info = file.Split( '\\' );
-                info = info[ 1 ].Split( '.' );
-                info = info[ 0 ].Split( '_' );
-
-                if ( info.Length != 3 )
-                    continue;
-
-                game = new Game() { filePath = file, Name = info[ 0 ], Competition = info[ 1 ], Date = info[ 2 ] };
                 tempGames.Add( game );
             }
 
@@ -660,7 +663,7 @@ namespace Football_TimeTracker
             foreach ( Game eachgame in tempGames )
             {
                 if ( nameGames.Contains(eachgame) && competitionGames.Contains( eachgame ) && dateGames.Contains( eachgame ))
-                    dataGridView1.Rows.Add( eachgame.filePath, false, eachgame.Name, eachgame.Competition, eachgame.Date );
+                    dataGridView1.Rows.Add( eachgame.filePath, false, eachgame.Name, eachgame.Competition, eachgame.Date, null, eachgame.Location );
             }
 
             dataGridView1.Sort( GameDate, ListSortDirection.Descending );
@@ -878,6 +881,7 @@ namespace Football_TimeTracker
         public string Name;
         public string Competition;
         public string Date;
+        public string Location;
 
         public Game()
         {

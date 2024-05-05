@@ -474,11 +474,10 @@
             this.dataGridView1.RowHeadersWidth = 31;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView1.Size = new System.Drawing.Size(819, 293);
             this.dataGridView1.TabIndex = 31;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler( this.dataGridView1_SortCompare );
+            this.dataGridView1.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView1_SortCompare);
             // 
             // FullPath
             // 
@@ -974,11 +973,6 @@
         private System.Windows.Forms.Label totalSegmentsLabel;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button BackButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FullPath;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCheckbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GameName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompetitionName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GameDate;
         private System.Windows.Forms.Button filterTableButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -1009,5 +1003,10 @@
         private System.Windows.Forms.TextBox dateFilter2;
         private System.Windows.Forms.Label addDateFilter2;
         private System.Windows.Forms.TextBox dateFilter1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullPath;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCheckbox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GameName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompetitionName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GameDate;
     }
 }
