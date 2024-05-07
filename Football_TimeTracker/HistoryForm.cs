@@ -34,11 +34,8 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
             totalSegments = new List<Segment>();
 
-            if (Size.Width >= Screen.FromControl( this ).Bounds.Width)
-            {
-                Size = new Size( Screen.FromControl( this ).Bounds.Width - 20, Size.Height ); //leave 20 pixels whynot
-                CenterToScreen(); // then center
-            }
+            InterceptKeys.ResizeForm( this ); //resize form
+            CenterToScreen(); // then center
         }
 
         private void HistoryForm_Load( object sender, EventArgs e )

@@ -50,11 +50,8 @@ namespace Football_TimeTracker
             UndoButton.Enabled = false;
             UndoButton.BackColor = Constants.colorDisabledButton;
 
-            if (Size.Width >= Screen.FromControl(this).Bounds.Width)
-            {
-                Size = new Size( Screen.FromControl( this ).Bounds.Width - 20, Size.Height); //leave 20 pixels whynot
-                CenterToScreen(); // then center
-            }
+            InterceptKeys.ResizeForm( this ); //resize form
+            CenterToScreen(); // then center
         }
 
         private void endButton_Click( object sender, EventArgs e )

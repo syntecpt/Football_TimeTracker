@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -153,6 +154,18 @@ namespace Football_TimeTracker
             _optionsForm.Dispose();
             _optionsForm = null;
             _startForm.Show();
+        }
+
+        public static void ResizeForm (Form form)
+        {
+            if (form.Size.Width >= Screen.FromControl( form ).Bounds.Width)
+            {
+                form.Size = new Size( Screen.FromControl( form ).Bounds.Width - 20, form.Size.Height ); //leave 20 pixels whynot
+            }
+            if (form.Size.Height >= Screen.FromControl( form ).Bounds.Height)
+            {
+                form.Size = new Size( form.Size.Width, Screen.FromControl( form ).Bounds.Height - 20 ); //leave 20 pixels whynot
+            }
         }
 
         public static string GetKeyDescription(int keyCode)
