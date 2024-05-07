@@ -23,23 +23,6 @@ namespace Football_TimeTracker
         bool ticking;
         private Options _options;
 
-        public GameForm()
-        {
-            InitializeComponent();
-            timerPrincipal = new Timer();
-            half = 0;
-            timerPrincipal.Interval = 1000;
-            timerPrincipal.Tick += new EventHandler( TimerSecondPassed );
-            segments = new List<Segment>();
-            currentSegmentType = 0;
-            ticking = false;
-            PieChart.Series[ 0 ].Points[ 0 ].LegendText = "A seguir";
-            PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";
-            PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
-            PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
-            this.FormClosing += GameForm_FormClosing;
-        }
-
         public GameForm(string gameName)
         {
             InitializeComponent();
@@ -66,6 +49,12 @@ namespace Football_TimeTracker
             saveButton.BackColor = Constants.colorDisabledButton;
             UndoButton.Enabled = false;
             UndoButton.BackColor = Constants.colorDisabledButton;
+
+            if (Size.Width >= Screen.FromControl(this).Bounds.Width)
+            {
+                Size = new Size( Screen.FromControl( this ).Bounds.Width - 20, Size.Height); //leave 20 pixels whynot
+                CenterToScreen(); // then center
+            }
         }
 
         private void endButton_Click( object sender, EventArgs e )

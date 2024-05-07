@@ -16,11 +16,6 @@ namespace Football_TimeTracker
     public partial class HistoryDetailForm : Form
     {
         List<Segment> originalSegments, falcaturaSegments, SelectedSegments;
-        public HistoryDetailForm()
-        {
-            InitializeComponent();
-            this.FormClosing += HistoryForm_FormClosing;
-        }
 
         public HistoryDetailForm(string gamePath, string location)
         {
@@ -85,6 +80,12 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
 
             GetSelectedSegments();
+
+            if (Size.Width >= Screen.FromControl( this ).Bounds.Width)
+            {
+                Size = new Size( Screen.FromControl( this ).Bounds.Width - 20, Size.Height ); //leave 20 pixels whynot
+                CenterToScreen(); // then center
+            }
         }
 
         private void HistoryForm_FormClosing( Object sender, FormClosingEventArgs e )

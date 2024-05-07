@@ -34,6 +34,12 @@ namespace Football_TimeTracker
             settingUndo = false;
             settingStartStop = false;
             _options = InterceptKeys.GetOptions();
+
+            if (Size.Width >= Screen.FromControl( this ).Bounds.Width)
+            {
+                Size = new Size( Screen.FromControl( this ).Bounds.Width - 20, Size.Height ); //leave 20 pixels whynot
+                CenterToScreen(); // then center
+            }
         }
 
         private void leaveButton_Click( object sender, EventArgs e )

@@ -32,7 +32,13 @@ namespace Football_TimeTracker
             PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";
             PieChart.Series[ 0 ].Points[ 2 ].LegendText = "Arbitro apita";
             PieChart.Series[ 0 ].Points[ 3 ].LegendText = "Golo";
-            totalSegments = new List<Segment>();          
+            totalSegments = new List<Segment>();
+
+            if (Size.Width >= Screen.FromControl( this ).Bounds.Width)
+            {
+                Size = new Size( Screen.FromControl( this ).Bounds.Width - 20, Size.Height ); //leave 20 pixels whynot
+                CenterToScreen(); // then center
+            }
         }
 
         private void HistoryForm_Load( object sender, EventArgs e )

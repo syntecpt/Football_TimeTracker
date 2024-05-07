@@ -65,6 +65,8 @@ namespace Football_TimeTracker
             string result = gameName + "_" + competition + "_" + date.ToString( "dd-MM-yyyy" );
             _gameForm = new GameForm( result );
             _gameForm.Show();
+            _gameForm.HorizontalScroll.Value = 0;
+            _gameForm.VerticalScroll.Value = 0;
         }
 
         public static void NewGamePopup()
@@ -88,7 +90,9 @@ namespace Football_TimeTracker
             {
                 HistoryForm history = new HistoryForm();
                 _historyForm = history;
-                history.Show();
+                _historyForm.Show();
+                _historyForm.HorizontalScroll.Value = 0;
+                _historyForm.VerticalScroll.Value = 0;
             }
             else
             {
@@ -111,6 +115,8 @@ namespace Football_TimeTracker
                 HistoryDetailForm historyDetail = new HistoryDetailForm(path, location);
                 _historyDetailForm = historyDetail;
                 _historyDetailForm.Show();
+                _historyDetailForm.HorizontalScroll.Value = 0;
+                _historyDetailForm.VerticalScroll.Value = 0;
             }
             else
             {
@@ -132,7 +138,9 @@ namespace Football_TimeTracker
             {
                 OptionsForm options = new OptionsForm();
                 _optionsForm = options;
-                options.Show();
+                _optionsForm.Show();
+                _optionsForm.HorizontalScroll.Value = 0;
+                _optionsForm.VerticalScroll.Value = 0;
             }
             else
             {
