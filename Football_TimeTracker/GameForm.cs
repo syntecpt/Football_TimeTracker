@@ -20,7 +20,7 @@ namespace Football_TimeTracker
         Timer timerPrincipal;
         int seconds, half, currentSegmentType;
         List<Segment> segments;
-        bool ticking;
+        bool ticking, saved;
         private Options _options;
 
         public GameForm(string gameName)
@@ -59,7 +59,14 @@ namespace Football_TimeTracker
 
         private void endButton_Click( object sender, EventArgs e )
         {
-            InterceptKeys.BackToMainForm();
+            if (half > 0 && !saved)
+            {
+                DialogResult result = MessageBox.Show( "Está prestes a sair sem gravar o jogo", "Sair sem gravar?", MessageBoxButtons.OKCancel );
+                if(result == DialogResult.OK)
+                    InterceptKeys.BackToMainForm();
+            }
+            else
+                InterceptKeys.BackToMainForm();
         }
 
         public void startButton_Click( object sender, EventArgs e )
@@ -451,6 +458,7 @@ namespace Football_TimeTracker
             saveButton.Text = "Gravado!";
             saveButton.BackColor = Color.FromArgb(64,112,69);
             saveButton.Enabled = false;
+            saved = true;
             MessageBox.Show( "Jogo Gravado", "Sucesso" );
         }
 
