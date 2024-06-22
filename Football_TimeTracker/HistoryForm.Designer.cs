@@ -101,6 +101,7 @@
             this.dateFilter2 = new System.Windows.Forms.TextBox();
             this.addDateFilter2 = new System.Windows.Forms.Label();
             this.dateFilter1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -885,6 +886,18 @@
             this.dateFilter1.TabIndex = 57;
             this.dateFilter1.TextChanged += new System.EventHandler(this.dateFilter1_TextChanged);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Olive;
+            this.button1.ForeColor = System.Drawing.Color.Firebrick;
+            this.button1.Location = new System.Drawing.Point(875, 556);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(122, 42);
+            this.button1.TabIndex = 64;
+            this.button1.Text = "Sync Internet";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // HistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -892,6 +905,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1370, 618);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.removeDateFilter1);
             this.Controls.Add(this.comboBoxDateFilter2);
             this.Controls.Add(this.removeDateFilter2);
@@ -1009,5 +1023,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GameName;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompetitionName;
         private System.Windows.Forms.DataGridViewTextBoxColumn GameDate;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -17,62 +17,23 @@ namespace Football_TimeTracker
     {
         List<Segment> originalSegments, falcaturaSegments, SelectedSegments;
 
-        public HistoryDetailForm(string gamePath, string location)
+        public HistoryDetailForm(string gamePath)
         {
             InitializeComponent();
             this.FormClosing += HistoryForm_FormClosing;
 
-            if (location == "Internet")
-            {
-                GitHubClient github = new GitHubClient( new ProductHeaderValue( Constants.ProjectName ) );
-                try
-                {
-                    var result = github.Repository.Content.GetAllContents( Constants.GitHubUserName, Constants.ProjectName, gamePath ).Result;
-                    IEnumerable<Segment> deserialized = JsonConvert.DeserializeObject<IEnumerable<Segment>>( result.SingleOrDefault().Content );
-                    originalSegments = deserialized.ToList();
-                    falcaturaSegments = DoFalcatrua();
-                    SelectedSegments = new List<Segment>();
-                    string[] info;
-                    info = gamePath.Split( '/' );
-                    info = info[ 1 ].Split( '.' );
-                    info = info[ 0 ].Split( '_' );
-                    GameNameLabel.Text = info[ 0 ];
-                    CompetitionLabel.Text = info[ 1 ];
-                    DateLabel.Text = info[ 2 ];
+            originalSegments = JsonSerialization.ReadFromJsonFile<List<Segment>>( gamePath );
+            falcaturaSegments = DoFalcatrua();
+            SelectedSegments = new List<Segment>();
+            string[] info;
+            info = gamePath.Split( '\\' );
+            info = info[ 1 ].Split( '.' );
+            info = info[ 0 ].Split( '_' );
+            GameNameLabel.Text = info[ 0 ];
+            CompetitionLabel.Text = info[ 1 ];
+            DateLabel.Text = info[ 2 ];
 
-                    this.Text = info[ 0 ] + "_" + info[ 1 ] + "_" + info[ 2 ];
-                }
-                catch
-                {
-                    string message = "Sem ligação à internet. Usando apenas ficheiros locais.";
-                    string title = "Sem Internet";
-                    MessageBox.Show( message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                    originalSegments = new List<Segment>();
-                    falcaturaSegments = DoFalcatrua();
-                    SelectedSegments = new List<Segment>();
-
-                    GameNameLabel.Text = "";
-                    CompetitionLabel.Text = "";
-                    DateLabel.Text = "";
-
-                    this.Text = "Sem ligação internet";
-                }
-            }
-            else
-            {
-                originalSegments = JsonSerialization.ReadFromJsonFile<List<Segment>>( gamePath );
-                falcaturaSegments = DoFalcatrua();
-                SelectedSegments = new List<Segment>();
-                string[] info;
-                info = gamePath.Split( '\\' );
-                info = info[ 1 ].Split( '.' );
-                info = info[ 0 ].Split( '_' );
-                GameNameLabel.Text = info[ 0 ];
-                CompetitionLabel.Text = info[ 1 ];
-                DateLabel.Text = info[ 2 ];
-
-                this.Text = info[ 0 ] + "_" + info[ 1 ] + "_" + info[ 2 ];
-            }
+            this.Text = info[ 0 ] + "_" + info[ 1 ] + "_" + info[ 2 ];
             
             PieChart.Series[ 0 ].Points[ 0 ].LegendText = "A seguir";
             PieChart.Series[ 0 ].Points[ 1 ].LegendText = "Bola fora";

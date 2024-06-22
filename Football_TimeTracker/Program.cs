@@ -108,12 +108,12 @@ namespace Football_TimeTracker
             _startForm.Show();
         }
 
-        public static void ShowHistoryDetail(string path, string location)
+        public static void ShowHistoryDetail(string path)
         {
             _historyForm.Hide();
             if ( _historyDetailForm == null )
             {
-                HistoryDetailForm historyDetail = new HistoryDetailForm(path, location);
+                HistoryDetailForm historyDetail = new HistoryDetailForm(path);
                 _historyDetailForm = historyDetail;
                 _historyDetailForm.Show();
                 _historyDetailForm.HorizontalScroll.Value = 0;

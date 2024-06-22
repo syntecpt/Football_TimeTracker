@@ -18,7 +18,7 @@ namespace Football_TimeTracker
 {
     public partial class HistoryForm : Form
     {
-        List<Segment> totalSegments;
+        List<Segment> totalSegments, tempSegments;
         int numberOfGames;
         List<Game> tempGames, nameGames, competitionGames, dateGames, loadedGames;
         GitHubClient github;
@@ -46,42 +46,8 @@ namespace Football_TimeTracker
             SelectButton.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Insert( 5, SelectButton );
 
-            DataGridViewTextBoxColumn locationColumn = new DataGridViewTextBoxColumn();
-            locationColumn.Name = "Localização";
-            dataGridView1.Columns.Insert( 6, locationColumn );
-
             loadedGames = new List<Game>();
 
-            //internet files
-            github = new GitHubClient( new ProductHeaderValue( Constants.ProjectName ) );
-            try
-            {
-                var result = github.Repository.Content.GetAllContents( Constants.GitHubUserName, Constants.ProjectName, Constants.SavesDir ).Result;
-                foreach (var item in result)
-                {
-                    string[] itemInfo;
-                    itemInfo = item.Name.Split( '.' );
-                    itemInfo = itemInfo[ 0 ].Split( '_' );
-
-                    if (itemInfo.Length != 3)
-                        continue;
-
-                    if (loadedGames.Any( x => x.Name == itemInfo[ 0 ] && x.Date == itemInfo[ 2 ] ))
-                        continue;
-
-                    Game loadingGame = new Game() { filePath = item.Path, Name = itemInfo[ 0 ], Competition = itemInfo[ 1 ], Date = itemInfo[ 2 ], Location = "Internet" };
-                    loadedGames.Add( loadingGame );
-
-                    dataGridView1.Rows.Add( loadingGame.filePath, false, loadingGame.Name, loadingGame.Competition, loadingGame.Date, null, loadingGame.Location );
-                }
-            }
-            catch {
-                string message = "Sem ligação à internet. Usando apenas ficheiros locais.";
-                string title = "Sem Internet";
-                MessageBox.Show( message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning );
-            }
-
-            //local files
             var path = Directory.CreateDirectory( Constants.SavesDir );
             string[] files = Directory.GetFiles( path.Name, "*.txt" );
             string[] info;
@@ -102,10 +68,10 @@ namespace Football_TimeTracker
                 if (loadedGames.Any( x => x.Name == info[ 0 ] && x.Date == info[ 2 ] ))
                     continue;
 
-                Game loadingGame = new Game() { filePath = file, Name = info[ 0 ], Competition = info[ 1 ], Date = info[ 2 ], Location = "Local" };
+                Game loadingGame = new Game() { filePath = file, Name = info[ 0 ], Competition = info[ 1 ], Date = info[ 2 ] };
                 loadedGames.Add( loadingGame );
 
-                dataGridView1.Rows.Add( loadingGame.filePath, false, loadingGame.Name, loadingGame.Competition, loadingGame.Date, null, loadingGame.Location );
+                dataGridView1.Rows.Add( loadingGame.filePath, false, loadingGame.Name, loadingGame.Competition, loadingGame.Date, null );
             }
 
             dataGridView1.Sort( GameDate, ListSortDirection.Descending );
@@ -144,8 +110,7 @@ namespace Football_TimeTracker
                 e.RowIndex >= 0 )
             {
                 var path = senderGrid.Rows[ e.RowIndex ].Cells[0].Value;
-                var location = senderGrid.Rows[ e.RowIndex ].Cells[ 6 ].Value;
-                InterceptKeys.ShowHistoryDetail(path.ToString(), location.ToString());
+                InterceptKeys.ShowHistoryDetail(path.ToString());
             }
 
             if ( senderGrid.Columns[ e.ColumnIndex ] is DataGridViewCheckBoxColumn &&
@@ -168,20 +133,11 @@ namespace Football_TimeTracker
                 if ( isSelected )
                 {
                     string path = row.Cells[ 0 ].Value.ToString();
-                    if ((string)row.Cells[ 6 ].Value == "Internet")
-                    {
-                        var result = github.Repository.Content.GetAllContents( Constants.GitHubUserName, Constants.ProjectName, path ).Result;
-                        IEnumerable<Segment> deserialized = JsonConvert.DeserializeObject<IEnumerable<Segment>>( result.SingleOrDefault().Content );
-                        List<Segment> thisSegment = deserialized.ToList();
-                        totalSegments.AddRange( thisSegment );
-                        numberOfGames++;
-                    }
-                    else
-                    {
-                        List<Segment> thisSegment = JsonSerialization.ReadFromJsonFile<List<Segment>>( path );
-                        totalSegments.AddRange( thisSegment );
-                        numberOfGames++;
-                    }
+
+                    List<Segment> thisSegment = JsonSerialization.ReadFromJsonFile<List<Segment>>( path );
+                    totalSegments.AddRange( thisSegment );
+                    numberOfGames++;
+
                 }
             }
 
@@ -685,6 +641,57 @@ namespace Football_TimeTracker
             }
         }
 
+        private void button1_Click( object sender, EventArgs e )
+        {
+            DialogResult diag = MessageBox.Show( "Sincronizar com GitHub? Atenção que existe um limite de acessos e esta funcionalidade pode não funcionar. \nAo confirmar vai buscar os jogos existentes no GitHub e criar os ficheiros localmente. Isto deve ser feito de forma manual sempre que possivel.", "Confirmar", MessageBoxButtons.OKCancel );
+            if (diag == DialogResult.OK)
+            {
+                github = new GitHubClient( new ProductHeaderValue( Constants.ProjectName ) );
+                try
+                {
+                    var result = github.Repository.Content.GetAllContents( Constants.GitHubUserName, Constants.ProjectName, Constants.SavesDir ).Result;
+                    foreach (var item in result)
+                    {
+                        string[] itemInfo;
+                        itemInfo = item.Name.Split( '.' );
+                        itemInfo = itemInfo[ 0 ].Split( '_' );
+
+                        if (itemInfo.Length != 3)
+                            continue;
+
+                        if (loadedGames.Any( x => x.Name == itemInfo[ 0 ] && x.Date == itemInfo[ 2 ] ))
+                            continue;
+
+                        Game loadingGame = new Game() { filePath = item.Path, Name = itemInfo[ 0 ], Competition = itemInfo[ 1 ], Date = itemInfo[ 2 ] };
+
+
+                        var result1 = github.Repository.Content.GetAllContents( Constants.GitHubUserName, Constants.ProjectName, item.Path ).Result;
+                        IEnumerable<Segment> deserialized = JsonConvert.DeserializeObject<IEnumerable<Segment>>( result1.SingleOrDefault().Content );
+
+                        tempSegments = deserialized.ToList();
+
+                        var path = Directory.CreateDirectory( "saved_games" );
+
+                        string res = itemInfo[ 0 ] + "_" + itemInfo[ 1 ] + "_" + itemInfo[ 2 ];
+                        string fullpath = path.Name + "\\" + res + ".txt";
+
+                        JsonSerialization.WriteToJsonFile( fullpath, tempSegments );
+
+                        loadedGames.Add( loadingGame );
+
+                        dataGridView1.Rows.Add( loadingGame.filePath, false, loadingGame.Name, loadingGame.Competition, loadingGame.Date, null );
+                    }
+                    dataGridView1.Sort( GameDate, ListSortDirection.Descending );
+                }
+                catch
+                {
+                    string message = "Sem ligação à internet, ou ultrapassado o limite máximo de acesso ao GitHub.";
+                    string title = "Erro";
+                    MessageBox.Show( message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                }
+            }
+        }
+
         public void filterTableButton_Click( object sender, EventArgs e )
         {
             tempGames = new List<Game>();
@@ -706,7 +713,7 @@ namespace Football_TimeTracker
             foreach ( Game eachgame in tempGames )
             {
                 if ( nameGames.Contains(eachgame) && competitionGames.Contains( eachgame ) && dateGames.Contains( eachgame ))
-                    dataGridView1.Rows.Add( eachgame.filePath, false, eachgame.Name, eachgame.Competition, eachgame.Date, null, eachgame.Location );
+                    dataGridView1.Rows.Add( eachgame.filePath, false, eachgame.Name, eachgame.Competition, eachgame.Date, null );
             }
 
             dataGridView1.Sort( GameDate, ListSortDirection.Descending );
@@ -924,7 +931,6 @@ namespace Football_TimeTracker
         public string Name;
         public string Competition;
         public string Date;
-        public string Location;
 
         public Game()
         {
